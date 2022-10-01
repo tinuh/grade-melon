@@ -1,0 +1,11 @@
+{
+  "name": "studentvue",
+  "version": "1.0.0",
+  "description": "api to get student grades",
+  "main": "api/index.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "author": "",
+  "license": "ISC"
+}
