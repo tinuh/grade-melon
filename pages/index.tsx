@@ -15,7 +15,7 @@ const login = async (username, password) => {
 }
 
 export default function Home() {
-  const [client, setClient] = useState({});
+  const [client, setClient] = useState(undefined);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
