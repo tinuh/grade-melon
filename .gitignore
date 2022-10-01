@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-#functions
-/functions/node_modules
+#workers
+/workers/studentvue/node_modules
