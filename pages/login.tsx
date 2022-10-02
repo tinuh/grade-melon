@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Checkbox, Button, Spinner } from "flowbite-react";
 
 interface LoginProps {
+	setStudentInfo: any;
 	setClient: (client: any) => void;
 	login: (username: string, password: string, save: boolean) => any;
 }
 
-export default function Login({ setClient, login }: LoginProps) {
+export default function Login({
+	setClient,
+	login,
+	setStudentInfo,
+}: LoginProps) {
 	const router = useRouter();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -15,12 +20,12 @@ export default function Login({ setClient, login }: LoginProps) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await login(username, password, checkbox).then((res) => {
-			setClient(res);
+		await login(username, password, checkbox).then(async (res) => {
+			await setClient(res);
 		});
 		await setUsername("");
 		await setPassword("");
-		await router.push("/grades");
+		await router.push("/schedule");
 	};
 
 	return (

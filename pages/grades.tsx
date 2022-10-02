@@ -13,7 +13,6 @@ export default function Grades({ client }: GradesProps) {
 	useEffect(() => {
 		try {
 			client.gradebook().then((res) => {
-				//console.log(res);
 				setGrades(getInfoCurrent(res));
 				setLoading(false);
 			});
@@ -31,7 +30,7 @@ export default function Grades({ client }: GradesProps) {
 					<Spinner size="xl" />
 				</div>
 			) : (
-				<>
+				<div className="flex flex-wrap">
 					{grades.map(
 						(
 							{
@@ -44,10 +43,11 @@ export default function Grades({ client }: GradesProps) {
 							},
 							i
 						) => (
-							<div className="max-w-sm py-2.5" key={i}>
+							<div className="p-2.5 w-96 h-full" key={i}>
 								<Card>
 									<a href="#">
 										<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+											<p className="font-bold inline-block">{period}</p> -{" "}
 											{courseName}
 										</h5>
 										<p className="text-md tracking-tight text-gray-900 dark:text-white">
@@ -70,7 +70,7 @@ export default function Grades({ client }: GradesProps) {
 							</div>
 						)
 					)}
-				</>
+				</div>
 			)}
 		</div>
 	);

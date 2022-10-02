@@ -22,32 +22,53 @@ const login = async (username, password, save) => {
 		localStorage.removeItem("password");
 	}
 
-	client.schedule().then((res) => {
-		console.log(res);
-	});
-
 	return client;
 };
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter();
 	const [client, setClient] = useState(undefined);
+	const [studentInfo, setStudentInfo] = useState(undefined);
+
+	const logout = () => {
+		setClient(undefined);
+		router.push("/login");
+	};
 
 	useEffect(() => {
 		let username = localStorage.getItem("username");
 		console.log(username);
 		let password = localStorage.getItem("password");
 		if (username !== null) {
-			login(username, password, true).then((res) => {
-				setClient(res);
+			login(username, password, true).then(async (res) => {
+				await setClient(res);
 			});
 		}
 	}, []);
 
+	useEffect(() => {
+		if (client !== undefined) {
+			try {
+				client.studentInfo().then((res) => {
+					console.log(res);
+					setStudentInfo(res);
+				});
+			} catch {
+				console.log("waiting");
+			}
+		}
+	}, [client]);
+
 	return (
 		<Flowbite>
-			<div className="dark:min-h-screen bg-gray-50 dark:bg-gray-900">
-				<Nav />
+			<div
+				className={`dark:min-h-screen bg-gray-50 dark:bg-gray-900 ${
+					router.pathname === "/login" ? "" : "flex"
+				}`}
+			>
+				{router.pathname !== "/login" && (
+					<Nav studentInfo={studentInfo} logout={logout} />
+				)}
 				<Component
 					{...pageProps}
 					client={client}

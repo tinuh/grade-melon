@@ -19,17 +19,15 @@ export default function Schedule({ client }: ScheduleProps) {
 			});
 		} catch {
 			if (localStorage.getItem("remember") === "false") {
-        router.push("/login");
-      }
+				router.push("/login");
+			}
 		}
 	}, [client]);
 
 	return (
-		<div className="p-10">
+		<div className="p-10 flex justify-center">
 			{loading ? (
-				<div className="flex justify-center">
-					<Spinner size="xl" />
-				</div>
+				<Spinner size="xl" />
 			) : (
 				<Table striped={true}>
 					<Table.Head>
