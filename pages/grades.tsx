@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spinner } from "flowbite-react";
+import { Spinner, Card } from "flowbite-react";
 import { useRouter } from "next/router";
 
 interface GradesProps {
@@ -31,7 +31,46 @@ export default function Grades({ client }: GradesProps) {
 					<Spinner size="xl" />
 				</div>
 			) : (
-				<>{JSON.stringify(grades)}</>
+				<>
+					{grades.map(
+						(
+							{
+								period,
+								courseName,
+								roomNumber,
+								teacherName,
+								gradeNumber,
+								letterGrade,
+							},
+							i
+						) => (
+							<div className="max-w-sm my-2.5">
+								<Card>
+									<a href="#">
+										<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+											{courseName}
+										</h5>
+										<p className="text-md tracking-tight text-gray-900 dark:text-white">
+											{teacherName}
+										</p>
+									</a>
+									<div className="mt-2.5 mb-5 flex items-center"></div>
+									<div className="flex items-center justify-between">
+										<span className="text-3xl font-bold text-gray-900 dark:text-white">
+											{letterGrade} ({gradeNumber}%)
+										</span>
+										<a
+											href="#"
+											className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+										>
+											View
+										</a>
+									</div>
+								</Card>
+							</div>
+						)
+					)}
+				</>
 			)}
 		</div>
 	);
