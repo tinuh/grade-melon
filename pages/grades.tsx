@@ -13,7 +13,7 @@ export default function Grades({ client }: GradesProps) {
 			setGrades(res.courses);
 			setLoading(false);
 		});
-	}, []);
+	}, [client]);
 
 	return <div>{JSON.stringify(grades)}</div>;
 }

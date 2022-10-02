@@ -5,7 +5,7 @@ interface ScheduleProps {
 	client: any;
 }
 
-export default function schedule({ client }: ScheduleProps) {
+export default function Schedule({ client }: ScheduleProps) {
 	const [loading, setLoading] = useState(true);
 	const [schedule, setSchedule] = useState([]);
 	useEffect(() => {
@@ -14,7 +14,7 @@ export default function schedule({ client }: ScheduleProps) {
 			setSchedule(res.classes);
 			setLoading(false);
 		});
-	}, []);
+	}, [client]);
 
 	return (
 		<div className="p-10">
