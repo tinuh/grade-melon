@@ -22,6 +22,7 @@ export default function Nav({ studentInfo, logout }: NavProps) {
 			<Sidebar aria-label="Sidebar with logo branding example">
 				{studentInfo && (
 					<Sidebar.Logo
+						href=''
 						img={`data:image/png;base64,${studentInfo.photo}`}
 						imgAlt=""
 						className="rounded-full"
