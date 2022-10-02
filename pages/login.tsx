@@ -4,7 +4,7 @@ import { Checkbox, Button, Spinner } from "flowbite-react";
 
 interface LoginProps {
 	setClient: (client: any) => void;
-	login: (username: string, password: string) => any;
+	login: (username: string, password: string, save: boolean) => any;
 }
 
 export default function Login({ setClient, login }: LoginProps) {
