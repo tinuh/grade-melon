@@ -44,7 +44,7 @@ export default function Grades({ client }: GradesProps) {
 							},
 							i
 						) => (
-							<div className="max-w-sm my-2.5" key = {i}>
+							<div className="max-w-sm py-2.5" key={i}>
 								<Card>
 									<a href="#">
 										<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">

@@ -45,8 +45,8 @@ function MyApp({ Component, pageProps }) {
 	}, []);
 
 	return (
-		<div>
-			<Flowbite>
+		<Flowbite>
+			<div className="dark:min-h-screen bg-gray-50 dark:bg-gray-900">
 				<Nav />
 				<Component
 					{...pageProps}
@@ -54,8 +54,8 @@ function MyApp({ Component, pageProps }) {
 					login={login}
 					setClient={setClient}
 				/>
-			</Flowbite>
-		</div>
+			</div>
+		</Flowbite>
 	);
 }
 
