@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { Checkbox, Button, Spinner } from "flowbite-react";
 
 interface LoginProps {
 	setClient: (client: any) => void;
@@ -10,10 +11,11 @@ export default function Login({ setClient, login }: LoginProps) {
 	const router = useRouter();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [checkbox, setCheckbox] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await login(username, password).then((res) => {
+		await login(username, password, checkbox).then((res) => {
 			setClient(res);
 		});
 		await setUsername("");
@@ -77,6 +79,8 @@ export default function Login({ setClient, login }: LoginProps) {
 												id="remember"
 												aria-describedby="remember"
 												type="checkbox"
+												checked={checkbox}
+												onChange={(e) => setCheckbox(e.target.checked)}
 												className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
 												required
 											/>
