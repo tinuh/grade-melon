@@ -27,7 +27,7 @@ export default function Schedule({ client }: ScheduleProps) {
 				</Table.Head>
 				<Table.Body className="divide-y">
 					{schedule.map(({ name, room, teacher, period }, i) => (
-						<Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+						<Table.Row key = {i} className="bg-white dark:border-gray-700 dark:bg-gray-800">
 							<Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
 								{period}
 							</Table.Cell>
