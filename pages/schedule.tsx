@@ -25,7 +25,7 @@ export default function Schedule({ client }: ScheduleProps) {
 	}, [client]);
 
 	return (
-		<div className="p-10 flex justify-center">
+		<div className="p-10 flex justify-center h-full">
 			{loading ? (
 				<Spinner size="xl" />
 			) : (

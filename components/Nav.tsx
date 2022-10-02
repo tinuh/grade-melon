@@ -18,11 +18,11 @@ export default function Nav({ studentInfo, logout }: NavProps) {
 	const router = useRouter();
 
 	return (
-		<div className="w-fit h-full pt-2.5 px-5">
+		<div className="w-fit h-full py-10 pl-10">
 			<Sidebar aria-label="Sidebar with logo branding example">
 				{studentInfo && (
 					<Sidebar.Logo
-						href=''
+						href="#"
 						img={`data:image/png;base64,${studentInfo.photo}`}
 						imgAlt=""
 						className="rounded-full"

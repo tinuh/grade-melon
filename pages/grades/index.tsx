@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spinner, Card } from "flowbite-react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface GradesProps {
 	client: any;
@@ -24,7 +25,7 @@ export default function Grades({ client }: GradesProps) {
 	}, [client]);
 
 	return (
-		<div>
+		<div className="p-10">
 			{loading ? (
 				<div className="flex justify-center">
 					<Spinner size="xl" />
@@ -43,28 +44,29 @@ export default function Grades({ client }: GradesProps) {
 							},
 							i
 						) => (
-							<div className="p-2.5 w-96 h-full" key={i}>
+							<div className="pb-5 px-2.5 w-96 h-full" key={i}>
 								<Card>
-									<a href="#">
-										<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-											<p className="font-bold inline-block">{period}</p> -{" "}
-											{courseName}
-										</h5>
-										<p className="text-md tracking-tight text-gray-900 dark:text-white">
-											{teacherName}
-										</p>
-									</a>
+									<Link href={`/grades/${period}`}>
+										<>
+											<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+												<p className="font-bold inline-block">{period}</p> -{" "}
+												{courseName}
+											</h5>
+											<p className="text-md tracking-tight text-gray-900 dark:text-white">
+												{teacherName}
+											</p>
+										</>
+									</Link>
 									<div className="mt-2.5 mb-5 flex items-center"></div>
 									<div className="flex items-center justify-between">
 										<span className="text-3xl font-bold text-gray-900 dark:text-white">
 											{letterGrade} ({gradeNumber}%)
 										</span>
-										<a
-											href="#"
-											className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-										>
-											View
-										</a>
+										<Link href={`/grades/${period}`}>
+											<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+												View
+											</a>
+										</Link>
 									</div>
 								</Card>
 							</div>
