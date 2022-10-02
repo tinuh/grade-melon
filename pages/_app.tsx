@@ -63,8 +63,9 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<Flowbite>
+			<img className="fixed bottom-0 w-screen" src="assets/BgBottom.png" alt="logo" />
 			<div
-				className={`dark:min-h-screen bg-gray-50 dark:bg-gray-900 ${
+				className={`dark:min-h-screen bg-gray-50 dark:bg-gray-900${
 					router.pathname === "/login" ? "" : "flex"
 				}`}
 			>
