@@ -32,6 +32,8 @@ function MyApp({ Component, pageProps }) {
 
 	const logout = () => {
 		setClient(undefined);
+		localStorage.removeItem("username");
+		localStorage.removeItem("password");
 		router.push("/login");
 	};
 

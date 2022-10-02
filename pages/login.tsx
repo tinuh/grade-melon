@@ -4,6 +4,7 @@ import { Checkbox, Button, Spinner } from "flowbite-react";
 
 interface LoginProps {
 	setStudentInfo: any;
+	client: any;
 	setClient: (client: any) => void;
 	login: (username: string, password: string, save: boolean) => any;
 }
@@ -12,6 +13,7 @@ export default function Login({
 	setClient,
 	login,
 	setStudentInfo,
+	client,
 }: LoginProps) {
 	const router = useRouter();
 	const [username, setUsername] = useState("");
@@ -27,6 +29,18 @@ export default function Login({
 		await setPassword("");
 		await router.push("/schedule");
 	};
+
+	useEffect(() => {
+		if (client !== undefined) {
+			router.push("/schedule");
+		}
+	}, [client]);
+
+	useEffect(() => {
+		if (localStorage.getItem("remember") === "true") {
+			setCheckbox(true);
+		}
+	}, []);
 
 	return (
 		<div>
