@@ -22,19 +22,10 @@ export default function Login({
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await login(username, password, checkbox).then(async (res) => {
-			await setClient(res);
-		});
+		await login(username, password, checkbox)
 		await setUsername("");
 		await setPassword("");
-		await router.push("/schedule");
 	};
-
-	useEffect(() => {
-		if (client !== undefined) {
-			router.push("/schedule");
-		}
-	}, [client]);
 
 	useEffect(() => {
 		if (localStorage.getItem("remember") === "true") {
