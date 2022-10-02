@@ -24,7 +24,12 @@ function MyApp({ Component, pageProps }) {
 		<div>
 			<Flowbite>
 				<Nav />
-				<Component {...pageProps} login={login} setClient={setClient} />
+				<Component
+					{...pageProps}
+					client={client}
+					login={login}
+					setClient={setClient}
+				/>
 			</Flowbite>
 		</div>
 	);

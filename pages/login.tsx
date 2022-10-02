@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 interface LoginProps {
 	setClient: (client: any) => void;
@@ -6,6 +7,7 @@ interface LoginProps {
 }
 
 export default function Login({ setClient, login }: LoginProps) {
+	const router = useRouter();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -16,6 +18,7 @@ export default function Login({ setClient, login }: LoginProps) {
 		});
 		await setUsername("");
 		await setPassword("");
+		await router.push('/schedule')
 	};
 
 	return (
