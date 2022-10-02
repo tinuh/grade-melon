@@ -18,7 +18,7 @@ export default function Login({ setClient, login }: LoginProps) {
 		});
 		await setUsername("");
 		await setPassword("");
-		await router.push('/schedule')
+		await router.push("/grades");
 	};
 
 	return (
