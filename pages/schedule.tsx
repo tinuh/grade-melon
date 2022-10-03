@@ -77,6 +77,7 @@ export default function Schedule({ client }: ScheduleProps) {
 									} border-b dark:bg-gray-${
 										i % 2 == 0 ? 900 : 800
 									} dark:border-gray-700`}
+									key={i}
 								>
 									<th
 										scope="row"
