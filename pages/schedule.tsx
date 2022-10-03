@@ -6,15 +6,37 @@ interface ScheduleProps {
 	client: any;
 }
 
+interface Schedule {
+	classes: [
+		{
+			name: string;
+			room: string;
+			teacher: {
+				name: string;
+				email: string;
+			};
+			period: number;
+		}
+	];
+	terms: [
+		{
+			name: string;
+			index: number;
+			date: Date;
+		}
+	];
+}
+
 export default function Schedule({ client }: ScheduleProps) {
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
-	const [schedule, setSchedule] = useState([]);
+	const [schedule, setSchedule] = useState<Schedule>();
+	const [term, setTerm] = useState(0);
 	useEffect(() => {
 		try {
-			client.schedule().then((res) => {
+			client.schedule(term).then((res) => {
 				console.log(res);
-				setSchedule(res.classes);
+				setSchedule(res);
 				setLoading(false);
 			});
 		} catch {
@@ -22,36 +44,54 @@ export default function Schedule({ client }: ScheduleProps) {
 				router.push("/login");
 			}
 		}
-	}, [client]);
+	}, [client, term]);
 
 	return (
-		<div className="p-10 flex justify-center h-full">
+		<div className="p-10 h-full">
 			{loading ? (
 				<Spinner size="xl" />
 			) : (
-				<Table striped={true}>
-					<Table.Head>
-						<Table.HeadCell className="!p-4">Period</Table.HeadCell>
-						<Table.HeadCell>Course Name</Table.HeadCell>
-						<Table.HeadCell>Room</Table.HeadCell>
-						<Table.HeadCell>Teacher</Table.HeadCell>
-					</Table.Head>
-					<Table.Body className="divide-y">
-						{schedule.map(({ name, room, teacher, period }, i) => (
-							<Table.Row
-								key={i}
-								className="bg-white dark:border-gray-700 dark:bg-gray-800"
-							>
-								<Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-									{period ? period : i}
-								</Table.Cell>
-								<Table.Cell>{name}</Table.Cell>
-								<Table.Cell>{room}</Table.Cell>
-								<Table.Cell>{teacher.name}</Table.Cell>
-							</Table.Row>
-						))}
-					</Table.Body>
-				</Table>
+				<div className="overflow-x-auto shadow-md sm:rounded-lg">
+					<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+							<tr>
+								<th scope="col" className="py-3 pl-6">
+									Period
+								</th>
+								<th scope="col" className="py-3 px-6">
+									Course Name
+								</th>
+								<th scope="col" className="py-3 px-6">
+									Room
+								</th>
+								<th scope="col" className="py-3 px-6">
+									Teacher
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							{schedule.classes.map(({ period, name, room, teacher }, i) => (
+								<tr
+									className={`bg-${
+										i % 2 == 0 ? "white" : "gray-50"
+									} border-b dark:bg-gray-${
+										i % 2 == 0 ? 900 : 800
+									} dark:border-gray-700`}
+								>
+									<th
+										scope="row"
+										className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										{period ? period : i}
+									</th>
+									<td className="py-4 px-6">{name}</td>
+									<td className="py-4 px-6">{room}</td>
+									<td className="py-4 px-6">{teacher.name}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			)}
 		</div>
 	);

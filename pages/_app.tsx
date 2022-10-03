@@ -5,6 +5,7 @@ import { Flowbite } from "flowbite-react";
 import { Toast } from "flowbite-react";
 import { HiX } from "react-icons/hi";
 import Nav from "../components/Nav";
+import Topbar from "../components/TopBar";
 import { useRouter } from "next/router";
 
 interface Toast {
@@ -25,7 +26,6 @@ function MyApp({ Component, pageProps }) {
 		})
 			.then(async (res) => {
 				await setClient(res);
-				//console.log(res);
 				if (save) {
 					localStorage.setItem("remember", "true");
 					localStorage.setItem("username", username);
@@ -36,7 +36,7 @@ function MyApp({ Component, pageProps }) {
 					localStorage.removeItem("password");
 				}
 
-				return res;
+				return true;
 			})
 			.catch((err) => {
 				console.log(err);
@@ -49,11 +49,12 @@ function MyApp({ Component, pageProps }) {
 				]);
 			});
 
-		return undefined;
+		return false;
 	};
 
 	const logout = () => {
 		setClient(undefined);
+		setStudentInfo(undefined);
 		localStorage.removeItem("username");
 		localStorage.removeItem("password");
 		router.push("/login");
@@ -79,14 +80,16 @@ function MyApp({ Component, pageProps }) {
 			} catch {
 				console.log("waiting");
 			}
-			router.push("/schedule");
+			if (router.pathname === "/login") {
+				router.push("/schedule");
+			}
 		}
 	}, [client]);
 
 	return (
 		<Flowbite>
 			{toasts.map(({ title, type }, i) => (
-				<div className="absolute p-5" key={i}>
+				<div className="absolute p-5 z-10" key={i}>
 					<Toast>
 						<div
 							onClick={() =>
@@ -104,13 +107,9 @@ function MyApp({ Component, pageProps }) {
 					</Toast>
 				</div>
 			))}
-			<img
-				className="fixed bottom-0 w-screen -z-10"
-				src="assets/BgBottom.png"
-				alt="logo"
-			/>
+			<Topbar studentInfo={studentInfo} logout={logout} />
 			<div
-				className={`min-h-screen bg-gray-50 dark:bg-gray-900 -z-20 ${
+				className={`min-h-screen bg-gray-50 dark:bg-gray-900 pt-16 ${
 					router.pathname === "/login" ? "" : "flex"
 				}`}
 			>

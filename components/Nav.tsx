@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DarkThemeToggle, Sidebar } from "flowbite-react";
+import { Sidebar } from "flowbite-react";
 import { useRouter } from "next/router";
 import {
 	AiOutlineOrderedList,
@@ -7,6 +7,7 @@ import {
 	AiOutlineBook,
 } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
+import { IoDocumentTextOutline } from "react-icons/io5";
 import Link from "next/link";
 
 interface NavProps {
@@ -20,19 +21,8 @@ export default function Nav({ studentInfo, logout }: NavProps) {
 	return (
 		<div className="w-fit h-full py-10 pl-10">
 			<Sidebar aria-label="Sidebar with logo branding example">
-				{studentInfo && (
-					<Sidebar.Logo
-						href="#"
-						img={studentInfo.photo ? `data:image/png;base64,${studentInfo.photo}` : 'assets/logo.png'}
-						imgAlt=""
-						className="rounded-full"
-					>
-						{studentInfo.student.name}
-					</Sidebar.Logo>
-				)}
 				<Sidebar.Items>
 					<Sidebar.ItemGroup>
-						<DarkThemeToggle />
 						<Link href="/schedule">
 							<Sidebar.Item href="#" icon={AiOutlineOrderedList}>
 								Schedule
@@ -46,6 +36,11 @@ export default function Nav({ studentInfo, logout }: NavProps) {
 						<Link href="/attendance">
 							<Sidebar.Item href="#" icon={AiOutlineCalendar}>
 								Attendance
+							</Sidebar.Item>
+						</Link>
+						<Link href="/documents">
+							<Sidebar.Item href="#" icon={IoDocumentTextOutline}>
+								Documents
 							</Sidebar.Item>
 						</Link>
 						<Sidebar.Item onClick={logout} href="#" icon={FiLogOut}>

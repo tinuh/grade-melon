@@ -24,6 +24,24 @@ module.exports = {
 				},
 			},
 		},
+		purge: {
+			safeList: [
+				"text-green-400",
+				"text-blue-400",
+				"text-yellow-400",
+				"text-orange-400",
+				"text-red-400",
+				"text-green-600",
+				"text-blue-600",
+				"text-yellow-600",
+				"text-orange-600",
+				"text-red-600",
+				"bg-gray-800",
+				"bg-gray-900",
+				"bg-white",
+				"bg-gray-50"
+			],
+		},
 		fontFamily: {
 			body: [
 				"Inter",
