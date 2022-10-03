@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spinner, Card } from "flowbite-react";
+import { Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -45,30 +45,36 @@ export default function Grades({ client }: GradesProps) {
 							i
 						) => (
 							<div className="pb-5 px-2.5 w-96 h-full" key={i}>
-								<Card>
-									<Link href={`/grades/${period}`}>
-										<>
-											<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-												<p className="font-bold inline-block">{period}</p> -{" "}
-												{courseName}
-											</h5>
-											<p className="text-md tracking-tight text-gray-900 dark:text-white">
-												{teacherName}
-											</p>
-										</>
-									</Link>
-									<div className="mt-2.5 mb-5 flex items-center"></div>
-									<div className="flex items-center justify-between">
-										<span className="text-3xl font-bold text-gray-900 dark:text-white">
-											{letterGrade} ({gradeNumber}%)
-										</span>
+								<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+									<div>
 										<Link href={`/grades/${period}`}>
-											<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-												View
-											</a>
+											<>
+												<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+													<p className="font-bold inline-block">{period}</p> -{" "}
+													{courseName}
+												</h5>
+												<p className="text-md tracking-tight text-gray-900 dark:text-white">
+													{teacherName}
+												</p>
+											</>
 										</Link>
+										<div className="mt-2.5 mb-5 flex items-center"></div>
+										<div className="flex items-center justify-between">
+											<span
+												className={`text-3xl font-bold text-${letterGradeColor(
+													letterGrade
+												)}-600 dark:text-${letterGradeColor(letterGrade)}-400`}
+											>
+												{letterGrade} ({gradeNumber}%)
+											</span>
+											<Link href={`/grades/${period}`}>
+												<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+													View
+												</a>
+											</Link>
+										</div>
 									</div>
-								</Card>
+								</div>
 							</div>
 						)
 					)}
@@ -77,6 +83,21 @@ export default function Grades({ client }: GradesProps) {
 		</div>
 	);
 }
+
+const letterGradeColor = (letterGrade: string) => {
+	switch (letterGrade) {
+		case "A":
+			return "green";
+		case "B":
+			return "blue";
+		case "C":
+			return "yellow";
+		case "D":
+			return "orange";
+		case "E":
+			return "red";
+	}
+};
 
 function getInfoCurrent(data) {
 	let array1 = Array(data.courses.length);

@@ -23,7 +23,7 @@ export default function Nav({ studentInfo, logout }: NavProps) {
 				{studentInfo && (
 					<Sidebar.Logo
 						href="#"
-						img={`data:image/png;base64,${studentInfo.photo}`}
+						img={studentInfo.photo ? `data:image/png;base64,${studentInfo.photo}` : 'assets/logo.png'}
 						imgAlt=""
 						className="rounded-full"
 					>
@@ -32,13 +32,14 @@ export default function Nav({ studentInfo, logout }: NavProps) {
 				)}
 				<Sidebar.Items>
 					<Sidebar.ItemGroup>
+						<DarkThemeToggle />
 						<Link href="/schedule">
-							<Sidebar.Item href="" icon={AiOutlineOrderedList}>
+							<Sidebar.Item href="#" icon={AiOutlineOrderedList}>
 								Schedule
 							</Sidebar.Item>
 						</Link>
 						<Link href="/grades">
-							<Sidebar.Item href="" icon={AiOutlineBook}>
+							<Sidebar.Item href="#" icon={AiOutlineBook}>
 								Gradebook
 							</Sidebar.Item>
 						</Link>

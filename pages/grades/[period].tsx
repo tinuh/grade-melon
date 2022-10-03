@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spinner, Table } from "flowbite-react";
+import { Spinner, Table, Progress } from "flowbite-react";
 import { useRouter } from "next/router";
 
 interface GradesProps {
@@ -26,6 +26,9 @@ interface Course {
 					type: string;
 				}
 			];
+			calculatedScore: {
+				raw: number;
+			}
 		}
 	];
 }
@@ -64,9 +67,18 @@ export default function Grades({ client }: GradesProps) {
 					<h1 className="flex flex-wrap text-3xl font-bold text-gray-900 dark:text-white mb-2.5">
 						{course.title}
 					</h1>
-					<p className="text-md tracking-tight text-gray-900 dark:text-white mb-5">
+					<p className="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white">
 						{course.staff.name}
 					</p>
+					<div className="text-base font-medium mb-2 dark:text-white">
+						{letterGrade(course.marks[0].calculatedScore.raw)} ({course.marks[0].calculatedScore.raw}%)
+					</div>
+					<Progress
+						progress={course.marks[0].calculatedScore.raw}
+						size="md"
+						color={letterGradeColor(letterGrade(course.marks[0].calculatedScore.raw))}
+					/>
+					<div className="m-5" />
 					<Table striped={true}>
 						<Table.Head>
 							<Table.HeadCell className="!p-4">Date</Table.HeadCell>
@@ -95,6 +107,35 @@ export default function Grades({ client }: GradesProps) {
 		</div>
 	);
 }
+
+const letterGradeColor = (letterGrade: string): string => {
+	switch (letterGrade) {
+		case "A":
+			return "green";
+		case "B":
+			return "blue";
+		case "C":
+			return "yellow";
+		case "D":
+			return "orange";
+		case "E":
+			return "red";
+	}
+};
+
+const letterGrade = (grade: number): string => {
+	if (grade >= 90) {
+		return "A";
+	} else if (grade >= 80) {
+		return "B";
+	} else if (grade >= 70) {
+		return "C";
+	} else if (grade >= 60) {
+		return "D";
+	} else {
+		return "E";
+	}
+};
 
 function getInfoCurrent(data) {
 	let array1 = Array(data.courses.length);

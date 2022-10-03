@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/globals.css";
 import StudentVue from "studentvue";
 import { Flowbite } from "flowbite-react";
-import { DarkThemeToggle, Toast } from "flowbite-react";
+import { Toast } from "flowbite-react";
 import { HiX } from "react-icons/hi";
 import Nav from "../components/Nav";
 import { useRouter } from "next/router";
@@ -110,7 +110,7 @@ function MyApp({ Component, pageProps }) {
 				alt="logo"
 			/>
 			<div
-				className={`dark:min-h-screen bg-gray-50 dark:bg-gray-900 -z-20 ${
+				className={`min-h-screen bg-gray-50 dark:bg-gray-900 -z-20 ${
 					router.pathname === "/login" ? "" : "flex"
 				}`}
 			>
