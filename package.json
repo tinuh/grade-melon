@@ -18,7 +18,7 @@
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
 		"react-icons": "^4.4.0",
-		"studentvue": "https://github.com/vaporrrr/studentvue.js.git",
+		"studentvue": "https://github.com/tinuh/studentvue.js.git",
 		"touch-cli": "^0.0.1"
 	},
 	"devDependencies": {

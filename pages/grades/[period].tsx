@@ -28,7 +28,7 @@ interface Course {
 			];
 			calculatedScore: {
 				raw: number;
-			}
+			};
 		}
 	];
 }
@@ -45,7 +45,10 @@ export default function Grades({ client }: GradesProps) {
 					res.courses.filter((course) => course.period === parseInt(period))[0]
 				);
 				setCourse(
-					res.courses.filter((course) => course.period === parseInt(period))[0]
+					res.courses.filter(
+						(course, i) =>
+							(course.period ? course.period : i + 1) === parseInt(period)
+					)[0]
 				);
 				setLoading(false);
 			});
@@ -71,12 +74,15 @@ export default function Grades({ client }: GradesProps) {
 						{course.staff.name}
 					</p>
 					<div className="text-base font-medium mb-2 dark:text-white">
-						{letterGrade(course.marks[0].calculatedScore.raw)} ({course.marks[0].calculatedScore.raw}%)
+						{letterGrade(course.marks[0].calculatedScore.raw)} (
+						{course.marks[0].calculatedScore.raw}%)
 					</div>
 					<Progress
 						progress={course.marks[0].calculatedScore.raw}
 						size="md"
-						color={letterGradeColor(letterGrade(course.marks[0].calculatedScore.raw))}
+						color={letterGradeColor(
+							letterGrade(course.marks[0].calculatedScore.raw)
+						)}
 					/>
 					<div className="m-5" />
 					<Table striped={true}>

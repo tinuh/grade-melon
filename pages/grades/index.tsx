@@ -14,6 +14,7 @@ export default function Grades({ client }: GradesProps) {
 	useEffect(() => {
 		try {
 			client.gradebook().then((res) => {
+				console.log(res);
 				setGrades(getInfoCurrent(res));
 				setLoading(false);
 			});
@@ -102,7 +103,7 @@ const letterGradeColor = (letterGrade: string) => {
 function getInfoCurrent(data) {
 	let array1 = Array(data.courses.length);
 	for (let i = 0; i < data.courses.length; i++) {
-		let period = data.courses[i].period;
+		let period = data.courses[i].period ? data.courses[i].period : i+1;
 		let courseName = data.courses[i].title;
 		let roomNumber = data.courses[i].room;
 		let teacherName = data.courses[i].staff.name;

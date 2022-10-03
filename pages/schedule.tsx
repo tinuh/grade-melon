@@ -43,7 +43,7 @@ export default function Schedule({ client }: ScheduleProps) {
 								className="bg-white dark:border-gray-700 dark:bg-gray-800"
 							>
 								<Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-									{period}
+									{period ? period : i}
 								</Table.Cell>
 								<Table.Cell>{name}</Table.Cell>
 								<Table.Cell>{room}</Table.Cell>

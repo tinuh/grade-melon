@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
 		})
 			.then(async (res) => {
 				await setClient(res);
-				console.log(res);
+				//console.log(res);
 				if (save) {
 					localStorage.setItem("remember", "true");
 					localStorage.setItem("username", username);
