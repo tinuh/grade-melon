@@ -130,13 +130,13 @@ const letterGradeColor = (letterGrade: string): string => {
 };
 
 const letterGrade = (grade: number): string => {
-	if (grade >= 90) {
+	if (grade >= 89.5) {
 		return "A";
-	} else if (grade >= 80) {
+	} else if (grade >= 79.5) {
 		return "B";
-	} else if (grade >= 70) {
+	} else if (grade >= 69.5) {
 		return "C";
-	} else if (grade >= 60) {
+	} else if (grade >= 59.5) {
 		return "D";
 	} else {
 		return "E";

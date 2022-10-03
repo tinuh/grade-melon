@@ -42,6 +42,7 @@ export default function Grades({ client }: GradesProps) {
 								teacherName,
 								gradeNumber,
 								letterGrade,
+								color,
 							},
 							i
 						) => (
@@ -62,9 +63,7 @@ export default function Grades({ client }: GradesProps) {
 										<div className="mt-2.5 mb-5 flex items-center"></div>
 										<div className="flex items-center justify-between">
 											<span
-												className={`text-3xl font-bold text-${letterGradeColor(
-													letterGrade
-												)}-600 dark:text-${letterGradeColor(letterGrade)}-400`}
+												className={`text-3xl font-bold text-${color}-600 dark:text-${color}-400`}
 											>
 												{letterGrade} ({gradeNumber}%)
 											</span>
@@ -97,18 +96,20 @@ const letterGradeColor = (letterGrade: string) => {
 			return "orange";
 		case "E":
 			return "red";
+		default:
+			return "white";
 	}
 };
 
 function getInfoCurrent(data) {
 	let array1 = Array(data.courses.length);
 	for (let i = 0; i < data.courses.length; i++) {
-		let period = data.courses[i].period ? data.courses[i].period : i+1;
+		let period = data.courses[i].period ? data.courses[i].period : i + 1;
 		let courseName = data.courses[i].title;
 		let roomNumber = data.courses[i].room;
 		let teacherName = data.courses[i].staff.name;
 		let gradeNumber = data.courses[i].marks[0].calculatedScore.raw;
-
+		
 		let letterGrade;
 		if (gradeNumber >= 89.5) {
 			letterGrade = "A";
@@ -123,6 +124,8 @@ function getInfoCurrent(data) {
 		} else {
 			letterGrade = "E";
 		}
+		let color = letterGradeColor(letterGrade);
+
 		array1[i] = {
 			period,
 			courseName,
@@ -130,6 +133,7 @@ function getInfoCurrent(data) {
 			teacherName,
 			gradeNumber,
 			letterGrade,
+			color,
 		};
 	}
 	return array1;
