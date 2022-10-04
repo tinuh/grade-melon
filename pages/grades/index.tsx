@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { Head } from "next/document";
 
 interface GradesProps {
 	client: any;
@@ -61,9 +62,11 @@ export default function Grades({ client }: GradesProps) {
 											</>
 										</Link>
 										<div className="mt-2.5 mb-5 flex items-center"></div>
-										<title>
-											Gradebook
-										</title>
+										<Head>
+											<title>
+												Gradebook
+											</title>
+										</Head>
 										<div className="flex items-center justify-between">
 											<span
 												className={`text-3xl font-bold text-${color}-600 dark:text-${color}-400`}

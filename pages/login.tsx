@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Spinner } from "flowbite-react";
-
+import Head  from "next/head";
 interface LoginProps {
 	setStudentInfo: any;
 	client: any;
@@ -91,6 +91,7 @@ export default function Login({
 										required
 									/>
 								</div>
+								
 								<div className="ml-3 text-sm">
 									<label
 										htmlFor="remember"
@@ -101,6 +102,7 @@ export default function Login({
 								</div>
 							</div>
 						</div>
+
 						<button
 							onClick={handleSubmit}
 							disabled={loading}
@@ -114,7 +116,13 @@ export default function Login({
 							)}
 						</button>
 					</form>
+
 				</div>
+				<Head>
+					<title>
+						Login
+					</title>
+				</Head>
 			</div>
 		</div>
 	);

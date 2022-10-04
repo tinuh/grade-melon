@@ -103,11 +103,11 @@ function MyApp({ Component, pageProps }) {
 						>
 							<HiX className="h-5 w-5" />
 						</div>
-						<head>
+						<Head>
 							<title>
 								Grade Melon
 							</title>
-						</head>
+						</Head>
 						<div className="ml-3 text-sm font-normal">{title}</div>
 						<Toast.Toggle />
 					</Toast>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 interface ScheduleProps {
 	client: any;
@@ -69,11 +70,11 @@ export default function Schedule({ client }: ScheduleProps) {
 								</th>
 							</tr>
 						</thead>
-						<head>
+						<Head>
 							<title>
 								Schedule
 							</title>
-						</head>
+						</Head>
 						<tbody>
 							{schedule.classes.map(({ period, name, room, teacher }, i) => (
 								<tr

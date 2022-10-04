@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spinner, Table, Progress } from "flowbite-react";
 import { useRouter } from "next/router";
+import { Head } from "next/document";
 
 interface GradesProps {
 	client: any;
@@ -85,9 +86,11 @@ export default function Grades({ client }: GradesProps) {
 						)}
 					/>
 					<div className="m-5" />
-					<title>
-						Grades for {course.title}
-					</title>
+					<Head>
+						<title>
+							Grades for {course.title}
+						</title>
+					</Head>
 					<Table striped={true}>
 						<Table.Head>
 							<Table.HeadCell className="!p-4">Date</Table.HeadCell>
