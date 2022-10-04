@@ -13,6 +13,11 @@ export default function Home() {
 	
 	return (
 		<div>
+			<head>
+				<title>
+					Grade Melon
+				</title>
+			</head>
 			<h1 className="font-bold">Grade Melon</h1>
 			<form className="flex flex-col gap-4"></form>
 		</div>

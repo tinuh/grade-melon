@@ -69,6 +69,11 @@ export default function Schedule({ client }: ScheduleProps) {
 								</th>
 							</tr>
 						</thead>
+						<head>
+							<title>
+								Schedule
+							</title>
+						</head>
 						<tbody>
 							{schedule.classes.map(({ period, name, room, teacher }, i) => (
 								<tr

@@ -85,6 +85,9 @@ export default function Grades({ client }: GradesProps) {
 						)}
 					/>
 					<div className="m-5" />
+					<title>
+						Grades for {course.title}
+					</title>
 					<Table striped={true}>
 						<Table.Head>
 							<Table.HeadCell className="!p-4">Date</Table.HeadCell>

@@ -7,6 +7,7 @@ import { HiX } from "react-icons/hi";
 import Nav from "../components/Nav";
 import Topbar from "../components/TopBar";
 import { useRouter } from "next/router";
+import { Head } from "next/document";
 
 interface Toast {
 	title: string;
@@ -102,6 +103,11 @@ function MyApp({ Component, pageProps }) {
 						>
 							<HiX className="h-5 w-5" />
 						</div>
+						<head>
+							<title>
+								Grade Melon
+							</title>
+						</head>
 						<div className="ml-3 text-sm font-normal">{title}</div>
 						<Toast.Toggle />
 					</Toast>

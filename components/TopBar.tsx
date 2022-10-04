@@ -10,7 +10,7 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 	return (
 		<div className="fixed top-0 w-screen mb-24">
 			<Navbar fluid={true} rounded={true}>
-				<Navbar.Brand href="https://flowbite.com/">
+				<Navbar.Brand href="https://gmelon.pages.dev/login">
 					<img
 						src="assets/logo.png"
 						className="mr-3 h-6 sm:h-9"
