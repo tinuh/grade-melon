@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"autoprefixer": "^10.4.12",
+		"common-base64-downloader-react": "^1.0.7",
 		"flowbite": "^1.5.3",
 		"flowbite-react": "^0.1.11",
 		"formik": "^2.2.9",
