@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Head } from "next/document";
+import Head from "next/head";
 
 interface GradesProps {
 	client: any;
@@ -28,6 +28,9 @@ export default function Grades({ client }: GradesProps) {
 
 	return (
 		<div className="p-10">
+			<Head>
+				<title>Gradebook - Grade Melon</title>
+			</Head>
 			{loading ? (
 				<div className="flex justify-center">
 					<Spinner size="xl" />
@@ -62,15 +65,8 @@ export default function Grades({ client }: GradesProps) {
 											</>
 										</Link>
 										<div className="mt-2.5 mb-5 flex items-center"></div>
-										<Head>
-											<title>
-												Gradebook
-											</title>
-										</Head>
 										<div className="flex items-center justify-between">
-											<span
-												className={`text-3xl font-bold text-${color}-600 dark:text-${color}-400`}
-											>
+											<span className={`text-3xl font-bold text-${color}-400`}>
 												{letterGrade} ({gradeNumber}%)
 											</span>
 											<Link href={`/grades/${period}`}>
@@ -115,7 +111,7 @@ function getInfoCurrent(data) {
 		let roomNumber = data.courses[i].room;
 		let teacherName = data.courses[i].staff.name;
 		let gradeNumber = data.courses[i].marks[0].calculatedScore.raw;
-		
+
 		let letterGrade;
 		if (gradeNumber >= 89.5) {
 			letterGrade = "A";

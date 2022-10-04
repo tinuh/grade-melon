@@ -7,7 +7,7 @@ import { HiX } from "react-icons/hi";
 import Nav from "../components/Nav";
 import Topbar from "../components/TopBar";
 import { useRouter } from "next/router";
-import { Head } from "next/document";
+import Head from "next/head";
 
 interface Toast {
 	title: string;
@@ -89,6 +89,9 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<Flowbite>
+			<Head>
+				<title>Grade Melon</title>
+			</Head>
 			{toasts.map(({ title, type }, i) => (
 				<div className="absolute p-5 z-10" key={i}>
 					<Toast>
@@ -103,11 +106,6 @@ function MyApp({ Component, pageProps }) {
 						>
 							<HiX className="h-5 w-5" />
 						</div>
-						<Head>
-							<title>
-								Grade Melon
-							</title>
-						</Head>
 						<div className="ml-3 text-sm font-normal">{title}</div>
 						<Toast.Toggle />
 					</Toast>

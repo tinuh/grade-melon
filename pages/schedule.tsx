@@ -49,6 +49,9 @@ export default function Schedule({ client }: ScheduleProps) {
 
 	return (
 		<div className="p-10 h-full">
+			<Head>
+				<title>Schedule - Grade Melon</title>
+			</Head>
 			{loading ? (
 				<Spinner size="xl" />
 			) : (
@@ -70,11 +73,6 @@ export default function Schedule({ client }: ScheduleProps) {
 								</th>
 							</tr>
 						</thead>
-						<Head>
-							<title>
-								Schedule
-							</title>
-						</Head>
 						<tbody>
 							{schedule.classes.map(({ period, name, room, teacher }, i) => (
 								<tr
