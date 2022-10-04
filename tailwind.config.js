@@ -26,7 +26,7 @@ module.exports = {
 		},
 		purge: {
 			options: {
-				safeList: [
+				safelist: [
 					"text-green-400",
 					"text-blue-400",
 					"text-yellow-400",
