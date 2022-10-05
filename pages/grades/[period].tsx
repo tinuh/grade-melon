@@ -61,7 +61,7 @@ export default function Grades({ client }: GradesProps) {
 	}, [client]);
 
 	return (
-		<div className="p-10">
+		<div className="p-5 md:p-10">
 			<Head>
 				<title>
 					{course ? `${course.title} - Grade Melon` : "Grade Melon"}
@@ -73,7 +73,7 @@ export default function Grades({ client }: GradesProps) {
 				</div>
 			) : (
 				<div>
-					<h1 className="flex flex-wrap text-3xl font-bold text-gray-900 dark:text-white mb-2.5">
+					<h1 className="flex flex-wrap text-xl md:text-3xl font-bold text-gray-900 dark:text-white md:mb-2.5">
 						{course.title}
 					</h1>
 					<p className="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white">

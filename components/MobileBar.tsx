@@ -21,7 +21,9 @@ export default function MobileBar() {
 					<Link href="/schedule">
 						<a
 							href="#"
-							className={`flex justify-center p-4 w-full h-full text-gray-900 bg-gray-100 rounded-l-lg focus:ring-4 active focus:outline-none dark:bg-gray-${
+							className={`flex justify-center p-4 w-full h-full text-gray-900 bg-${
+								router.pathname === "/schedule" ? "gray-100" : "white"
+							} rounded-l-lg active focus:outline-none dark:bg-gray-${
 								router.pathname === "/schedule" ? 700 : 800
 							} dark:text-white`}
 							aria-current="page"
@@ -34,7 +36,9 @@ export default function MobileBar() {
 					<Link href="/grades">
 						<a
 							href="#"
-							className={`flex justify-center p-4 w-full bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							className={`flex justify-center p-4 w-full bg-${
+								router.pathname === "/grades" ? "gray-100" : "white"
+							} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
 								router.pathname === "/grades" ? 700 : 800
 							} dark:hover:bg-gray-700`}
 						>
@@ -46,7 +50,9 @@ export default function MobileBar() {
 					<Link href="/attendance">
 						<a
 							href="#"
-							className={`flex justify-center p-4 w-full bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							className={`flex justify-center p-4 w-full bg-${
+								router.pathname === "/attendance" ? "gray-100" : "white"
+							} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
 								router.pathname === "/attendance" ? 700 : 800
 							} dark:hover:bg-gray-700`}
 						>
@@ -58,7 +64,9 @@ export default function MobileBar() {
 					<Link href="/documents">
 						<a
 							href="#"
-							className={`flex justify-center p-4 w-full bg-white rounded-r-lg hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							className={`flex justify-center p-4 w-full bg-${
+								router.pathname === "/documents" ? "gray-100" : "white"
+							} rounded-r-lg hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
 								router.pathname === "/documents" ? 700 : 800
 							} dark:hover:bg-gray-700`}
 						>
