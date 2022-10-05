@@ -96,14 +96,16 @@ export default function Attendance({ client }: AttendanceProps) {
 	};
 
 	return (
-		<div className="p-10 h-full">
+		<div className="p-10">
 			<Head>
 				<title>Attendance - Grade Melon</title>
 			</Head>
 			{loading ? (
-				<Spinner size="xl" />
+				<div className="flex justify-center">
+					<Spinner size="xl" color="pink" />
+				</div>
 			) : (
-				<div className="w-96">
+				<div className="w-full">
 					<Bar options={options} data={chartData} />
 				</div>
 			)}

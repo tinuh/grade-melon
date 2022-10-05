@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar, Dropdown, Avatar, DarkThemeToggle } from "flowbite-react";
+import Link from "next/link";
 
 interface TopBarProps {
 	studentInfo: any;
@@ -10,16 +11,18 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 	return (
 		<div className="fixed top-0 w-screen mb-24">
 			<Navbar fluid={true} rounded={true}>
-				<Navbar.Brand href="https://gmelon.pages.dev/login">
-					<img
-						src="assets/logo.png"
-						className="mr-3 h-6 sm:h-9"
-						alt="Grade Melon Logo"
-					/>
-					<span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-						Grade Melon
-					</span>
-				</Navbar.Brand>
+				<Link href="/">
+					<Navbar.Brand href="#">
+						<img
+							src="assets/logo.png"
+							className="mr-3 h-6 sm:h-9"
+							alt="Grade Melon Logo"
+						/>
+						<span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+							Grade Melon
+						</span>
+					</Navbar.Brand>
+				</Link>
 				<div className="flex md:order-2">
 					<div className="pr-4">
 						<DarkThemeToggle />
@@ -50,7 +53,6 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 							</Dropdown>
 						</div>
 					)}
-					<Navbar.Toggle />
 				</div>
 			</Navbar>
 		</div>

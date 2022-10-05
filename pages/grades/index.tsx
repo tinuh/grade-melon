@@ -43,18 +43,18 @@ export default function Grades({ client }: GradesProps) {
 	}, [client]);
 
 	return (
-		<div className="p-10">
+		<div className="p-5 md:p-10">
 			<Head>
 				<title>Gradebook - Grade Melon</title>
 			</Head>
 			{loading ? (
 				<div className="flex justify-center">
-					<Spinner size="xl" />
+					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
 				<div>
 					{view === "card" && (
-						<div className="flex flex-wrap">
+						<div className="flex flex-wrap gap-5">
 							{grades.map(
 								(
 									{
@@ -68,24 +68,24 @@ export default function Grades({ client }: GradesProps) {
 									},
 									i
 								) => (
-									<div className="pb-5 px-2.5 w-96 h-full" key={i}>
+									<div className="w-96 h-full" key={i}>
 										<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 											<div>
 												<Link href={`/grades/${period}`}>
-													<>
-														<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+													<div className="hover:cursor-pointer">
+														<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
 															<p className="font-bold inline-block">{period}</p>{" "}
 															- {courseName}
 														</h5>
 														<p className="text-md tracking-tight text-gray-900 dark:text-white">
 															{teacherName}
 														</p>
-													</>
+													</div>
 												</Link>
-												<div className="mt-2.5 mb-5 flex items-center"></div>
+												<div className="mt-2.5 md:mb-5 flex items-center"></div>
 												<div className="flex items-center justify-between">
 													<span
-														className={`text-3xl font-bold text-${color}-400`}
+														className={`text-xl md:text-3xl font-bold text-${color}-400`}
 													>
 														{letterGrade} ({gradeNumber}%)
 													</span>
@@ -103,7 +103,7 @@ export default function Grades({ client }: GradesProps) {
 						</div>
 					)}
 					{view === "table" && (
-						<div className="overflow-x-auto shadow-md sm:rounded-lg">
+						<div className="overflow-x-auto shadow-md rounded-lg">
 							<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 								<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 									<tr>

@@ -59,14 +59,16 @@ export default function Documents({ client }: DocumentsProps) {
 	}, [client]);
 
 	return (
-		<div className="p-10 h-full">
+		<div className="p-5 md:p-10 h-full">
 			<Head>
 				<title>Documents - Grade Melon</title>
 			</Head>
 			{loading ? (
-				<Spinner size="xl" />
+				<div className="flex justify-center">
+					<Spinner size="xl" color="pink" />
+				</div>
 			) : (
-				<div className="overflow-x-auto shadow-md sm:rounded-lg">
+				<div className="overflow-x-auto shadow-md rounded-lg">
 					<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 						<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 							<tr>

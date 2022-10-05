@@ -4,7 +4,8 @@ import StudentVue from "studentvue";
 import { Flowbite } from "flowbite-react";
 import { Toast } from "flowbite-react";
 import { HiX } from "react-icons/hi";
-import Nav from "../components/Nav";
+import SideBar from "../components/SideBar";
+import MobileBar from "../components/MobileBar";
 import Topbar from "../components/TopBar";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -13,6 +14,8 @@ interface Toast {
 	title: string;
 	type: "success" | "error" | "warning" | "info";
 }
+
+const noShowNav = ["/login", "/"];
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter();
@@ -111,21 +114,43 @@ function MyApp({ Component, pageProps }) {
 					</Toast>
 				</div>
 			))}
-			<Topbar studentInfo={studentInfo} logout={logout} />
-			<div
-				className={`min-h-screen bg-gray-50 dark:bg-gray-900 pt-16 ${
-					router.pathname === "/login" ? "" : "flex"
-				}`}
-			>
-				{router.pathname !== "/login" && (
-					<Nav studentInfo={studentInfo} logout={logout} />
-				)}
-				<Component
-					{...pageProps}
-					client={client}
-					login={login}
-					setClient={setClient}
-				/>
+			<div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+				<Topbar studentInfo={studentInfo} logout={logout} />
+				<div className="pt-16">
+					{noShowNav.includes(router.pathname) && (
+						<Component
+							{...pageProps}
+							client={client}
+							login={login}
+							setClient={setClient}
+						/>
+					)}
+
+					{!noShowNav.includes(router.pathname) && (
+						<div className="pb-16">
+							<div className="hidden md:flex">
+								<SideBar studentInfo={studentInfo} logout={logout} />
+								<Component
+									{...pageProps}
+									client={client}
+									login={login}
+									setClient={setClient}
+								/>
+							</div>
+							<div className="md:hidden">
+								<Component
+									{...pageProps}
+									client={client}
+									login={login}
+									setClient={setClient}
+								/>
+								<div className="px-4 fixed bottom-5 w-full">
+									<MobileBar />
+								</div>
+							</div>
+						</div>
+					)}
+				</div>
 			</div>
 		</Flowbite>
 	);

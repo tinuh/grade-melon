@@ -17,11 +17,11 @@ interface NavProps {
 	logout: () => void;
 }
 
-export default function Nav({ studentInfo, logout }: NavProps) {
+export default function SideBar({ studentInfo, logout }: NavProps) {
 	const router = useRouter();
 
 	return (
-		<div className="w-fit h-full py-10 pl-10">
+		<div className="w-fit h-full py-10 pl-10 hidden md:block">
 			<Sidebar aria-label="Sidebar with logo branding example">
 				<Sidebar.Items>
 					<Sidebar.ItemGroup>

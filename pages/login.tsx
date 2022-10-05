@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { Spinner } from "flowbite-react";
-import Head  from "next/head";
+import Head from "next/head";
 interface LoginProps {
 	setStudentInfo: any;
 	client: any;
@@ -38,8 +38,14 @@ export default function Login({
 		}
 	}, []);
 
+	useEffect(() => {
+		if (client) {
+			router.push("/schedule");
+		}
+	}, []);
+
 	return (
-		<div className="flex flex-col items-center justify-center pb-6 py-8 mx-auto md:pt-28 lg:pb-0">
+		<div className="flex flex-col items-center justify-center pb-6 py-8 px-6 mx-auto md:pt-28 lg:pb-0">
 			<div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
 				<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
 					<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
@@ -91,7 +97,7 @@ export default function Login({
 										required
 									/>
 								</div>
-								
+
 								<div className="ml-3 text-sm">
 									<label
 										htmlFor="remember"
@@ -111,17 +117,14 @@ export default function Login({
 							Sign in
 							{loading && (
 								<div className="pl-4 inline-block">
-									<Spinner />
+									<Spinner color="warning" />
 								</div>
 							)}
 						</button>
 					</form>
-
 				</div>
 				<Head>
-					<title>
-						Login
-					</title>
+					<title>Login</title>
 				</Head>
 			</div>
 		</div>
