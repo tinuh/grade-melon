@@ -38,7 +38,6 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 												: ""
 										}
 										rounded
-										bordered
 									/>
 								}
 							>
