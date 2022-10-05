@@ -8,6 +8,8 @@ import {
 } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { BsTable } from "react-icons/bs";
+import { TbLayoutGrid } from "react-icons/tb";
 import Link from "next/link";
 
 interface NavProps {
@@ -47,6 +49,20 @@ export default function Nav({ studentInfo, logout }: NavProps) {
 							Logout
 						</Sidebar.Item>
 					</Sidebar.ItemGroup>
+					{router.pathname === "/grades" && (
+						<Sidebar.ItemGroup>
+							<Link href="?view=card">
+								<Sidebar.Item href="#" icon={TbLayoutGrid}>
+									Card View
+								</Sidebar.Item>
+							</Link>
+							<Link href="?view=table">
+								<Sidebar.Item href="#table" icon={BsTable}>
+									Table View
+								</Sidebar.Item>
+							</Link>
+						</Sidebar.ItemGroup>
+					)}
 				</Sidebar.Items>
 			</Sidebar>
 		</div>

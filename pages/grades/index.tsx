@@ -12,6 +12,22 @@ export default function Grades({ client }: GradesProps) {
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
 	const [grades, setGrades] = useState([]);
+	const [defaultView, setDefaultView] = useState("card");
+	const view = (router.query.view as string) || defaultView;
+
+	useEffect(() => {
+		if (localStorage.getItem("defaultView") !== null) {
+			setDefaultView(localStorage.getItem("defaultView"));
+		}
+	}, []);
+
+	useEffect(() => {
+		if (router.query.view !== undefined) {
+			setDefaultView(router.query.view as string);
+			localStorage.setItem("defaultView", router.query.view as string);
+		}
+	}, [router.query.view]);
+
 	useEffect(() => {
 		try {
 			client.gradebook().then((res) => {
@@ -36,49 +52,118 @@ export default function Grades({ client }: GradesProps) {
 					<Spinner size="xl" />
 				</div>
 			) : (
-				<div className="flex flex-wrap">
-					{grades.map(
-						(
-							{
-								period,
-								courseName,
-								roomNumber,
-								teacherName,
-								gradeNumber,
-								letterGrade,
-								color,
-							},
-							i
-						) => (
-							<div className="pb-5 px-2.5 w-96 h-full" key={i}>
-								<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-									<div>
-										<Link href={`/grades/${period}`}>
-											<>
-												<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-													<p className="font-bold inline-block">{period}</p> -{" "}
-													{courseName}
-												</h5>
-												<p className="text-md tracking-tight text-gray-900 dark:text-white">
-													{teacherName}
-												</p>
-											</>
-										</Link>
-										<div className="mt-2.5 mb-5 flex items-center"></div>
-										<div className="flex items-center justify-between">
-											<span className={`text-3xl font-bold text-${color}-400`}>
-												{letterGrade} ({gradeNumber}%)
-											</span>
-											<Link href={`/grades/${period}`}>
-												<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-													View
-												</a>
-											</Link>
+				<div>
+					{view === "card" && (
+						<div className="flex flex-wrap">
+							{grades.map(
+								(
+									{
+										period,
+										courseName,
+										roomNumber,
+										teacherName,
+										gradeNumber,
+										letterGrade,
+										color,
+									},
+									i
+								) => (
+									<div className="pb-5 px-2.5 w-96 h-full" key={i}>
+										<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+											<div>
+												<Link href={`/grades/${period}`}>
+													<>
+														<h5 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+															<p className="font-bold inline-block">{period}</p>{" "}
+															- {courseName}
+														</h5>
+														<p className="text-md tracking-tight text-gray-900 dark:text-white">
+															{teacherName}
+														</p>
+													</>
+												</Link>
+												<div className="mt-2.5 mb-5 flex items-center"></div>
+												<div className="flex items-center justify-between">
+													<span
+														className={`text-3xl font-bold text-${color}-400`}
+													>
+														{letterGrade} ({gradeNumber}%)
+													</span>
+													<Link href={`/grades/${period}`}>
+														<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+															View
+														</a>
+													</Link>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-							</div>
-						)
+								)
+							)}
+						</div>
+					)}
+					{view === "table" && (
+						<div className="overflow-x-auto shadow-md sm:rounded-lg">
+							<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+								<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+									<tr>
+										<th scope="col" className="py-3 pl-6">
+											Period
+										</th>
+										<th scope="col" className="py-3 px-6">
+											Course Name
+										</th>
+										<th scope="col" className="py-3 px-6">
+											Teacher
+										</th>
+										<th scope="col" className="py-3 px-6">
+											Grade
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									{grades.map(
+										(
+											{
+												period,
+												courseName,
+												roomNumber,
+												teacherName,
+												gradeNumber,
+												letterGrade,
+												color,
+											},
+											i
+										) => (
+											<tr
+												className={`bg-${
+													i % 2 == 0 ? "white" : "gray-50"
+												} border-b dark:bg-gray-${
+													i % 2 == 0 ? 900 : 800
+												} dark:border-gray-700`}
+												key={i}
+											>
+												<th
+													scope="row"
+													className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+												>
+													{period ? period : i}
+												</th>
+												<td className="py-4 px-6">
+													<Link href={`/grades/${period}`}>{courseName}</Link>
+												</td>
+												<td className="py-4 px-6">{teacherName}</td>
+												<td className="py-4 px-6">
+													<span className={`font-bold text-${color}-400`}>
+														{letterGrade} ({gradeNumber}%)
+													</span>
+												</td>
+											</tr>
+										)
+									)}
+								</tbody>
+							</table>
+						</div>
 					)}
 				</div>
 			)}
