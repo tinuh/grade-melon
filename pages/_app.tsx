@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps }) {
 	const [client, setClient] = useState(undefined);
 	const [studentInfo, setStudentInfo] = useState(undefined);
 	const [toasts, setToasts] = useState<Toast[]>([]);
+	const [grades, setGrades] = useState();
 
 	const login = async (username, password, save) => {
 		await StudentVue.login("https://md-mcps-psv.edupoint.com", {
@@ -123,6 +124,8 @@ function MyApp({ Component, pageProps }) {
 							client={client}
 							login={login}
 							setClient={setClient}
+							grades={grades}
+							setGrades={setGrades}
 						/>
 					)}
 
@@ -135,6 +138,8 @@ function MyApp({ Component, pageProps }) {
 									client={client}
 									login={login}
 									setClient={setClient}
+									grades={grades}
+									setGrades={setGrades}
 								/>
 							</div>
 							<div className="md:hidden">
@@ -143,6 +148,8 @@ function MyApp({ Component, pageProps }) {
 									client={client}
 									login={login}
 									setClient={setClient}
+									grades={grades}
+									setGrades={setGrades}
 								/>
 								<div className="px-4 fixed bottom-5 w-full">
 									<MobileBar />

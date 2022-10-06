@@ -6,12 +6,13 @@ import Head from "next/head";
 
 interface GradesProps {
 	client: any;
+	grades: any;
+	setGrades: (grades: any) => void;
 }
 
-export default function Grades({ client }: GradesProps) {
+export default function Grades({ client, grades, setGrades }: GradesProps) {
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
-	const [grades, setGrades] = useState([]);
 	const [defaultView, setDefaultView] = useState("card");
 	const view = (router.query.view as string) || defaultView;
 
@@ -30,11 +31,16 @@ export default function Grades({ client }: GradesProps) {
 
 	useEffect(() => {
 		try {
-			client.gradebook().then((res) => {
-				console.log(res);
-				setGrades(getInfoCurrent(res));
+			if (!grades) {
+				client.gradebook().then((res) => {
+					console.log(res);
+					setGrades(res.courses);
+					setLoading(false);
+				});
+			}
+			else {
 				setLoading(false);
-			});
+			}
 		} catch {
 			if (localStorage.getItem("remember") === "false") {
 				router.push("/login");
@@ -55,51 +61,43 @@ export default function Grades({ client }: GradesProps) {
 				<div>
 					{view === "card" && (
 						<div className="flex flex-wrap gap-5">
-							{grades.map(
-								(
-									{
-										period,
-										courseName,
-										roomNumber,
-										teacherName,
-										gradeNumber,
-										letterGrade,
-										color,
-									},
-									i
-								) => (
-									<div className="w-96 h-full" key={i}>
-										<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-											<div>
-												<Link href={`/grades/${period}`}>
-													<div className="hover:cursor-pointer">
-														<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-															<p className="font-bold inline-block">{period}</p>{" "}
-															- {courseName}
-														</h5>
-														<p className="text-md tracking-tight text-gray-900 dark:text-white">
-															{teacherName}
-														</p>
-													</div>
-												</Link>
-												<div className="mt-2.5 md:mb-5 flex items-center"></div>
-												<div className="flex items-center justify-between">
-													<span
-														className={`text-xl md:text-3xl font-bold text-${color}-400`}
-													>
-														{letterGrade} ({gradeNumber}%)
-													</span>
-													<Link href={`/grades/${period}`}>
-														<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-															View
-														</a>
-													</Link>
+							{grades.map(({ period, title, staff, marks }, i) => (
+								<div className="w-96 h-full" key={i}>
+									<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+										<div>
+											<Link href={`/grades/${period ? period : i + 1}`}>
+												<div className="hover:cursor-pointer">
+													<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+														<p className="font-bold inline-block">
+															{period ? period : i + 1}
+														</p>{" "}
+														- {title}
+													</h5>
+													<p className="text-md tracking-tight text-gray-900 dark:text-white">
+														{staff.name}
+													</p>
 												</div>
+											</Link>
+											<div className="mt-2.5 md:mb-5 flex items-center"></div>
+											<div className="flex items-center justify-between">
+												<span
+													className={`text-xl md:text-3xl font-bold text-${letterGradeColor(
+														letterGrade(marks[0].calculatedScore.raw)
+													)}-400`}
+												>
+													{letterGrade(marks[0].calculatedScore.raw)} (
+													{marks[0].calculatedScore.raw}%)
+												</span>
+												<Link href={`/grades/${period ? period : i + 1}`}>
+													<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+														View
+													</a>
+												</Link>
 											</div>
 										</div>
 									</div>
-								)
-							)}
+								</div>
+							))}
 						</div>
 					)}
 					{view === "table" && (
@@ -122,45 +120,39 @@ export default function Grades({ client }: GradesProps) {
 									</tr>
 								</thead>
 								<tbody>
-									{grades.map(
-										(
-											{
-												period,
-												courseName,
-												roomNumber,
-												teacherName,
-												gradeNumber,
-												letterGrade,
-												color,
-											},
-											i
-										) => (
-											<tr
-												className={`bg-${
-													i % 2 == 0 ? "white" : "gray-50"
-												} border-b dark:bg-gray-${
-													i % 2 == 0 ? 900 : 800
-												} dark:border-gray-700`}
-												key={i}
+									{grades.map(({ period, title, staff, marks }, i) => (
+										<tr
+											className={`bg-${
+												i % 2 == 0 ? "white" : "gray-50"
+											} border-b dark:bg-gray-${
+												i % 2 == 0 ? 900 : 800
+											} dark:border-gray-700`}
+											key={i}
+										>
+											<td
+												scope="row"
+												className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 											>
-												<th
-													scope="row"
-													className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+												{period ? period : i}
+											</td>
+											<td className="py-4 px-6">
+												<Link href={`/grades/${period ? period : i + 1}`}>
+													{title}
+												</Link>
+											</td>
+											<td className="py-4 px-6">{staff.name}</td>
+											<td className="py-4 px-6">
+												<span
+													className={`font-bold text-${letterGradeColor(
+														letterGrade(marks[0].calculatedScore.raw)
+													)}-400`}
 												>
-													{period ? period : i}
-												</th>
-												<td className="py-4 px-6">
-													<Link href={`/grades/${period}`}>{courseName}</Link>
-												</td>
-												<td className="py-4 px-6">{teacherName}</td>
-												<td className="py-4 px-6">
-													<span className={`font-bold text-${color}-400`}>
-														{letterGrade} ({gradeNumber}%)
-													</span>
-												</td>
-											</tr>
-										)
-									)}
+													{letterGrade(marks[0].calculatedScore.raw)} (
+													{marks[0].calculatedScore.raw}%)
+												</span>
+											</td>
+										</tr>
+									))}
 								</tbody>
 							</table>
 						</div>
@@ -188,40 +180,16 @@ const letterGradeColor = (letterGrade: string) => {
 	}
 };
 
-function getInfoCurrent(data) {
-	let array1 = Array(data.courses.length);
-	for (let i = 0; i < data.courses.length; i++) {
-		let period = data.courses[i].period ? data.courses[i].period : i + 1;
-		let courseName = data.courses[i].title;
-		let roomNumber = data.courses[i].room;
-		let teacherName = data.courses[i].staff.name;
-		let gradeNumber = data.courses[i].marks[0].calculatedScore.raw;
-
-		let letterGrade;
-		if (gradeNumber >= 89.5) {
-			letterGrade = "A";
-		} else if (gradeNumber >= 79.5) {
-			letterGrade = "B";
-		} else if (gradeNumber >= 69.5) {
-			letterGrade = "C";
-		} else if (gradeNumber >= 59.5) {
-			letterGrade = "D";
-		} else if (gradeNumber == 0) {
-			letterGrade = "N/A";
-		} else {
-			letterGrade = "E";
-		}
-		let color = letterGradeColor(letterGrade);
-
-		array1[i] = {
-			period,
-			courseName,
-			roomNumber,
-			teacherName,
-			gradeNumber,
-			letterGrade,
-			color,
-		};
+const letterGrade = (grade: number): string => {
+	if (grade >= 89.5) {
+		return "A";
+	} else if (grade >= 79.5) {
+		return "B";
+	} else if (grade >= 69.5) {
+		return "C";
+	} else if (grade >= 59.5) {
+		return "D";
+	} else {
+		return "E";
 	}
-	return array1;
-}
+};
