@@ -61,6 +61,7 @@ function MyApp({ Component, pageProps }) {
 	const logout = () => {
 		setClient(undefined);
 		setStudentInfo(undefined);
+		setGrades(undefined);
 		localStorage.removeItem("username");
 		localStorage.removeItem("password");
 		router.push("/login");
