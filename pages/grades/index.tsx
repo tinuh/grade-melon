@@ -65,7 +65,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 								<div className="w-96 h-full" key={i}>
 									<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 										<div>
-											<Link href={`/grades/${period}`}>
+											<Link href={`/grades/${i}`}>
 												<div className="hover:cursor-pointer">
 													<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
 														<p className="font-bold inline-block">{period}</p> -{" "}
@@ -83,7 +83,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 												>
 													{grade.letter} ({grade.raw}%)
 												</span>
-												<Link href={`/grades/${period}`}>
+												<Link href={`/grades/${i}`}>
 													<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
 														View
 													</a>
@@ -131,7 +131,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 												{period}
 											</td>
 											<td className="py-4 px-6">
-												<Link href={`/grades/${period}`}>{name}</Link>
+												<Link href={`/grades/${i}`}>{name}</Link>
 											</td>
 											<td className="py-4 px-6">{teacher.name}</td>
 											<td className="py-4 px-6">

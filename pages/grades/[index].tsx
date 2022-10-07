@@ -17,28 +17,19 @@ interface GradesProps {
 
 export default function Grades({ client, grades, setGrades }: GradesProps) {
 	const router = useRouter();
-	const { period }: { period?: string } = router.query;
+	const { index }: { index?: string } = router.query;
 	const [loading, setLoading] = useState(true);
 	const [course, setCourse] = useState<Course>();
 	useEffect(() => {
 		try {
 			if (!grades) {
 				client.gradebook().then((res) => {
-					console.log(res);
 					setGrades(parseGrades(res));
-					setCourse(
-						parseGrades(res).courses.filter(
-							(course) => course.period === parseInt(period)
-						)[0]
-					);
+					setCourse(parseGrades(res).courses[parseInt(index)]);
 					setLoading(false);
 				});
 			} else {
-				setCourse(
-					grades.courses.filter(
-						(course) => course.period === parseInt(period)
-					)[0]
-				);
+				setCourse(grades.courses[parseInt(index)]);
 				setLoading(false);
 			}
 		} catch {
