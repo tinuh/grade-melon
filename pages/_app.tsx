@@ -9,6 +9,7 @@ import MobileBar from "../components/MobileBar";
 import Topbar from "../components/TopBar";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { Grades } from "../utils/grades";
 
 interface Toast {
 	title: string;
@@ -22,7 +23,7 @@ function MyApp({ Component, pageProps }) {
 	const [client, setClient] = useState(undefined);
 	const [studentInfo, setStudentInfo] = useState(undefined);
 	const [toasts, setToasts] = useState<Toast[]>([]);
-	const [grades, setGrades] = useState();
+	const [grades, setGrades] = useState<Grades>();
 
 	const login = async (username, password, save) => {
 		await StudentVue.login("https://md-mcps-psv.edupoint.com", {
@@ -115,9 +116,9 @@ function MyApp({ Component, pageProps }) {
 					</Toast>
 				</div>
 			))}
-			<div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+			<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16">
 				<Topbar studentInfo={studentInfo} logout={logout} />
-				<div className="pt-16">
+				<div>
 					{noShowNav.includes(router.pathname) && (
 						<Component
 							{...pageProps}
@@ -130,7 +131,7 @@ function MyApp({ Component, pageProps }) {
 					)}
 
 					{!noShowNav.includes(router.pathname) && (
-						<div className="pb-16">
+						<div className="pb-16 md:pb-0">
 							<div className="hidden md:flex">
 								<SideBar studentInfo={studentInfo} logout={logout} />
 								<Component

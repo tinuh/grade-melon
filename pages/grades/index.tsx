@@ -3,11 +3,12 @@ import { Spinner } from "flowbite-react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
+import { parseGrades, Grades as GradesType } from "../../utils/grades";
 
 interface GradesProps {
 	client: any;
-	grades: any;
-	setGrades: (grades: any) => void;
+	grades: GradesType;
+	setGrades: (grades: GradesType) => void;
 }
 
 export default function Grades({ client, grades, setGrades }: GradesProps) {
@@ -34,11 +35,10 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 			if (!grades) {
 				client.gradebook().then((res) => {
 					console.log(res);
-					setGrades(res.courses);
+					setGrades(parseGrades(res));
 					setLoading(false);
 				});
-			}
-			else {
+			} else {
 				setLoading(false);
 			}
 		} catch {
@@ -61,34 +61,29 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 				<div>
 					{view === "card" && (
 						<div className="flex flex-wrap gap-5">
-							{grades.map(({ period, title, staff, marks }, i) => (
+							{grades.courses.map(({ name, period, grade, teacher }, i) => (
 								<div className="w-96 h-full" key={i}>
 									<div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 										<div>
-											<Link href={`/grades/${period ? period : i + 1}`}>
+											<Link href={`/grades/${period}`}>
 												<div className="hover:cursor-pointer">
 													<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-														<p className="font-bold inline-block">
-															{period ? period : i + 1}
-														</p>{" "}
-														- {title}
+														<p className="font-bold inline-block">{period}</p> -{" "}
+														{name}
 													</h5>
 													<p className="text-md tracking-tight text-gray-900 dark:text-white">
-														{staff.name}
+														{teacher.name}
 													</p>
 												</div>
 											</Link>
 											<div className="mt-2.5 md:mb-5 flex items-center"></div>
 											<div className="flex items-center justify-between">
 												<span
-													className={`text-xl md:text-3xl font-bold text-${letterGradeColor(
-														letterGrade(marks[0].calculatedScore.raw)
-													)}-400`}
+													className={`text-xl md:text-3xl font-bold text-${grade.color}-400`}
 												>
-													{letterGrade(marks[0].calculatedScore.raw)} (
-													{marks[0].calculatedScore.raw}%)
+													{grade.letter} ({grade.raw}%)
 												</span>
-												<Link href={`/grades/${period ? period : i + 1}`}>
+												<Link href={`/grades/${period}`}>
 													<a className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
 														View
 													</a>
@@ -120,7 +115,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 									</tr>
 								</thead>
 								<tbody>
-									{grades.map(({ period, title, staff, marks }, i) => (
+									{grades.courses.map(({ name, period, grade, teacher }, i) => (
 										<tr
 											className={`bg-${
 												i % 2 == 0 ? "white" : "gray-50"
@@ -133,22 +128,15 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 												scope="row"
 												className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 											>
-												{period ? period : i}
+												{period}
 											</td>
 											<td className="py-4 px-6">
-												<Link href={`/grades/${period ? period : i + 1}`}>
-													{title}
-												</Link>
+												<Link href={`/grades/${period}`}>{name}</Link>
 											</td>
-											<td className="py-4 px-6">{staff.name}</td>
+											<td className="py-4 px-6">{teacher.name}</td>
 											<td className="py-4 px-6">
-												<span
-													className={`font-bold text-${letterGradeColor(
-														letterGrade(marks[0].calculatedScore.raw)
-													)}-400`}
-												>
-													{letterGrade(marks[0].calculatedScore.raw)} (
-													{marks[0].calculatedScore.raw}%)
+												<span className={`font-bold text-${grade.color}-400`}>
+													{grade.letter} ({grade.raw}%)
 												</span>
 											</td>
 										</tr>
@@ -162,34 +150,3 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 		</div>
 	);
 }
-
-const letterGradeColor = (letterGrade: string) => {
-	switch (letterGrade) {
-		case "A":
-			return "green";
-		case "B":
-			return "blue";
-		case "C":
-			return "yellow";
-		case "D":
-			return "orange";
-		case "E":
-			return "red";
-		default:
-			return "white";
-	}
-};
-
-const letterGrade = (grade: number): string => {
-	if (grade >= 89.5) {
-		return "A";
-	} else if (grade >= 79.5) {
-		return "B";
-	} else if (grade >= 69.5) {
-		return "C";
-	} else if (grade >= 59.5) {
-		return "D";
-	} else {
-		return "E";
-	}
-};

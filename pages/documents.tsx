@@ -30,7 +30,11 @@ const openBase64NewTab = (base64Pdf: string): void => {
 			(window.navigator as any).msSaveOrOpenBlob(blob, "pdfBase64.pdf");
 		} else {
 			const blobUrl = URL.createObjectURL(blob);
-			window.open(blobUrl);
+			setTimeout(() => {
+				window.open(blobUrl);
+			});
+			//let newWindow = window.location.assign(blobUrl);
+			//newWindow.location = blobUrl;
 		}
 	}
 };

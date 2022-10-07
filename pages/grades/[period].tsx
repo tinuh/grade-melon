@@ -1,39 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Spinner, Table, Progress } from "flowbite-react";
 import { useRouter } from "next/router";
+import { parseGrades, Grades as GradesType, Course } from "../../utils/grades";
 import Head from "next/head";
 
 interface GradesProps {
 	client: any;
-	grades: any;
-	setGrades: (grades: any) => void;
-}
-
-interface Course {
-	title: string;
-	staff: {
-		name: string;
-	};
-	marks: [
-		{
-			assignments: [
-				{
-					name: string;
-					score: {
-						value: number;
-					};
-					room: string;
-					date: {
-						due: Date;
-					};
-					type: string;
-				}
-			];
-			calculatedScore: {
-				raw: number;
-			};
-		}
-	];
+	grades: GradesType;
+	setGrades: (grades: GradesType) => void;
 }
 
 export default function Grades({ client, grades, setGrades }: GradesProps) {
@@ -46,26 +20,18 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 			if (!grades) {
 				client.gradebook().then((res) => {
 					console.log(res);
-					setGrades(res.courses);
+					setGrades(parseGrades(res));
 					setCourse(
-						res.courses.filter(
-							(course, i) =>
-								(course.period ? course.period : i + 1) === parseInt(period)
+						parseGrades(res).courses.filter(
+							(course) => course.period === parseInt(period)
 						)[0]
 					);
 					setLoading(false);
 				});
 			} else {
-				console.log(
-					grades.filter(
-						(course, i) =>
-							(course.period ? course.period : i + 1) === parseInt(period)
-					)[0]
-				);
 				setCourse(
-					grades.filter(
-						(course, i) =>
-							(course.period ? course.period : i + 1) === parseInt(period)
+					grades.courses.filter(
+						(course) => course.period === parseInt(period)
 					)[0]
 				);
 				setLoading(false);
@@ -80,32 +46,27 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 	return (
 		<div className="p-5 md:p-10">
 			<Head>
-				<title>
-					{course ? `${course.title} - Grade Melon` : "Grade Melon"}
-				</title>
+				<title>{course ? `${course.name} - Grade Melon` : "Grade Melon"}</title>
 			</Head>
 			{loading ? (
 				<div className="flex justify-center">
-					<Spinner size="xl" />
+					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
 				<div>
 					<h1 className="flex flex-wrap text-xl md:text-3xl font-bold text-gray-900 dark:text-white md:mb-2.5">
-						{course.title}
+						{course.name}
 					</h1>
 					<p className="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white">
-						{course.staff.name}
+						{course.teacher.name}
 					</p>
 					<div className="text-base font-medium mb-2 dark:text-white">
-						{letterGrade(course.marks[0].calculatedScore.raw)} (
-						{course.marks[0].calculatedScore.raw}%)
+						{course.grade.letter} ({course.grade.raw}%)
 					</div>
 					<Progress
-						progress={course.marks[0].calculatedScore.raw}
+						progress={course.grade.raw}
 						size="md"
-						color={letterGradeColor(
-							letterGrade(course.marks[0].calculatedScore.raw)
-						)}
+						color={course.grade.color}
 					/>
 					<div className="m-5" />
 					<div className="overflow-x-auto shadow-md rounded-lg">
@@ -127,8 +88,8 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 								</tr>
 							</thead>
 							<tbody>
-								{course.marks[0].assignments.map(
-									({ name, date, score, type }, i) => (
+								{course.assignments.map(
+									({ name, date, grade, category, points }, i) => (
 										<tr
 											className={`bg-${
 												i % 2 == 0 ? "white" : "gray-50"
@@ -141,8 +102,10 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 												{date.due.toLocaleDateString()}
 											</td>
 											<td className="py-4 px-6">{name}</td>
-											<td className="py-4 px-6">{score.value}</td>
-											<td className="py-4 px-6">{type}</td>
+											<td className="py-4 px-6">
+												{points.earned} / {points.possible}
+											</td>
+											<td className="py-4 px-6">{category}</td>
 										</tr>
 									)
 								)}
@@ -154,32 +117,3 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 		</div>
 	);
 }
-
-const letterGradeColor = (letterGrade: string): string => {
-	switch (letterGrade) {
-		case "A":
-			return "green";
-		case "B":
-			return "blue";
-		case "C":
-			return "yellow";
-		case "D":
-			return "orange";
-		case "E":
-			return "red";
-	}
-};
-
-const letterGrade = (grade: number): string => {
-	if (grade >= 89.5) {
-		return "A";
-	} else if (grade >= 79.5) {
-		return "B";
-	} else if (grade >= 69.5) {
-		return "C";
-	} else if (grade >= 59.5) {
-		return "D";
-	} else {
-		return "E";
-	}
-};

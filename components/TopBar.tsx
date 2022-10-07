@@ -9,12 +9,12 @@ interface TopBarProps {
 
 export default function TopBar({ studentInfo, logout }: TopBarProps) {
 	return (
-		<div className="fixed top-0 w-screen mb-24">
+		<div className="fixed top-0 w-full">
 			<Navbar fluid={true} rounded={true}>
 				<Link href="/">
 					<Navbar.Brand href="#">
 						<img
-							src="assets/logo.png"
+							src="/assets/logo.png"
 							className="mr-3 h-6 sm:h-9"
 							alt="Grade Melon Logo"
 						/>
@@ -24,11 +24,11 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 					</Navbar.Brand>
 				</Link>
 				<div className="flex md:order-2">
-					<div className="pr-4">
+					<div>
 						<DarkThemeToggle />
 					</div>
 					{studentInfo && (
-						<div>
+						<div className="pl-4">
 							<Dropdown
 								arrowIcon={false}
 								inline={true}
