@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Spinner, Table, Progress } from "flowbite-react";
+import { Spinner, Table, Progress, TextInput } from "flowbite-react";
 import { useRouter } from "next/router";
-import { parseGrades, Grades as GradesType, Course } from "../../utils/grades";
+import {
+	parseGrades,
+	updateCourse,
+	Grades as GradesType,
+	Course,
+} from "../../utils/grades";
 import Head from "next/head";
 
 interface GradesProps {
@@ -42,6 +47,12 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 			}
 		}
 	}, [client]);
+
+	const update = async (e, assignmentId: number, update: string) => {
+		let newGrades = await updateCourse(course, assignmentId, update, parseInt(e.target.value));
+		await setCourse(newGrades);
+		await console.log(course);
+	};
 
 	return (
 		<div className="p-5 md:p-10">
@@ -103,7 +114,21 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 											</td>
 											<td className="py-4 px-6">{name}</td>
 											<td className="py-4 px-6">
-												{points.earned} / {points.possible}
+												<div className="flex items-center gap-2">
+													<input
+														type="number"
+														value={points.earned}
+														onChange={(e) => update(e, i, "earned")}
+														className="w-12 inline-block bg-gray-50 border border-gray-300 text-gray-900 sm:text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+													/>
+													/
+													<input
+														type="number"
+														value={points.possible}
+														onChange={(e) => update(e, i, "possible")}
+														className="w-12 inline-block bg-gray-50 border border-gray-300 text-gray-900 sm:text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+													/>
+												</div>
 											</td>
 											<td className="py-4 px-6">{category}</td>
 										</tr>
