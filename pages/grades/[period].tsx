@@ -49,9 +49,9 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 	}, [client]);
 
 	const update = async (e, assignmentId: number, update: string) => {
-		let newGrades = await updateCourse(course, assignmentId, update, parseInt(e.target.value));
-		await setCourse(newGrades);
-		await console.log(course);
+		setCourse((prev) => {
+			return updateCourse(prev, assignmentId, update, parseInt(e.target.value));
+		});
 	};
 
 	return (
