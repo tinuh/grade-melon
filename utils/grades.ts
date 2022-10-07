@@ -183,10 +183,13 @@ const updateCourse = (
 		(category) => category.name === course.assignments[assignmentId].category
 	);
 
-	course.assignments[assignmentId].grade.raw =
-		(course.assignments[assignmentId].points.earned /
-			course.assignments[assignmentId].points.possible) *
-		100;
+	course.assignments[assignmentId].grade.raw = parseFloat(
+		(
+			(course.assignments[assignmentId].points.earned /
+				course.assignments[assignmentId].points.possible) *
+			100
+		).toFixed(2)
+	);
 	course.assignments[assignmentId].grade.letter = letterGrade(
 		course.assignments[assignmentId].grade.raw
 	);
@@ -195,14 +198,12 @@ const updateCourse = (
 	);
 	course.categories[categoryId].points.earned = course.assignments
 		.filter(
-			(assignment) =>
-				assignment.category === course.assignments[assignmentId].category
+			(assignment) => assignment.category === course.categories[categoryId].name
 		)
 		.reduce((a, b) => a + b.points.earned, 0);
 	course.categories[categoryId].points.possible = course.assignments
 		.filter(
-			(assignment) =>
-				assignment.category === course.assignments[assignmentId].category
+			(assignment) => assignment.category === course.categories[categoryId].name
 		)
 		.reduce((a, b) => a + b.points.possible, 0);
 	course.categories[categoryId].grade.raw =
@@ -216,9 +217,8 @@ const updateCourse = (
 		course.categories[categoryId].grade.letter
 	);
 
-	course.grade.raw = course.categories.reduce(
-		(a, b) => a + b.grade.raw * b.weight,
-		0
+	course.grade.raw = parseFloat(
+		course.categories.reduce((a, b) => a + b.grade.raw * b.weight, 0).toFixed(2)
 	);
 	course.grade.letter = letterGrade(course.grade.raw);
 	course.grade.color = letterGradeColor(course.grade.letter);

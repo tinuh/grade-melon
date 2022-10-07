@@ -39,9 +39,9 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 		}
 	}, [client]);
 
-	const update = async (e, assignmentId: number, update: string) => {
+	const update = (val: string, assignmentId: number, update: string) => {
 		setCourse((prev) => {
-			return updateCourse(prev, assignmentId, update, parseInt(e.target.value));
+			return { ...updateCourse(prev, assignmentId, update, parseInt(val)) };
 		});
 	};
 
@@ -109,14 +109,18 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 													<input
 														type="number"
 														value={points.earned}
-														onChange={(e) => update(e, i, "earned")}
+														onChange={(e) =>
+															update(e.target.value, i, "earned")
+														}
 														className="w-12 inline-block bg-gray-50 border border-gray-300 text-gray-900 sm:text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 													/>
 													/
 													<input
 														type="number"
 														value={points.possible}
-														onChange={(e) => update(e, i, "possible")}
+														onChange={(e) =>
+															update(e.target.value, i, "possible")
+														}
 														className="w-12 inline-block bg-gray-50 border border-gray-300 text-gray-900 sm:text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 													/>
 												</div>
