@@ -128,7 +128,9 @@ const parseGrades = (grades: Gradebook): Grades => {
 					weight: parseFloat(weight.standard) / 100,
 					grade: {
 						letter: letterGrade((points.current / points.possible) * 100),
-						raw: (points.current / points.possible) * 100,
+						raw: parseFloat(
+							((points.current / points.possible) * 100).toFixed(2)
+						),
 						color: letterGradeColor(
 							letterGrade((points.current / points.possible) * 100)
 						),
@@ -211,10 +213,13 @@ const updateCourse = (
 			(assignment) => assignment.category === course.categories[categoryId].name
 		)
 		.reduce((a, b) => a + b.points.possible, 0);
-	course.categories[categoryId].grade.raw =
-		(course.categories[categoryId].points.earned /
-			course.categories[categoryId].points.possible) *
-		100;
+	course.categories[categoryId].grade.raw = parseFloat(
+		(
+			(course.categories[categoryId].points.earned /
+				course.categories[categoryId].points.possible) *
+			100
+		).toFixed(2)
+	);
 	course.categories[categoryId].grade.letter = letterGrade(
 		course.categories[categoryId].grade.raw
 	);

@@ -62,14 +62,27 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 					<p className="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white">
 						{course.teacher.name}
 					</p>
-					<div className="text-base font-medium mb-2 dark:text-white">
+					<div className="text-lg font-medium mb-2 dark:text-white">
 						{course.grade.letter} ({course.grade.raw}%)
 					</div>
-					<Progress
-						progress={course.grade.raw}
-						size="md"
-						color={course.grade.color !== "orange" ? course.grade.color : "red"}
-					/>
+					<div className="mt-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
+						<div
+							className={`bg-${course.grade.color}-400 text-xs font-medium text-left pl-2 p-1 leading-none rounded-full`}
+							style={{ width: `${course.grade.raw}%` }}
+						>
+							Total
+						</div>
+					</div>
+					{course.categories.map(({ name, grade, points }) => (
+						<div className=" mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700">
+							<div
+								className={`bg-${grade.color}-400 text-xs font-medium text-left pl-2 p-1 leading-none rounded-full`}
+								style={{ width: `${grade.raw}%` }}
+							>
+								{name} - {grade.raw}% | {points.earned}/{points.possible}
+							</div>
+						</div>
+					))}
 					<div className="m-5" />
 					<div className="overflow-x-auto shadow-md rounded-lg">
 						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
