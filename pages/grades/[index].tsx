@@ -73,8 +73,11 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 							Total
 						</div>
 					</div>
-					{course.categories.map(({ name, grade, points }) => (
-						<div className=" mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700">
+					{course.categories.map(({ name, grade, points }, i) => (
+						<div
+							key={i}
+							className="mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+						>
 							<div
 								className={`bg-${grade.color}-400 text-xs font-medium text-left pl-2 p-1 leading-none rounded-full`}
 								style={{ width: `${grade.raw}%` }}
