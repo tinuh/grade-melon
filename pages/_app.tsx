@@ -98,25 +98,27 @@ function MyApp({ Component, pageProps }) {
 			<Head>
 				<title>Grade Melon</title>
 			</Head>
-			{toasts.map(({ title, type }, i) => (
-				<div className="absolute p-5 z-10" key={i}>
-					<Toast>
-						<div
-							onClick={() =>
-								setToasts((prev) => {
-									prev.splice(i, 1);
-									return prev;
-								})
-							}
-							className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200"
-						>
-							<HiX className="h-5 w-5" />
-						</div>
-						<div className="ml-3 text-sm font-normal">{title}</div>
-						<Toast.Toggle />
-					</Toast>
-				</div>
-			))}
+			<div className="absolute p-5 z-10">
+				{toasts.map(({ title, type }, i) => (
+					<div className="mb-5" key={i}>
+						<Toast>
+							<div
+								onClick={() =>
+									setToasts((prev) => {
+										prev.splice(i, 1);
+										return prev;
+									})
+								}
+								className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200"
+							>
+								<HiX className="h-5 w-5" />
+							</div>
+							<div className="ml-3 text-sm font-normal">{title}</div>
+							<Toast.Toggle />
+						</Toast>
+					</div>
+				))}
+			</div>
 			<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16">
 				<Topbar studentInfo={studentInfo} logout={logout} />
 				<div>
@@ -128,6 +130,7 @@ function MyApp({ Component, pageProps }) {
 							setClient={setClient}
 							grades={grades}
 							setGrades={setGrades}
+							setToasts={setToasts}
 						/>
 					)}
 
@@ -142,6 +145,7 @@ function MyApp({ Component, pageProps }) {
 									setClient={setClient}
 									grades={grades}
 									setGrades={setGrades}
+									setToasts={setToasts}
 								/>
 							</div>
 							<div className="md:hidden">
@@ -152,6 +156,7 @@ function MyApp({ Component, pageProps }) {
 									setClient={setClient}
 									grades={grades}
 									setGrades={setGrades}
+									setToasts={setToasts}
 								/>
 								<div className="px-4 fixed bottom-5 w-full">
 									<MobileBar />
