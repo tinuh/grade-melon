@@ -62,12 +62,32 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 					<p className="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white">
 						{course.teacher.name}
 					</p>
+					<div className ="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white" >
+						
+						{course.categories.map(	
+							({name, weight, grade, points}, i) =>(
+							<div key = {i}>
+								
+								<div className="text-base font-medium mb-2 dark:text-white">
+									{name} - {(grade.raw).toFixed(2)}% | {points.earned}/{points.possible}
+								</div>
+								<Progress
+									progress={grade.raw}
+									size="md"
+									color={grade.color}
+								/>
+								<div className="text-base font-medium mb-3 dark:text-white">
+								</div>
+							</div>
+							)
+						)}
+					</div>
 					<div className="text-base font-medium mb-2 dark:text-white">
-						{course.grade.letter} ({course.grade.raw}%)
+						Overall:  {course.grade.letter} ({course.grade.raw}%)
 					</div>
 					<Progress
 						progress={course.grade.raw}
-						size="md"
+						size="lg"
 						color={course.grade.color}
 					/>
 					<div className="m-5" />
