@@ -58,13 +58,13 @@ function MyApp({ Component, pageProps }) {
 		return false;
 	};
 
-	const logout = () => {
-		setClient(undefined);
-		setStudentInfo(undefined);
-		setGrades(undefined);
-		localStorage.removeItem("username");
-		localStorage.removeItem("password");
-		router.push("/login");
+	const logout = async () => {
+		await setClient(undefined);
+		await router.push("/login");
+		await setStudentInfo(undefined);
+		await setGrades(undefined);
+		await localStorage.removeItem("username");
+		await localStorage.removeItem("password");
 	};
 
 	useEffect(() => {

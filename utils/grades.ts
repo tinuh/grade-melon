@@ -175,14 +175,17 @@ const updateCourse = (
 	val: number
 ): Course => {
 	if (update === "earned") {
+		if (val < 0) val = 0;
 		course.assignments[assignmentId].points.earned = val;
 	} else if (update === "possible") {
+		if (val < 0) val = 0;
 		course.assignments[assignmentId].points.possible = val;
 	}
 	let categoryId = course.categories.findIndex(
 		(category) => category.name === course.assignments[assignmentId].category
 	);
 
+	//update assignment grade
 	course.assignments[assignmentId].grade.raw = parseFloat(
 		(
 			(course.assignments[assignmentId].points.earned /
@@ -196,6 +199,8 @@ const updateCourse = (
 	course.assignments[assignmentId].grade.color = letterGradeColor(
 		course.assignments[assignmentId].grade.letter
 	);
+
+	//update category grade
 	course.categories[categoryId].points.earned = course.assignments
 		.filter(
 			(assignment) => assignment.category === course.categories[categoryId].name
@@ -217,6 +222,7 @@ const updateCourse = (
 		course.categories[categoryId].grade.letter
 	);
 
+	//update whole course grade
 	course.grade.raw = parseFloat(
 		course.categories.reduce((a, b) => a + b.grade.raw * b.weight, 0).toFixed(2)
 	);

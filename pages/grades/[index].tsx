@@ -41,7 +41,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 
 	const update = (val: string, assignmentId: number, update: string) => {
 		setCourse((prev) => {
-			return { ...updateCourse(prev, assignmentId, update, parseInt(val)) };
+			return { ...updateCourse(prev, assignmentId, update, parseFloat(val)) };
 		});
 	};
 
@@ -68,7 +68,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 					<Progress
 						progress={course.grade.raw}
 						size="md"
-						color={course.grade.color}
+						color={course.grade.color !== "orange" ? course.grade.color : "red"}
 					/>
 					<div className="m-5" />
 					<div className="overflow-x-auto shadow-md rounded-lg">
