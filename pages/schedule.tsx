@@ -39,12 +39,12 @@ export default function Schedule({ client }: ScheduleProps) {
 					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
-				<div className="h-11">
+				<div>
 					<select
 						id="periods"
 						value={term || schedule?.term.index}
 						onChange={(e) => setTerm(parseInt(e.target.value))}
-						className="h-full mb-5 block w-full p-2 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+						className="h-11 mb-5 block w-full p-2 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 					>
 						{schedule?.terms.map((term) => (
 							<option key={term.index} value={term.index}>
