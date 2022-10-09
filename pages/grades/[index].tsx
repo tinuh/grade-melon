@@ -68,7 +68,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 					<div className="mt-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
 						<div
 							className={`bg-${course.grade.color}-400 text-xs font-medium text-left pl-2 p-1 leading-none rounded-full`}
-							style={{ width: `${course.grade.raw}%` }}
+							style={{ width: `${course.grade.raw < 100 ? course.grade.raw : 100}%` }}
 						>
 							Total
 						</div>
@@ -80,7 +80,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 						>
 							<div
 								className={`bg-${grade.color}-400 text-xs font-medium text-left pl-2 p-1 leading-none rounded-full`}
-								style={{ width: `${grade.raw}%` }}
+								style={{ width: `${grade.raw < 100 ? grade.raw : 100}%` }}
 							>
 								{name} - {grade.raw}% | {points.earned}/{points.possible}
 							</div>

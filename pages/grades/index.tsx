@@ -43,6 +43,7 @@ export default function Grades({
 			if (!grades) {
 				client.gradebook().then((res) => {
 					setGrades(parseGrades(res));
+					setPeriod(parseGrades(res).period.index);
 					setLoading(false);
 				});
 			} else {
