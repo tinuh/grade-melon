@@ -80,7 +80,7 @@ export default function Attendance({ client }: AttendanceProps) {
 		},
 	};
 
-	const colors = ["#50C878", "#50C878", "#FF7F7F", "#FF7F7F", "#FF7F7F"];
+	const colors = ["#50C878", "#FFEC1F", "#FF7F7F", "#637BFF", "#FA8A20"];
 	const chartData = {
 		labels: data?.periodInfos.map((periodInfo) => periodInfo.period),
 		datasets:
