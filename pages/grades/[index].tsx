@@ -56,18 +56,18 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 				</div>
 			) : (
 				<div>
-					<h1 className="flex flex-wrap text-xl md:text-3xl font-bold text-gray-900 dark:text-white md:mb-2.5">
+					<h1 className="flex flex-wrap text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
 						{course.name}
 					</h1>
 					<p className="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white">
 						{course.teacher.name}
 					</p>
-					<div className="text-xl md:text-3xl mb-2.5 dark:text-white">
+					<div className="text-xl md:text-xl mb-2.5 dark:text-white">
 						{course.grade.letter} ({course.grade.raw}%)
 					</div>
 					<div className="mt-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
 						<div
-							className={`bg-${course.grade.color}-400 text-md font-medium text-left pl-3 p-1 leading-none rounded-full`}
+							className={`bg-${course.grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full`}
 							style={{ width: `${course.grade.raw < 100 ? course.grade.raw : 100}%` }}
 						>
 							Total
@@ -79,7 +79,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 							className="mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700"
 						>
 							<div
-								className={`bg-${grade.color}-400 text-md font-medium text-left pl-2 p-1 leading-none rounded-full`}
+								className={`bg-${grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full`}
 								style={{ width: `${grade.raw < 100 ? grade.raw : 100}%` }}
 							>
 								{name} - {grade.raw}% | {points.earned}/{points.possible}
