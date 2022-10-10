@@ -4,32 +4,46 @@ import { useRouter } from "next/router";
 import {
 	parseGrades,
 	updateCourse,
+	addAssignment,
 	Grades as GradesType,
 	Course,
 } from "../../utils/grades";
+import GradeField from "../../components/GradeField";
 import Head from "next/head";
+import { TbRefresh } from "react-icons/tb";
+import { HiOutlineDocumentAdd } from "react-icons/hi";
 
 interface GradesProps {
 	client: any;
 	grades: GradesType;
+	setToasts: (toasts: any) => void;
 	setGrades: (grades: GradesType) => void;
 }
 
-export default function Grades({ client, grades, setGrades }: GradesProps) {
+export default function Grades({
+	client,
+	grades,
+	setGrades,
+	setToasts,
+}: GradesProps) {
 	const router = useRouter();
 	const { index }: { index?: string } = router.query;
 	const [loading, setLoading] = useState(true);
 	const [course, setCourse] = useState<Course>();
+	const [period, setPeriod] = useState<number>();
+
 	useEffect(() => {
 		try {
 			if (!grades) {
 				client.gradebook().then((res) => {
 					setGrades(parseGrades(res));
+					setPeriod(parseGrades(res).period.index);
 					setCourse(parseGrades(res).courses[parseInt(index)]);
 					setLoading(false);
 				});
 			} else {
 				setCourse(grades.courses[parseInt(index)]);
+				setPeriod(grades.period.index);
 				setLoading(false);
 			}
 		} catch {
@@ -39,10 +53,41 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 		}
 	}, [client]);
 
-	const update = (val: string, assignmentId: number, update: string) => {
+	const updateGrade = (val: string, assignmentId: number, update: string) => {
 		setCourse((prev) => {
 			return { ...updateCourse(prev, assignmentId, update, parseFloat(val)) };
 		});
+	};
+
+	const add = () => {
+		setCourse({ ...addAssignment(course) });
+	};
+
+	const update = (p: number) => {
+		console.log(p);
+		setLoading(true);
+		client
+			.gradebook(p)
+			.then((res) => {
+				console.log(res);
+				setGrades(parseGrades(res));
+				setCourse(parseGrades(res).courses[parseInt(index)]);
+				setPeriod(p);
+				setLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				setToasts((toasts) => {
+					return [
+						...toasts,
+						{
+							title: err.message,
+							type: "error",
+						},
+					];
+				});
+				setLoading(false);
+			});
 	};
 
 	return (
@@ -68,7 +113,9 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 					<div className="mt-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
 						<div
 							className={`bg-${course.grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full`}
-							style={{ width: `${course.grade.raw < 100 ? course.grade.raw : 100}%` }}
+							style={{
+								width: `${course.grade.raw < 100 ? course.grade.raw : 100}%`,
+							}}
 						>
 							Total
 						</div>
@@ -76,7 +123,7 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 					{course.categories.map(({ name, grade, points }, i) => (
 						<div
 							key={i}
-							className="mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+							className="mt-2 md:mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700"
 						>
 							<div
 								className={`bg-${grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full`}
@@ -86,6 +133,34 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 							</div>
 						</div>
 					))}
+					<div className="flex gap-2 mt-5 w-full">
+						<button
+							type="button"
+							onClick={() => update(period)}
+							className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+						>
+							<TbRefresh size={"1.3rem"} />
+						</button>
+						<select
+							id="periods"
+							value={period}
+							onChange={(e) => update(parseInt(e.target.value))}
+							className="block w-full p-2 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+						>
+							{grades.periods.map((period) => (
+								<option value={period.index} key={period.index}>
+									{period.name}
+								</option>
+							))}
+						</select>
+						<button
+							type="button"
+							onClick={add}
+							className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+						>
+							<HiOutlineDocumentAdd size={"1.3rem"} />
+						</button>
+					</div>
 					<div className="m-5" />
 					<div className="overflow-x-auto shadow-md rounded-lg">
 						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -122,22 +197,18 @@ export default function Grades({ client, grades, setGrades }: GradesProps) {
 											<td className="py-4 px-6">{name}</td>
 											<td className="py-4 px-6">
 												<div className="flex items-center gap-2">
-													<input
-														type="number"
-														value={points.earned}
+													<GradeField
 														onChange={(e) =>
-															update(e.target.value, i, "earned")
+															updateGrade(e.target.value, i, "earned")
 														}
-														className="w-12 inline-block bg-gray-50 border border-gray-300 text-gray-900 sm:text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+														value={points.earned}
 													/>
 													/
-													<input
-														type="number"
-														value={points.possible}
+													<GradeField
 														onChange={(e) =>
-															update(e.target.value, i, "possible")
+															updateGrade(e.target.value, i, "possible")
 														}
-														className="w-12 inline-block bg-gray-50 border border-gray-300 text-gray-900 sm:text-xs rounded-lg focus:ring-primary-500 focus:border-primary-500 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+														value={points.possible}
 													/>
 												</div>
 											</td>

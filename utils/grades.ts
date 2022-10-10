@@ -140,7 +140,7 @@ const parseGrades = (grades: Gradebook): Grades => {
 						possible: points.possible,
 					},
 				}))
-				.slice(0, -1),
+				.filter((category) => !category.name.toLowerCase().includes("total")),
 			assignments: marks[0].assignments.map(({ name, date, points, type }) => ({
 				name: name,
 				grade: {
@@ -168,6 +168,28 @@ const parseGrades = (grades: Gradebook): Grades => {
 			index: index,
 		})),
 	};
+};
+
+const addAssignment = (course: Course): Course => {
+	// TODO
+	course.assignments.unshift({
+		name: "New Assignment",
+		grade: {
+			letter: "N/A",
+			raw: NaN,
+			color: null,
+		},
+		points: {
+			earned: 0,
+			possible: 0,
+		},
+		date: {
+			due: new Date(),
+			assigned: new Date(),
+		},
+		category: course.categories[0].name,
+	});
+	return course;
 };
 
 const updateCourse = (
@@ -236,5 +258,5 @@ const updateCourse = (
 	return course;
 };
 
-export { parseGrades, updateCourse };
+export { parseGrades, updateCourse, addAssignment };
 export type { Grades, Assignment, Course };
