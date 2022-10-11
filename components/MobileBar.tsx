@@ -21,7 +21,7 @@ export default function MobileBar() {
 					<Link href="/schedule">
 						<a
 							href="#"
-							className={`flex justify-center p-4 w-full text-gray-900 bg-${
+							className={`flex justify-center p-4 w-full bg-${
 								router.pathname === "/schedule" ? "gray-100" : "white"
 							} rounded-l-lg active focus:outline-none dark:bg-gray-${
 								router.pathname === "/schedule" ? 700 : 800

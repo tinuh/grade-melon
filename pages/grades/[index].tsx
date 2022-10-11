@@ -204,7 +204,9 @@ export default function Grades({
 											</td>
 											<td className="py-4 px-6">{name}</td>
 											<td className="py-4 px-6">
-												<div className="flex items-center gap-2">
+												<div
+													className={`flex items-center gap-2 text-${grade.color}-400`}
+												>
 													<GradeField
 														onChange={(e) =>
 															updateGrade(e.target.value, i, "earned")
