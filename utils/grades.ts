@@ -85,8 +85,11 @@ const letterGrade = (grade: number): string => {
 		return "C";
 	} else if (grade >= 59.5) {
 		return "D";
-	} else {
+	} else if (!isNaN(grade)) {
 		return "E";
+	}
+	else {
+		return "N/A";
 	}
 };
 
@@ -173,12 +176,12 @@ const parseGrades = (grades: Gradebook): Grades => {
 const calculateCategory = (course: Course, categoryId: number): Course => {
 	course.categories[categoryId].points.earned = course.assignments
 		.filter(
-			(assignment) => assignment.category === course.categories[categoryId].name
+			(assignment) => assignment.category === course.categories[categoryId].name && !isNaN(assignment.points.possible) && !isNaN(assignment.points.earned)
 		)
 		.reduce((a, b) => a + b.points.earned, 0);
 	course.categories[categoryId].points.possible = course.assignments
 		.filter(
-			(assignment) => assignment.category === course.categories[categoryId].name
+			(assignment) => assignment.category === course.categories[categoryId].name && !isNaN(assignment.points.possible) && !isNaN(assignment.points.earned)
 		)
 		.reduce((a, b) => a + b.points.possible, 0);
 	course.categories[categoryId].grade.raw = parseFloat(

@@ -21,7 +21,7 @@ export default function GradeField({ value, onChange }: GradeFieldProps) {
 			className="cursor-pointer"
 		>
 			{!focus ? (
-				value
+				!isNaN(value) ? value : "NG"
 			) : (
 				<input
 					ref={ref}
