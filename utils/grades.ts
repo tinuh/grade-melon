@@ -230,7 +230,7 @@ const addAssignment = (course: Course): Course => {
 const updateCategory = (
 	course: Course,
 	assignmentId: number,
-	val: number
+	val: string
 ): Course => {
 	course.assignments[assignmentId].category = course.categories[val].name;
 	course.categories.forEach((category, i) => {
