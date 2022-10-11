@@ -9,7 +9,11 @@ export default function GradeField({ value, onChange }: GradeFieldProps) {
 	const [focus, setFocus] = useState(false);
 
 	return (
-		<div onClick={() => setFocus(true)} onBlur={() => setFocus(false)}>
+		<div
+			onClick={() => setFocus(true)}
+			onBlur={() => setFocus(false)}
+			className="cursor-pointer"
+		>
 			{!focus ? (
 				value
 			) : (

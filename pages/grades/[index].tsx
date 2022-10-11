@@ -5,10 +5,12 @@ import {
 	parseGrades,
 	updateCourse,
 	addAssignment,
+	updateCategory,
 	Grades as GradesType,
 	Course,
 } from "../../utils/grades";
 import GradeField from "../../components/GradeField";
+import CategoryField from "../../components/CategoryField";
 import Head from "next/head";
 import { TbRefresh } from "react-icons/tb";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
@@ -88,6 +90,12 @@ export default function Grades({
 				});
 				setLoading(false);
 			});
+	};
+
+	const updateCat = (val: string, assignmentId: number) => {
+		setCourse((prev) => {
+			return { ...updateCategory(prev, assignmentId, val) };
+		});
 	};
 
 	return (
@@ -212,7 +220,21 @@ export default function Grades({
 													/>
 												</div>
 											</td>
-											<td className="py-4 px-6">{category}</td>
+											<td className="py-4 px-6">
+												<CategoryField
+													value={course.categories.findIndex(
+														(c) => category === c.name
+													)}
+													onChange={(e) => updateCat(e.target.value, i)}
+													name={category}
+												>
+													{course.categories.map((category, x) => (
+														<option value={x} key={x}>
+															{category.name}
+														</option>
+													))}
+												</CategoryField>
+											</td>
 										</tr>
 									)
 								)}

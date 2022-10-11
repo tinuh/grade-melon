@@ -170,8 +170,43 @@ const parseGrades = (grades: Gradebook): Grades => {
 	};
 };
 
+const calculateCategory = (course: Course, categoryId: number): Course => {
+	course.categories[categoryId].points.earned = course.assignments
+		.filter(
+			(assignment) => assignment.category === course.categories[categoryId].name
+		)
+		.reduce((a, b) => a + b.points.earned, 0);
+	course.categories[categoryId].points.possible = course.assignments
+		.filter(
+			(assignment) => assignment.category === course.categories[categoryId].name
+		)
+		.reduce((a, b) => a + b.points.possible, 0);
+	course.categories[categoryId].grade.raw = parseFloat(
+		(
+			(course.categories[categoryId].points.earned /
+				course.categories[categoryId].points.possible) *
+			100
+		).toFixed(2)
+	);
+	course.categories[categoryId].grade.letter = letterGrade(
+		course.categories[categoryId].grade.raw
+	);
+	course.categories[categoryId].grade.color = letterGradeColor(
+		course.categories[categoryId].grade.letter
+	);
+	return course;
+};
+
+const calculateGrade = (course: Course): Course => {
+	course.grade.raw = parseFloat(
+		course.categories.reduce((a, b) => a + b.grade.raw * b.weight, 0).toFixed(2)
+	);
+	course.grade.letter = letterGrade(course.grade.raw);
+	course.grade.color = letterGradeColor(course.grade.letter);
+	return course;
+};
+
 const addAssignment = (course: Course): Course => {
-	// TODO
 	course.assignments.unshift({
 		name: "New Assignment",
 		grade: {
@@ -189,6 +224,19 @@ const addAssignment = (course: Course): Course => {
 		},
 		category: course.categories[0].name,
 	});
+	return course;
+};
+
+const updateCategory = (
+	course: Course,
+	assignmentId: number,
+	val: number
+): Course => {
+	course.assignments[assignmentId].category = course.categories[val].name;
+	course.categories.forEach((category, i) => {
+		course = calculateCategory(course, i);
+	});
+	course = calculateGrade(course);
 	return course;
 };
 
@@ -225,38 +273,12 @@ const updateCourse = (
 	);
 
 	//update category grade
-	course.categories[categoryId].points.earned = course.assignments
-		.filter(
-			(assignment) => assignment.category === course.categories[categoryId].name
-		)
-		.reduce((a, b) => a + b.points.earned, 0);
-	course.categories[categoryId].points.possible = course.assignments
-		.filter(
-			(assignment) => assignment.category === course.categories[categoryId].name
-		)
-		.reduce((a, b) => a + b.points.possible, 0);
-	course.categories[categoryId].grade.raw = parseFloat(
-		(
-			(course.categories[categoryId].points.earned /
-				course.categories[categoryId].points.possible) *
-			100
-		).toFixed(2)
-	);
-	course.categories[categoryId].grade.letter = letterGrade(
-		course.categories[categoryId].grade.raw
-	);
-	course.categories[categoryId].grade.color = letterGradeColor(
-		course.categories[categoryId].grade.letter
-	);
+	course = calculateCategory(course, categoryId);
 
 	//update whole course grade
-	course.grade.raw = parseFloat(
-		course.categories.reduce((a, b) => a + b.grade.raw * b.weight, 0).toFixed(2)
-	);
-	course.grade.letter = letterGrade(course.grade.raw);
-	course.grade.color = letterGradeColor(course.grade.letter);
+	course = calculateGrade(course);
 	return course;
 };
 
-export { parseGrades, updateCourse, addAssignment };
+export { parseGrades, updateCourse, addAssignment, updateCategory };
 export type { Grades, Assignment, Course };
