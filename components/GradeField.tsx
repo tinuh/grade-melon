@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 interface GradeFieldProps {
 	value: number;
@@ -7,10 +7,16 @@ interface GradeFieldProps {
 
 export default function GradeField({ value, onChange }: GradeFieldProps) {
 	const [focus, setFocus] = useState(false);
+	const ref = useRef(null);
+
+	const onFocus = async () => {
+		await setFocus(true);
+		await ref.current.focus();
+	};
 
 	return (
 		<div
-			onClick={() => setFocus(true)}
+			onClick={onFocus}
 			onBlur={() => setFocus(false)}
 			className="cursor-pointer"
 		>
@@ -18,6 +24,7 @@ export default function GradeField({ value, onChange }: GradeFieldProps) {
 				value
 			) : (
 				<input
+					ref={ref}
 					type="number"
 					value={value}
 					onChange={onChange}
