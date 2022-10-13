@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 interface HomeProps {
@@ -50,9 +50,14 @@ export default function Home({ client }: HomeProps) {
 						<Link href="/login">
 							<button
 								type="button"
-								className="focus:outline-none text-white bg-gradient-to-r from-primary-600 to-green-500 hover:bg-primary-800 hover:scale-105 transform transition duration-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+								className="overflow-hidden group relative inline-flex items-center focus:outline-none text-white bg-gradient-to-r from-primary-600 to-green-500 hover:bg-primary-800 hover:scale-105 transform transition duration-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
 							>
-								Get Started
+								<span className="transition-all group-hover:mr-6">
+									Get Started
+								</span>
+								<span className="absolute right-0 translate-x-full transition-transform group-hover:-translate-x-4">
+									<FaArrowRight size={"1rem"} />
+								</span>
 							</button>
 						</Link>
 					</motion.div>
