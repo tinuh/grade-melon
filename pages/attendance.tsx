@@ -16,6 +16,7 @@ import {
 	Attendance as AttendanceType,
 	parseBarData,
 	chartOptions,
+	parsePeriods,
 } from "../utils/attendance";
 
 ChartJS.register(
@@ -62,8 +63,51 @@ export default function Attendance({ client }: AttendanceProps) {
 					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
-				<div className="w-full md:w-1/2">
+				<div className="w-full md:w-2/3 lg:w-1/2">
 					<Bar options={chartOptions} data={barData} />
+					<div className="overflow-x-auto shadow-md rounded-lg mt-5">
+						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+							<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+								<tr>
+									<th scope="col" className="py-3 pl-6">
+										Date
+									</th>
+									{parsePeriods(data?.absences).map((period, i) => (
+										<th key={i} scope="col" className="py-3 px-6">
+											{period}
+										</th>
+									))}
+								</tr>
+							</thead>
+							{data?.absences.map((absence, i) => (
+								<tr
+									key={i}
+									className={`bg-${
+										i % 2 == 0 ? "white" : "gray-50"
+									} border-b dark:bg-gray-${
+										i % 2 == 0 ? 900 : 800
+									} dark:border-gray-700`}
+								>
+									<th
+										scope="row"
+										className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										{absence.date.toLocaleDateString()}
+									</th>
+									{parsePeriods(data?.absences).map((period, i) => (
+										<td key={i} scope="col" className="py-3 px-6">
+											{
+												absence.periods.filter(
+													(p) => p.period === parseInt(period)
+												)[0]?.name
+											}
+										</td>
+									))}
+								</tr>
+							))}
+							<tbody></tbody>
+						</table>
+					</div>
 				</div>
 			)}
 		</div>

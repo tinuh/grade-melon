@@ -1,4 +1,5 @@
 interface Absense {
+	date: Date;
 	periods: {
 		name: string;
 		period: number;
@@ -23,9 +24,16 @@ const chartOptions = {
 		},
 	},
 	plugins: {
-		title: {
-			display: true,
-			text: "Attendance",
+		// title: {
+		// 	display: true,
+		// 	text: "Attendance",
+		// },
+		legend: {
+			labels: {
+				font: {
+					family: "Manrope",
+				},
+			},
 		},
 	},
 	responsive: true,
@@ -42,9 +50,10 @@ const chartOptions = {
 const getColor = (label: string) => {
 	if (label.includes("Absent")) return "#FF7F7F";
 	if (label.includes("Excused")) return "#FFEC1F";
+	if (label.includes("Illness")) return "#ADD8E6";
 	if (label.includes("Activities")) return "#50C878";
 	if (label.includes("Tardy")) return "#FA8A20";
-	return Math.floor(Math.random() * 16777215).toString(16);
+	return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 };
 
 const parsePeriods = (absences: Absense[]): string[] => {
@@ -97,8 +106,6 @@ const parseBarData = (
 			}
 		});
 	});
-	console.log(datasets);
-	console.log(labels);
 
 	return {
 		labels,
@@ -106,5 +113,5 @@ const parseBarData = (
 	};
 };
 
-export { parseBarData, chartOptions };
+export { parsePeriods, parseBarData, chartOptions };
 export type { Attendance, Absense };
