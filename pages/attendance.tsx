@@ -12,6 +12,7 @@ import {
 	Tooltip,
 	Legend,
 } from "chart.js";
+import { Course } from "../utils/grades";
 
 ChartJS.register(
 	CategoryScale,
@@ -28,14 +29,18 @@ interface AttendanceProps {
 
 interface Attendance {
 	type: string;
-	periodInfos: [
-		{
+	periodInfos: {
+		period: number;
+		total: {
+			[key: string]: number;
+		};
+	}[];
+	absences: {
+		periods: {
+			name: string;
 			period: number;
-			total: {
-				[key: string]: number;
-			};
-		}
-	];
+		}[];
+	}[];
 }
 
 export default function Attendance({ client }: AttendanceProps) {
@@ -95,8 +100,55 @@ export default function Attendance({ client }: AttendanceProps) {
 			}),
 	};
 
+	const parsePeriods = (absences: Attendance["absences"]): number[] => {
+		if (!absences) return [];
+		let periodLabels: number[] = [];
+
+		absences.forEach(({ periods }, i) => {
+			periods.forEach((period) => {
+				if (!periodLabels.includes(period.period) && period.name) {
+					periodLabels.push(period.period);
+				}
+			});
+		});
+
+		return periodLabels.sort();
+	};
+
+	const parseDataSets = (absences: Attendance["absences"]) => {
+		if (!absences) return [];
+
+		let dataSets: any[] = [];
+		absences.forEach(({ periods }, i) => {
+			periods.forEach((period) => {
+				if (period.name) return;
+				let index = dataSets.findIndex(
+					(dataSet) => dataSet.label === period.name
+				);
+				if (index === -1) {
+					dataSets.push({
+						label: period.name,
+						borderWidth: 1,
+						color: colors[i],
+						data: [1],
+					});
+				} else {
+					dataSets[index].data[0]++;
+				}
+			});
+		});
+		console.log(dataSets);
+
+		return dataSets;
+	};
+
+	const barData = {
+		labels: parsePeriods(data?.absences),
+		datasets: parseDataSets(data?.absences),
+	};
+
 	return (
-		<div className="p-10">
+		<div className="p-10 w-full">
 			<Head>
 				<title>Attendance - Grade Melon</title>
 			</Head>
@@ -105,8 +157,8 @@ export default function Attendance({ client }: AttendanceProps) {
 					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
-				<div className="w-full">
-					<Bar options={options} data={chartData} />
+				<div className="w-full md:w-2/3">
+					<Bar options={options} data={barData} />
 				</div>
 			)}
 		</div>

@@ -38,9 +38,10 @@ export default function Grades({
 		try {
 			if (!grades) {
 				client.gradebook().then((res) => {
-					setGrades(parseGrades(res));
-					setPeriod(parseGrades(res).period.index);
-					setCourse(parseGrades(res).courses[parseInt(index)]);
+					let parsedGrades = parseGrades(res);
+					setGrades(parsedGrades);
+					setPeriod(parsedGrades.period.index);
+					setCourse(parsedGrades.courses[parseInt(index)]);
 					setLoading(false);
 				});
 			} else {

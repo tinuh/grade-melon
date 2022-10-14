@@ -70,7 +70,7 @@ export default function Home({ client }: HomeProps) {
 						Tired of using StudentVue? Grade Melon is an all new third party app
 						to help you stay in control of your grades. It allows any student
 						using Synergy StudentVue to login to check their schedule and
-						claculate their grades.
+						calculate their grades.
 					</motion.p>
 				</div>
 				<div className="hidden md:flex gap-5">
