@@ -100,14 +100,14 @@ export default function Attendance({ client }: AttendanceProps) {
 			}),
 	};
 
-	const parsePeriods = (absences: Attendance["absences"]): number[] => {
+	const parsePeriods = (absences: Attendance["absences"]): string[] => {
 		if (!absences) return [];
-		let periodLabels: number[] = [];
+		let periodLabels: string[] = [];
 
 		absences.forEach(({ periods }, i) => {
 			periods.forEach((period) => {
-				if (!periodLabels.includes(period.period) && period.name) {
-					periodLabels.push(period.period);
+				if (!periodLabels.includes(String(period.period)) && period.name) {
+					periodLabels.push(String(period.period));
 				}
 			});
 		});
@@ -115,37 +115,51 @@ export default function Attendance({ client }: AttendanceProps) {
 		return periodLabels.sort();
 	};
 
-	const parseDataSets = (absences: Attendance["absences"]) => {
-		if (!absences) return [];
+	const parseBarData = (
+		absences: Attendance["absences"]
+	): {
+		labels: string[];
+		datasets: any[];
+	} => {
+		if (!absences) return { labels: [], datasets: [] };
+		let labels = parsePeriods(absences);
 
-		let dataSets: any[] = [];
+		let datasets: any[] = [];
 		absences.forEach(({ periods }, i) => {
 			periods.forEach((period) => {
-				if (period.name) return;
-				let index = dataSets.findIndex(
+				if (!period.name) return;
+				let index = datasets.findIndex(
 					(dataSet) => dataSet.label === period.name
 				);
 				if (index === -1) {
-					dataSets.push({
+					let data = {};
+					let set = {
 						label: period.name,
 						borderWidth: 1,
-						color: colors[i],
-						data: [1],
+						backgroundColor: colors[datasets.length],
+						data: {},
+					};
+					labels.forEach((label) => {
+						if (label === String(period.period)) data[label] = 1;
+						else data[label] = 0;
 					});
+					set.data = data;
+					datasets.push(set);
 				} else {
-					dataSets[index].data[0]++;
+					datasets[index].data[period.period]++;
 				}
 			});
 		});
-		console.log(dataSets);
+		console.log(datasets);
+		console.log(labels);
 
-		return dataSets;
+		return {
+			labels,
+			datasets,
+		};
 	};
 
-	const barData = {
-		labels: parsePeriods(data?.absences),
-		datasets: parseDataSets(data?.absences),
-	};
+	const barData = parseBarData(data?.absences);
 
 	return (
 		<div className="p-10 w-full">
