@@ -63,7 +63,7 @@ export default function Attendance({ client }: AttendanceProps) {
 					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
-				<div className="w-full md:w-2/3 lg:w-1/2">
+				<div className="w-full md:w-2/3 xl:w-1/2">
 					<Bar options={chartOptions} data={barData} />
 					<div className="overflow-x-auto shadow-md rounded-lg mt-5">
 						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
