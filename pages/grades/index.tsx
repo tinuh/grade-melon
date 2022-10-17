@@ -142,7 +142,7 @@ export default function Grades({
 													{grade.letter} ({grade.raw}%)
 												</span>
 												<Link href={`/grades/${i}`}>
-													<button className="rounded-lg bg-primary-700 px-5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+													<button className="rounded-lg bg-primary-500 px-5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
 														View
 													</button>
 												</Link>
