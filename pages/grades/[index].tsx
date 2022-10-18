@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spinner, Table, Progress, TextInput } from "flowbite-react";
+import { Spinner, Modal } from "flowbite-react";
 import { useRouter } from "next/router";
 import {
 	parseGrades,
@@ -35,6 +35,8 @@ export default function Grades({
 	const [loading, setLoading] = useState(true);
 	const [course, setCourse] = useState<Course>();
 	const [period, setPeriod] = useState<number>();
+	const [showModal, setShowModal] = useState(false);
+	const [modalDetails, setModalDetails] = useState(0);
 
 	useEffect(() => {
 		try {
@@ -78,6 +80,11 @@ export default function Grades({
 		});
 	};
 
+	const OpenModal = (assignmnetId: number) => {
+		setModalDetails(assignmnetId);
+		setShowModal(true);
+	};
+
 	const update = (p: number) => {
 		console.log(p);
 		setLoading(true);
@@ -110,6 +117,47 @@ export default function Grades({
 			<Head>
 				<title>{course ? `${course.name} - Grade Melon` : "Grade Melon"}</title>
 			</Head>
+			<Modal show={showModal} onClose={() => setShowModal(false)}>
+				<Modal.Header>{course?.assignments[modalDetails]?.name}</Modal.Header>
+				<Modal.Body>
+					<div>
+						<p className="font-bold text-black dark:text-white">Grade</p>
+						<p
+							className={`text-base leading-relaxed text-${course?.assignments[modalDetails]?.grade.color}-400`}
+						>
+							{course?.assignments[modalDetails]?.grade.letter} (
+							{course?.assignments[modalDetails]?.grade.raw}%)
+						</p>
+						<p className="font-bold text-black dark:text-white">Points</p>
+						<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+							{course?.assignments[modalDetails]?.points.earned}/
+							{course?.assignments[modalDetails]?.points.possible}
+						</p>
+						<p className="font-bold text-black dark:text-white">Date Due</p>
+						<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+							{course?.assignments[modalDetails]?.date.due.toLocaleDateString()}
+						</p>
+						<p className="font-bold text-black dark:text-white">Category</p>
+						<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+							{course?.assignments[modalDetails]?.category}
+						</p>
+					</div>
+				</Modal.Body>
+				<Modal.Footer>
+					<button
+						onClick={() => {
+							del(modalDetails);
+							setShowModal(false);
+						}}
+						className="rounded-lg bg-primary-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+					>
+						<div className="flex gap-1 items-center">
+							<HiOutlineTrash size={"1.2rem"} />
+							Delete
+						</div>
+					</button>
+				</Modal.Footer>
+			</Modal>
 			{loading ? (
 				<div className="flex justify-center">
 					<Spinner size="xl" color="pink" />
@@ -210,8 +258,8 @@ export default function Grades({
 												{date.due.toLocaleDateString()}
 											</td>
 											<td
-												className="py-4 px-6 hover:line-through hover:text-red-500 cursor-pointer"
-												onClick={() => del(i)}
+												className="py-4 px-6 hover:text-primary-500 cursor-pointer"
+												onClick={() => OpenModal(i)}
 											>
 												{name}
 											</td>

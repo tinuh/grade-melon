@@ -72,7 +72,7 @@ const letterGradeColor = (letterGrade: string) => {
 		case "E":
 			return "red";
 		default:
-			return "white";
+			return "gray";
 	}
 };
 
@@ -147,7 +147,7 @@ const parseGrades = (grades: Gradebook): Grades => {
 				name: name,
 				grade: {
 					letter: letterGrade(parsePoints(points).grade),
-					raw: parsePoints(points).grade,
+					raw: parseFloat(parsePoints(points).grade.toFixed(2)),
 					color: letterGradeColor(letterGrade(parsePoints(points).grade)),
 				},
 				points: {
@@ -220,7 +220,7 @@ const addAssignment = (course: Course): Course => {
 		grade: {
 			letter: "N/A",
 			raw: NaN,
-			color: null,
+			color: "gray",
 		},
 		points: {
 			earned: 0,
