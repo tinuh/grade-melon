@@ -54,7 +54,7 @@ export default function Attendance({ client }: AttendanceProps) {
 	const barData = parseBarData(data?.absences);
 
 	return (
-		<div className="w-full">
+		<div className="w-full p-10">
 			<Head>
 				<title>Attendance - Grade Melon</title>
 			</Head>
@@ -63,7 +63,7 @@ export default function Attendance({ client }: AttendanceProps) {
 					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
-				<div className="w-full p-10">
+				<div className="w-full">
 					<div className="md:w-2/3 xl:w-1/2">
 						<Bar options={chartOptions} data={barData} />
 					</div>
