@@ -9,13 +9,14 @@
 ::-webkit-scrollbar
 {
   width: 8px;
+  height: 8px;
   background-color: #111827;
 }
 
 ::-webkit-scrollbar-thumb
 {
   border-radius: 4px;
-  background-color: #f43f5e;
+  background-color: #574d4d;
 }
 
 /* custom highlight */

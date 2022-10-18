@@ -67,9 +67,17 @@ export default function Grades({
 	const add = () => {
 		setCourse({ ...addAssignment(course) });
 	};
-	const del = () => {
-		setCourse({ ...delAssignment(course) });
+
+	const del = (id: number) => {
+		setCourse({ ...delAssignment(course, id) });
 	};
+
+	const updateCat = (val: string, assignmentId: number) => {
+		setCourse((prev) => {
+			return { ...updateCategory(prev, assignmentId, val) };
+		});
+	};
+
 	const update = (p: number) => {
 		console.log(p);
 		setLoading(true);
@@ -95,12 +103,6 @@ export default function Grades({
 				});
 				setLoading(false);
 			});
-	};
-
-	const updateCat = (val: string, assignmentId: number) => {
-		setCourse((prev) => {
-			return { ...updateCategory(prev, assignmentId, val) };
-		});
 	};
 
 	return (
@@ -173,13 +175,6 @@ export default function Grades({
 						>
 							<HiOutlineDocumentAdd size={"1.3rem"} />
 						</button>
-						<button
-							type="button"
-							onClick={del}
-							className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
-						>
-							<HiOutlineTrash size={"1.3rem"} />
-						</button>
 					</div>
 					<div className="m-5" />
 					<div className="overflow-x-auto shadow-md rounded-lg">
@@ -214,7 +209,12 @@ export default function Grades({
 											<td className="py-4 pl-6">
 												{date.due.toLocaleDateString()}
 											</td>
-											<td className="py-4 px-6">{name}</td>
+											<td
+												className="py-4 px-6 hover:line-through hover:text-red-500 cursor-pointer"
+												onClick={() => del(i)}
+											>
+												{name}
+											</td>
 											<td className="py-4 px-6">
 												<div
 													className={`flex items-center gap-2 text-${grade.color}-400`}

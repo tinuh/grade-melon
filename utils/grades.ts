@@ -87,8 +87,7 @@ const letterGrade = (grade: number): string => {
 		return "D";
 	} else if (!isNaN(grade)) {
 		return "E";
-	}
-	else {
+	} else {
 		return "N/A";
 	}
 };
@@ -176,12 +175,18 @@ const parseGrades = (grades: Gradebook): Grades => {
 const calculateCategory = (course: Course, categoryId: number): Course => {
 	course.categories[categoryId].points.earned = course.assignments
 		.filter(
-			(assignment) => assignment.category === course.categories[categoryId].name && !isNaN(assignment.points.possible) && !isNaN(assignment.points.earned)
+			(assignment) =>
+				assignment.category === course.categories[categoryId].name &&
+				!isNaN(assignment.points.possible) &&
+				!isNaN(assignment.points.earned)
 		)
 		.reduce((a, b) => a + b.points.earned, 0);
 	course.categories[categoryId].points.possible = course.assignments
 		.filter(
-			(assignment) => assignment.category === course.categories[categoryId].name && !isNaN(assignment.points.possible) && !isNaN(assignment.points.earned)
+			(assignment) =>
+				assignment.category === course.categories[categoryId].name &&
+				!isNaN(assignment.points.possible) &&
+				!isNaN(assignment.points.earned)
 		)
 		.reduce((a, b) => a + b.points.possible, 0);
 	course.categories[categoryId].grade.raw = parseFloat(
@@ -230,8 +235,12 @@ const addAssignment = (course: Course): Course => {
 	return course;
 };
 
-const delAssignment = (course: Course): Course => {
-	course.assignments.shift();
+const delAssignment = (course: Course, assignmentId: number): Course => {
+	course.assignments.splice(assignmentId, 1);
+	course.categories.forEach((category, i) => {
+		course = calculateCategory(course, i);
+	});
+	course = calculateGrade(course);
 	return course;
 };
 
@@ -288,5 +297,11 @@ const updateCourse = (
 	return course;
 };
 
-export { parseGrades, updateCourse, addAssignment, delAssignment, updateCategory };
+export {
+	parseGrades,
+	updateCourse,
+	addAssignment,
+	delAssignment,
+	updateCategory,
+};
 export type { Grades, Assignment, Course };
