@@ -230,6 +230,11 @@ const addAssignment = (course: Course): Course => {
 	return course;
 };
 
+const delAssignment = (course: Course): Course => {
+	course.assignments.shift();
+	return course;
+};
+
 const updateCategory = (
 	course: Course,
 	assignmentId: number,
@@ -283,5 +288,5 @@ const updateCourse = (
 	return course;
 };
 
-export { parseGrades, updateCourse, addAssignment, updateCategory };
+export { parseGrades, updateCourse, addAssignment, delAssignment, updateCategory };
 export type { Grades, Assignment, Course };

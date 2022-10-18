@@ -5,6 +5,7 @@ import {
 	parseGrades,
 	updateCourse,
 	addAssignment,
+	delAssignment,
 	updateCategory,
 	Grades as GradesType,
 	Course,
@@ -14,6 +15,7 @@ import CategoryField from "../../components/CategoryField";
 import Head from "next/head";
 import { TbRefresh } from "react-icons/tb";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
+import { HiOutlineTrash } from "react-icons/hi";
 
 interface GradesProps {
 	client: any;
@@ -65,7 +67,9 @@ export default function Grades({
 	const add = () => {
 		setCourse({ ...addAssignment(course) });
 	};
-
+	const del = () => {
+		setCourse({ ...delAssignment(course) });
+	};
 	const update = (p: number) => {
 		console.log(p);
 		setLoading(true);
@@ -168,6 +172,13 @@ export default function Grades({
 							className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
 						>
 							<HiOutlineDocumentAdd size={"1.3rem"} />
+						</button>
+						<button
+							type="button"
+							onClick={del}
+							className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+						>
+							<HiOutlineTrash size={"1.3rem"} />
 						</button>
 					</div>
 					<div className="m-5" />
