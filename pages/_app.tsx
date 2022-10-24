@@ -21,7 +21,7 @@ const noShowNav = ["/login", "/"];
 function MyApp({ Component, pageProps }) {
 	const router = useRouter();
 	const [districtURL, setDistrictURL] = useState(
-		"https://md-mcps-psv.edupoint.com/"
+		"https://md-mcps-psv.edupoint.com"
 	);
 	const [client, setClient] = useState(undefined);
 	const [studentInfo, setStudentInfo] = useState(undefined);
@@ -80,9 +80,9 @@ function MyApp({ Component, pageProps }) {
 		let username = localStorage.getItem("username");
 		let password = localStorage.getItem("password");
 		let remember = localStorage.getItem("remember");
-		let districtURL = localStorage.getItem("districtURL");
-		districtURL && setDistrictURL(districtURL);
-		if (remember === "true" && username && password && districtURL) {
+		let storedDistrictURL = localStorage.getItem("districtURL");
+		storedDistrictURL && setDistrictURL(storedDistrictURL);
+		if (remember === "true" && username && password && storedDistrictURL) {
 			login(username, password, true, districtURL);
 		}
 	}, []);
