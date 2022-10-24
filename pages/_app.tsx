@@ -20,13 +20,21 @@ const noShowNav = ["/login", "/"];
 
 function MyApp({ Component, pageProps }) {
 	const router = useRouter();
+	const [districtURL, setDistrictURL] = useState(
+		"https://md-mcps-psv.edupoint.com/"
+	);
 	const [client, setClient] = useState(undefined);
 	const [studentInfo, setStudentInfo] = useState(undefined);
 	const [toasts, setToasts] = useState<Toast[]>([]);
 	const [grades, setGrades] = useState<Grades>();
 
-	const login = async (username, password, save) => {
-		await StudentVue.login("https://md-mcps-psv.edupoint.com", {
+	const login = async (
+		username: string,
+		password: string,
+		save: boolean,
+		url?: string
+	) => {
+		await StudentVue.login(url || districtURL, {
 			username: username,
 			password: password,
 		})
@@ -36,6 +44,7 @@ function MyApp({ Component, pageProps }) {
 					localStorage.setItem("remember", "true");
 					localStorage.setItem("username", username);
 					localStorage.setItem("password", password);
+					localStorage.setItem("districtURL", districtURL);
 				} else {
 					localStorage.setItem("remember", "false");
 					localStorage.removeItem("username");
@@ -69,11 +78,12 @@ function MyApp({ Component, pageProps }) {
 
 	useEffect(() => {
 		let username = localStorage.getItem("username");
-		console.log(username);
 		let password = localStorage.getItem("password");
 		let remember = localStorage.getItem("remember");
-		if (remember === "true" && username && password) {
-			login(username, password, true);
+		let districtURL = localStorage.getItem("districtURL");
+		districtURL && setDistrictURL(districtURL);
+		if (remember === "true" && username && password && districtURL) {
+			login(username, password, true, districtURL);
 		}
 	}, []);
 
@@ -125,8 +135,10 @@ function MyApp({ Component, pageProps }) {
 					{noShowNav.includes(router.pathname) && (
 						<Component
 							{...pageProps}
-							client={client}
+							districtURL={districtURL}
+							setDistrictURL={setDistrictURL}
 							login={login}
+							client={client}
 							setClient={setClient}
 							grades={grades}
 							setGrades={setGrades}
@@ -140,6 +152,8 @@ function MyApp({ Component, pageProps }) {
 								<SideBar studentInfo={studentInfo} logout={logout} />
 								<Component
 									{...pageProps}
+									districtURL={districtURL}
+									setDistrictURL={setDistrictURL}
 									client={client}
 									login={login}
 									setClient={setClient}
@@ -151,6 +165,8 @@ function MyApp({ Component, pageProps }) {
 							<div className="md:hidden">
 								<Component
 									{...pageProps}
+									districtURL={districtURL}
+									setDistrictURL={setDistrictURL}
 									client={client}
 									login={login}
 									setClient={setClient}

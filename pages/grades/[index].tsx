@@ -145,6 +145,12 @@ export default function Grades({
 				</Modal.Body>
 				<Modal.Footer>
 					<button
+						onClick={() => setShowModal(false)}
+						className="rounded-lg bg-gray-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+					>
+						Close
+					</button>
+					<button
 						onClick={() => {
 							del(modalDetails);
 							setShowModal(false);
