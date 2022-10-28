@@ -45,8 +45,9 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 										<img
 											className="w-10 h-10 object-cover rounded-full"
 											src={
-												studentInfo?.photo &&
-												`data:image/png;base64,${studentInfo.photo}`
+												studentInfo?.photo
+													? `data:image/png;base64,${studentInfo.photo}`
+													: "/assets/default-avatar.svg"
 											}
 											alt="User Icon"
 										/>
