@@ -33,15 +33,24 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 								arrowIcon={false}
 								inline={true}
 								label={
-									<Avatar
-										alt="User settings"
-										img={
-											studentInfo.photo
-												? `data:image/png;base64,${studentInfo.photo}`
-												: ""
-										}
-										rounded
-									/>
+									<button
+										type="button"
+										className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+										id="user-menu-button"
+										aria-expanded="false"
+										data-dropdown-toggle="user-dropdown"
+										data-dropdown-placement="bottom"
+									>
+										<span className="sr-only">Open user menu</span>
+										<img
+											className="w-10 h-10 object-cover rounded-full"
+											src={
+												studentInfo?.photo &&
+												`data:image/png;base64,${studentInfo.photo}`
+											}
+											alt="User Icon"
+										/>
+									</button>
 								}
 							>
 								<Dropdown.Header>
