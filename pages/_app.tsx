@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }) {
 	const [studentInfo, setStudentInfo] = useState(undefined);
 	const [toasts, setToasts] = useState<Toast[]>([]);
 	const [grades, setGrades] = useState<Grades>();
+	const [loading, setLoading] = useState(false);
 
 	const login = async (
 		username: string,
@@ -34,6 +35,7 @@ function MyApp({ Component, pageProps }) {
 		save: boolean,
 		url?: string
 	) => {
+		await setLoading(true);
 		await StudentVue.login(url || districtURL, {
 			username: username,
 			password: password,
@@ -50,7 +52,7 @@ function MyApp({ Component, pageProps }) {
 					localStorage.removeItem("username");
 					localStorage.removeItem("password");
 				}
-
+				await setLoading(false);
 				return true;
 			})
 			.catch((err) => {
@@ -62,6 +64,7 @@ function MyApp({ Component, pageProps }) {
 						type: "error",
 					},
 				]);
+				setLoading(false);
 			});
 
 		return false;
@@ -139,10 +142,10 @@ function MyApp({ Component, pageProps }) {
 							setDistrictURL={setDistrictURL}
 							login={login}
 							client={client}
-							setClient={setClient}
 							grades={grades}
 							setGrades={setGrades}
 							setToasts={setToasts}
+							loading={loading}
 						/>
 					)}
 
@@ -156,23 +159,23 @@ function MyApp({ Component, pageProps }) {
 									setDistrictURL={setDistrictURL}
 									client={client}
 									login={login}
-									setClient={setClient}
 									grades={grades}
 									setGrades={setGrades}
 									setToasts={setToasts}
+									loading={loading}
 								/>
 							</div>
 							<div className="md:hidden">
 								<Component
 									{...pageProps}
 									districtURL={districtURL}
-									setDistrictURL={setDistrictURL}
 									client={client}
 									login={login}
 									setClient={setClient}
 									grades={grades}
 									setGrades={setGrades}
 									setToasts={setToasts}
+									loading={loading}
 								/>
 								<div className="px-4 fixed bottom-5 w-full">
 									<MobileBar />

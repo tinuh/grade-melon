@@ -10,47 +10,47 @@ interface LoginProps {
 	districtURL: string;
 	setDistrictURL: any;
 	client: any;
-	setClient: (client: any) => void;
 	login: (username: string, password: string, save: boolean) => any;
 	setToasts: any;
+	loading: boolean;
 }
 
 export default function Login({
-	setClient,
 	login,
 	client,
 	districtURL,
 	setDistrictURL,
 	setToasts,
+	loading,
 }: LoginProps) {
 	const router = useRouter();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [checkbox, setCheckbox] = useState(false);
-	const [loading, setLoading] = useState(false);
 	const [showModal, setShowModal] = useState(false);
 	const [zipCode, setZipCode] = useState("");
 	const [districts, setDisstricts] = useState(allDistricts);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		await setLoading(true);
 		let success = await login(username, password, checkbox);
 		await setPassword("");
 		if (success) {
 			await setUsername("");
 		}
-		await setLoading(false);
 	};
+
+	useEffect(() => {
+		if (client) {
+			router.push("/schedule");
+		}
+	}, [client]);
 
 	useEffect(() => {
 		if (localStorage.getItem("remember") === "true") {
 			setCheckbox(true);
 		}
-		if (client) {
-			router.push("/schedule");
-		}
-	}, [client]);
+	}, []);
 
 	const findDistricts = async () => {
 		StudentVue.findDistricts(zipCode)
