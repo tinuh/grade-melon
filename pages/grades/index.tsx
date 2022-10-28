@@ -120,8 +120,8 @@ export default function Grades({
 						<div className="flex flex-wrap gap-5 items-stretch">
 							{grades.courses.map(({ name, period, grade, teacher }, i) => (
 								<div className="w-96" key={i}>
-									<div className="p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-										<div className="mb-2.5 md:mb-5">
+									<div className="h-full flex flex-col justify-between gap-2 md:gap-5 p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+										<div className="">
 											<Link href={`/grades/${i}`}>
 												<div className="hover:cursor-pointer">
 													<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
