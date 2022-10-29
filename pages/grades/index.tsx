@@ -122,7 +122,7 @@ export default function Grades({
 								<div className="w-96" key={i}>
 									<div className="h-full flex flex-col justify-between gap-2 md:gap-5 p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 										<div className="">
-											<Link href={`/grades/${i}`}>
+											<Link href={`/grades/${i}`} legacyBehavior>
 												<div className="hover:cursor-pointer">
 													<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
 														<p className="font-bold inline-block">{period}</p> -{" "}
@@ -141,7 +141,7 @@ export default function Grades({
 												>
 													{grade.letter} ({grade.raw}%)
 												</span>
-												<Link href={`/grades/${i}`}>
+												<Link href={`/grades/${i}`} legacyBehavior>
 													<button className="rounded-lg bg-primary-500 px-5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
 														View
 													</button>
@@ -189,7 +189,9 @@ export default function Grades({
 												{period}
 											</td>
 											<td className="py-4 px-6">
-												<Link href={`/grades/${i}`}>{name}</Link>
+												<Link href={`/grades/${i}`} legacyBehavior>
+													{name}
+												</Link>
 											</td>
 											<td className="py-4 px-6">{teacher.name}</td>
 											<td className="py-4 px-6">

@@ -81,33 +81,34 @@ export default function Attendance({ client }: AttendanceProps) {
 									))}
 								</tr>
 							</thead>
-							{data?.absences.map((absence, i) => (
-								<tr
-									key={i}
-									className={`bg-${
-										i % 2 == 0 ? "white" : "gray-50"
-									} border-b dark:bg-gray-${
-										i % 2 == 0 ? 900 : 800
-									} dark:border-gray-700`}
-								>
-									<th
-										scope="row"
-										className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+							<tbody>
+								{data?.absences.map((absence, i) => (
+									<tr
+										key={i}
+										className={`bg-${
+											i % 2 == 0 ? "white" : "gray-50"
+										} border-b dark:bg-gray-${
+											i % 2 == 0 ? 900 : 800
+										} dark:border-gray-700`}
 									>
-										{absence.date.toLocaleDateString()}
-									</th>
-									{parsePeriods(data?.absences).map((period, i) => (
-										<td key={i} scope="col" className="py-3 px-6">
-											{
-												absence.periods.filter(
-													(p) => p.period === parseInt(period)
-												)[0]?.name
-											}
-										</td>
-									))}
-								</tr>
-							))}
-							<tbody></tbody>
+										<th
+											scope="row"
+											className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+										>
+											{absence.date.toLocaleDateString()}
+										</th>
+										{parsePeriods(data?.absences).map((period, i) => (
+											<td key={i} scope="col" className="py-3 px-6">
+												{
+													absence.periods.filter(
+														(p) => p.period === parseInt(period)
+													)[0]?.name
+												}
+											</td>
+										))}
+									</tr>
+								))}
+							</tbody>
 						</table>
 					</div>
 				</div>

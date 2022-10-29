@@ -22,49 +22,82 @@ export default function SideBar({ studentInfo, logout }: NavProps) {
 
 	return (
 		<div className="w-fit h-full py-10 pl-10 hidden md:block">
-			<Sidebar aria-label="Sidebar with logo branding example">
-				<Sidebar.Items>
-					<Sidebar.ItemGroup>
-						<Link href="/schedule">
-							<Sidebar.Item href="#" icon={AiOutlineOrderedList}>
-								Schedule
-							</Sidebar.Item>
-						</Link>
-						<Link href="/grades">
-							<Sidebar.Item href="#" icon={AiOutlineBook}>
-								Gradebook
-							</Sidebar.Item>
-						</Link>
-						<Link href="/attendance">
-							<Sidebar.Item href="#" icon={AiOutlineCalendar}>
-								Attendance
-							</Sidebar.Item>
-						</Link>
-						<Link href="/documents">
-							<Sidebar.Item href="#" icon={IoDocumentTextOutline}>
-								Documents
-							</Sidebar.Item>
-						</Link>
-						<Sidebar.Item onClick={logout} href="#" icon={FiLogOut}>
-							Logout
-						</Sidebar.Item>
-					</Sidebar.ItemGroup>
+			<aside className="w-64" aria-label="Sidebar">
+				<div className="overflow-y-auto py-4 px-3 bg-white rounded dark:bg-gray-800">
+					<ul className="space-y-2">
+						<li>
+							<Link
+								href="/schedule"
+								className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+							>
+								<AiOutlineOrderedList className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+								<span className="ml-3">Schedule</span>
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/grades"
+								className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+							>
+								<AiOutlineBook className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+								<span className="flex-1 ml-3 whitespace-nowrap">Gradebook</span>
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/attendance"
+								className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+							>
+								<AiOutlineCalendar className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+								<span className="flex-1 ml-3 whitespace-nowrap">
+									Attendance
+								</span>
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/documents"
+								className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+							>
+								<IoDocumentTextOutline className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+								<span className="flex-1 ml-3 whitespace-nowrap">Documents</span>
+							</Link>
+						</li>
+						<li>
+							<a
+								onClick={logout}
+								className="cursor-pointer flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+							>
+								<FiLogOut className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+								<span className="flex-1 ml-3 whitespace-nowrap">Logout</span>
+							</a>
+						</li>
+					</ul>
 					{router.pathname === "/grades" && (
-						<Sidebar.ItemGroup>
-							<Link href="?view=card">
-								<Sidebar.Item href="#" icon={TbLayoutGrid}>
-									Card View
-								</Sidebar.Item>
-							</Link>
-							<Link href="?view=table">
-								<Sidebar.Item href="#table" icon={BsTable}>
-									Table View
-								</Sidebar.Item>
-							</Link>
-						</Sidebar.ItemGroup>
+						<ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+							<li>
+								<Link
+									href="?view=card"
+									className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+								>
+									<TbLayoutGrid className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+									<span className="ml-3">Card View</span>
+								</Link>
+							</li>
+
+							<li>
+								<Link
+									href="?view=table"
+									className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
+								>
+									<BsTable className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" />
+									<span className="ml-3">Table View</span>
+								</Link>
+							</li>
+						</ul>
 					)}
-				</Sidebar.Items>
-			</Sidebar>
+				</div>
+			</aside>
 		</div>
 	);
 }

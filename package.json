@@ -15,12 +15,9 @@
 		"flowbite-react": "^0.1.11",
 		"formik": "^2.2.9",
 		"framer-motion": "^7.5.3",
-		"next": "12.3.1",
 		"next-pwa": "^5.6.0",
 		"postcss": "^8.4.17",
-		"react": "18.2.0",
 		"react-chartjs-2": "^4.3.1",
-		"react-dom": "18.2.0",
 		"react-icons": "^4.4.0",
 		"studentvue": "https://github.com/tinuh/studentvue.js.git",
 		"touch-cli": "^0.0.1"
@@ -29,7 +26,10 @@
 		"@types/node": "18.7.23",
 		"@types/react": "^18.0.21",
 		"eslint": "8.24.0",
-		"eslint-config-next": "12.3.1",
+		"eslint-config-next": "^13.0.0",
+		"next": "^13.0.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
 		"tailwindcss": "^3.1.8",
 		"typescript": "^4.8.4"
 	}

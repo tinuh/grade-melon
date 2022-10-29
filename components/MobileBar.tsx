@@ -18,60 +18,52 @@ export default function MobileBar() {
 			</label>
 			<ul className="w-full text-sm font-medium text-center text-gray-500 rounded-lg divide-x divide-gray-200 shadow flex dark:divide-gray-700 dark:text-gray-400">
 				<li className="w-full">
-					<Link href="/schedule">
-						<a
-							href="#"
-							className={`flex justify-center p-4 w-full bg-${
-								router.pathname === "/schedule" ? "gray-100" : "white"
-							} rounded-l-lg active focus:outline-none dark:bg-gray-${
-								router.pathname === "/schedule" ? 700 : 800
-							} dark:hover:bg-gray-700`}
-							aria-current="page"
-						>
-							<AiOutlineOrderedList className="h-full" size="1.2rem" />
-						</a>
+					<Link
+						href="/schedule"
+						className={`flex justify-center p-4 w-full bg-${
+							router.pathname === "/schedule" ? "gray-100" : "white"
+						} rounded-l-lg active focus:outline-none dark:bg-gray-${
+							router.pathname === "/schedule" ? 700 : 800
+						} dark:hover:bg-gray-700`}
+						aria-current="page"
+					>
+						<AiOutlineOrderedList className="h-full" size="1.2rem" />
 					</Link>
 				</li>
 				<li className="w-full">
-					<Link href="/grades">
-						<a
-							href="#"
-							className={`flex justify-center p-4 w-full bg-${
-								router.pathname === "/grades" ? "gray-100" : "white"
-							} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
-								router.pathname === "/grades" ? 700 : 800
-							} dark:hover:bg-gray-700`}
-						>
-							<AiOutlineBook className="h-full" size="1.2rem" />
-						</a>
+					<Link
+						href="/grades"
+						className={`flex justify-center p-4 w-full bg-${
+							router.pathname === "/grades" ? "gray-100" : "white"
+						} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							router.pathname === "/grades" ? 700 : 800
+						} dark:hover:bg-gray-700`}
+					>
+						<AiOutlineBook className="h-full" size="1.2rem" />
 					</Link>
 				</li>
 				<li className="w-full">
-					<Link href="/attendance">
-						<a
-							href="#"
-							className={`flex justify-center p-4 w-full bg-${
-								router.pathname === "/attendance" ? "gray-100" : "white"
-							} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
-								router.pathname === "/attendance" ? 700 : 800
-							} dark:hover:bg-gray-700`}
-						>
-							<AiOutlineCalendar className="h-full" size="1.2rem" />
-						</a>
+					<Link
+						href="/attendance"
+						className={`flex justify-center p-4 w-full bg-${
+							router.pathname === "/attendance" ? "gray-100" : "white"
+						} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							router.pathname === "/attendance" ? 700 : 800
+						} dark:hover:bg-gray-700`}
+					>
+						<AiOutlineCalendar className="h-full" size="1.2rem" />
 					</Link>
 				</li>
 				<li className="w-full">
-					<Link href="/documents">
-						<a
-							href="#"
-							className={`flex justify-center p-4 w-full bg-${
-								router.pathname === "/documents" ? "gray-100" : "white"
-							} rounded-r-lg hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
-								router.pathname === "/documents" ? 700 : 800
-							} dark:hover:bg-gray-700`}
-						>
-							<IoDocumentTextOutline className="h-full" size="1.2rem" />
-						</a>
+					<Link
+						href="/documents"
+						className={`flex justify-center p-4 w-full bg-${
+							router.pathname === "/documents" ? "gray-100" : "white"
+						} rounded-r-lg hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							router.pathname === "/documents" ? 700 : 800
+						} dark:hover:bg-gray-700`}
+					>
+						<IoDocumentTextOutline className="h-full" size="1.2rem" />
 					</Link>
 				</li>
 			</ul>
