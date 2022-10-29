@@ -76,7 +76,7 @@ export default function Home({ client }: HomeProps) {
 						transition={{ delay: 0.1, duration: 0.5 }}
 						className="font-medium dark:text-white text-xl pt-3 pb-6"
 					>
-						A new way to stay in control of your grades.
+						Stay in control of your grades.
 					</motion.p>
 					<motion.div
 						initial={{ x: 0, opacity: 0 }}
@@ -86,7 +86,7 @@ export default function Home({ client }: HomeProps) {
 						<Link href="/login">
 							<button
 								type="button"
-								className="overflow-hidden group relative inline-flex items-center focus:outline-none text-white bg-gradient-to-br from-primary-600 to-green-500 hover:bg-primary-800 hover:scale-105 transform transition duration-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+								className="overflow-hidden group relative inline-flex items-center focus:outline-none text-white bg-gradient-to-br from-primary-600 to-green-500 hover:bg-primary-800 hover:scale-105 transform transition duration-300 font-medium rounded-lg text-md px-5 py-2.5 mr-2 mb-2"
 							>
 								<span className="transition-all group-hover:mr-6">
 									Get Started
@@ -139,6 +139,7 @@ export default function Home({ client }: HomeProps) {
 							delay: 0.5 + i * 0.1,
 							duration: 0.5,
 						}}
+						key={i}
 						className="w-full md:w-64 rounded-lg border-2 border-black dark:border-white transition-all duration-300 border-opacity-0 dark:border-opacity-0 hover:border-opacity-100 dark:hover:border-opacity-100 p-5 bg-black dark:bg-white bg-opacity-10 dark:bg-opacity-10"
 					>
 						<p className="font-bold flex gap-2 items-center dark:text-white pb-2">
@@ -195,7 +196,8 @@ export default function Home({ client }: HomeProps) {
 				transition={{ delay: 1.5, duration: 0.5 }}
 				className="pt-3 text-gray-500 w-fit md:w-1/2"
 			>
-				If you have bug reports/suggestions, feel free to contact us!
+				If you have bug reports/suggestions, feel free to contact us by sending
+				an email!
 			</motion.p>
 			<Link href="mailto:tinu@tinu.tech">
 				<motion.p
@@ -204,7 +206,7 @@ export default function Home({ client }: HomeProps) {
 					transition={{ delay: 1.6, duration: 0.5 }}
 					className="py-3 dark:text-white font-bold flex gap-2 items-center w-fit md:w-1/2"
 				>
-					<HiOutlineMail size="1.2rem" /> tinu@tinu.tech
+					<HiOutlineMail size="1.3rem" /> tinu@tinu.tech
 				</motion.p>
 			</Link>
 		</div>
