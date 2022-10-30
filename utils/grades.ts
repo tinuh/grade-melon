@@ -172,6 +172,97 @@ const parseGrades = (grades: Gradebook): Grades => {
 	};
 };
 
+let solutions = [];
+const recur = (
+	coeff: Array<number>,
+	sols: Array<number>,
+	remainingPoints: Array<number>,
+	start: number,
+	end: number,
+	currentPoints: Array<number>,
+	currentPossible: Array<number>,
+	desired: number
+): [number[], number][] => {
+	let result = [];
+	let newGrade = 0;
+
+	for (let i = 0; i < currentPoints.length; i++) {
+		newGrade +=
+			((currentPoints[i] + sols[i]) /
+				(currentPossible[i] + sols[i] + remainingPoints[i])) *
+			coeff[i];
+	}
+
+	if (newGrade * 100 >= desired) {
+		console.log(sols);
+		console.log(newGrade * 100);
+		solutions.push([sols, newGrade * 100]);
+		return [[sols, newGrade * 100]];
+	} else {
+		for (let i = start; i <= end; i++) {
+			let temp = [...sols];
+			temp[i] = temp[i] + 1;
+			let temp2 = [...remainingPoints];
+			if (temp2[i] >= 1) {
+				temp2[i] -= 1;
+				result.concat(
+					recur(
+						coeff,
+						temp,
+						temp2,
+						i,
+						end,
+						currentPoints,
+						currentPossible,
+						desired
+					)
+				);
+			}
+		}
+	}
+	return result;
+};
+
+const genTable = (
+	course: Course,
+	desired: number,
+	remaining: Array<number>
+): [number[], number][] => {
+	let n = course.categories.length;
+	let current = course.grade.raw;
+	let gradeBoost = desired - current;
+
+	let weights: number[] = [];
+	for (let i = 0; i < n; i++) {
+		weights[i] = course.categories[i].weight;
+	}
+	solutions = [];
+
+	let sols: number[] = [];
+	let cur: number[] = [];
+	let possible: number[] = [];
+
+	for (let a = 0; a < n; a++) {
+		sols[a] = 0;
+		cur[a] = course.categories[a].points.earned;
+		possible[a] = course.categories[a].points.possible;
+	}
+
+	let result = recur(
+		weights,
+		sols,
+		remaining,
+		0,
+		n - 1,
+		cur,
+		possible,
+		desired
+	);
+	console.log(result);
+
+	return [...solutions];
+};
+
 const calculateCategory = (course: Course, categoryId: number): Course => {
 	course.categories[categoryId].points.earned = course.assignments
 		.filter(
@@ -303,5 +394,6 @@ export {
 	addAssignment,
 	delAssignment,
 	updateCategory,
+	genTable,
 };
 export type { Grades, Assignment, Course };

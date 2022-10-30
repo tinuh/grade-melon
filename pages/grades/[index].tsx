@@ -9,19 +9,27 @@ import {
 	updateCategory,
 	Grades as GradesType,
 	Course,
+	genTable,
 } from "../../utils/grades";
 import GradeField from "../../components/GradeField";
 import CategoryField from "../../components/CategoryField";
 import Head from "next/head";
+
+//icons
 import { TbRefresh } from "react-icons/tb";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi";
+import { GrOptimize } from "react-icons/gr";
 
 interface GradesProps {
 	client: any;
 	grades: GradesType;
 	setToasts: (toasts: any) => void;
 	setGrades: (grades: GradesType) => void;
+}
+
+interface OptimizeProps {
+	[key: string]: number;
 }
 
 export default function Grades({
@@ -37,6 +45,9 @@ export default function Grades({
 	const [period, setPeriod] = useState<number>();
 	const [showModal, setShowModal] = useState(false);
 	const [modalDetails, setModalDetails] = useState(0);
+	const [modalType, setModalType] = useState("assignment");
+	const [optimizeProps, setOptimizeProps] = useState<OptimizeProps>({});
+	const [solutions, setSolution] = useState<[number[], number][]>([]);
 
 	useEffect(() => {
 		try {
@@ -81,6 +92,7 @@ export default function Grades({
 	};
 
 	const OpenModal = (assignmnetId: number) => {
+		setModalType("assignment");
 		setModalDetails(assignmnetId);
 		setShowModal(true);
 	};
@@ -112,56 +124,206 @@ export default function Grades({
 			});
 	};
 
+	const optimize = () => {
+		setModalType("optimize");
+		let tempProps = {};
+		tempProps["desiredGrade"] = 90;
+		course.categories.forEach((cat) => {
+			tempProps[cat.name] = cat.weight * 100;
+		});
+		setOptimizeProps(tempProps);
+		setShowModal(true);
+	};
+
+	const updateOptimize = (val: string, field: string) => {
+		setOptimizeProps((prev) => {
+			return { ...prev, [field]: parseFloat(val) };
+		});
+	};
+
+	const optimizeGrades = () => {
+		let points = Object.values(optimizeProps);
+		points.splice(0, 1);
+		let results = genTable(course, optimizeProps.desiredGrade, points);
+		setSolution(results);
+	};
+
 	return (
 		<div className="p-5 md:p-10">
 			<Head>
 				<title>{course ? `${course.name} - Grade Melon` : "Grade Melon"}</title>
 			</Head>
 			<Modal show={showModal} onClose={() => setShowModal(false)}>
-				<Modal.Header>{course?.assignments[modalDetails]?.name}</Modal.Header>
+				<Modal.Header>
+					{modalType === "assignment"
+						? course?.assignments[modalDetails]?.name
+						: "Optimize Grade"}
+				</Modal.Header>
 				<Modal.Body>
-					<div>
-						<p className="font-bold text-black dark:text-white">Grade</p>
-						<p
-							className={`text-base leading-relaxed text-${course?.assignments[modalDetails]?.grade.color}-400`}
-						>
-							{course?.assignments[modalDetails]?.grade.letter} (
-							{course?.assignments[modalDetails]?.grade.raw}%)
-						</p>
-						<p className="font-bold text-black dark:text-white">Points</p>
-						<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-							{course?.assignments[modalDetails]?.points.earned}/
-							{course?.assignments[modalDetails]?.points.possible}
-						</p>
-						<p className="font-bold text-black dark:text-white">Date Due</p>
-						<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-							{course?.assignments[modalDetails]?.date.due.toLocaleDateString()}
-						</p>
-						<p className="font-bold text-black dark:text-white">Category</p>
-						<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-							{course?.assignments[modalDetails]?.category}
-						</p>
-					</div>
+					{modalType === "assignment" && (
+						<div id="assignment-details">
+							<p className="font-bold text-black dark:text-white">Grade</p>
+							<p
+								className={`text-base leading-relaxed text-${course?.assignments[modalDetails]?.grade.color}-400`}
+							>
+								{course?.assignments[modalDetails]?.grade.letter} (
+								{course?.assignments[modalDetails]?.grade.raw}%)
+							</p>
+							<p className="font-bold text-black dark:text-white">Points</p>
+							<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+								{course?.assignments[modalDetails]?.points.earned}/
+								{course?.assignments[modalDetails]?.points.possible}
+							</p>
+							<p className="font-bold text-black dark:text-white">Date Due</p>
+							<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+								{course?.assignments[
+									modalDetails
+								]?.date.due.toLocaleDateString()}
+							</p>
+							<p className="font-bold text-black dark:text-white">Category</p>
+							<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+								{course?.assignments[modalDetails]?.category}
+							</p>
+						</div>
+					)}
+					{modalType === "optimize" && (
+						<div>
+							<div className="flex flex-col gap-3">
+								<div>
+									<label
+										htmlFor="email"
+										className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+									>
+										Desired Grade (1-100)
+									</label>
+									<div className="flex gap-2">
+										<input
+											type="number"
+											min={1}
+											max={100}
+											value={optimizeProps?.desiredGrade}
+											onChange={(e) =>
+												updateOptimize(e.target.value, "desiredGrade")
+											}
+											className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+											placeholder="90"
+										/>
+									</div>
+								</div>
+								{course?.categories.map(({ name }, i) => (
+									<div key={i}>
+										<label
+											htmlFor="email"
+											className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+										>
+											Points Left ({name})
+										</label>
+										<div className="flex gap-2">
+											<input
+												type="number"
+												min={1}
+												max={100}
+												value={optimizeProps[name]}
+												onChange={(e) => updateOptimize(e.target.value, name)}
+												className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+												placeholder="50"
+											/>
+										</div>
+									</div>
+								))}
+							</div>
+							<div className="overflow-x-auto shadow-md rounded-lg mt-5">
+								<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+									<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+										<tr>
+											{course?.categories.map(({ name }, i) => (
+												<th scope="col" className="py-3 pl-6">
+													{name}
+												</th>
+											))}
+											<th scope="col" className="py-3 px-6">
+												Grade
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{solutions.map((sol, i) => (
+											<tr
+												className={`bg-${
+													i % 2 == 0 ? "white" : "gray-50"
+												} border-b dark:bg-gray-${
+													i % 2 == 0 ? 900 : 800
+												} dark:border-gray-700`}
+												key={i}
+											>
+												{course?.categories.map((cat, i) => (
+													<td scope="col" className="py-3 pl-6">
+														{sol[0][i]} / {optimizeProps[cat.name]}
+													</td>
+												))}
+												<td
+													scope="row"
+													className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+												>
+													{sol[1].toFixed(2)}%
+												</td>
+											</tr>
+										))}
+										{!solutions.length && (
+											<tr className="text-red-600 font-bold">
+												<td
+													className="text-center align-center py-3"
+													colSpan={course?.categories.length + 1}
+												>
+													No Solutions Found!
+												</td>
+											</tr>
+										)}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					)}
 				</Modal.Body>
 				<Modal.Footer>
-					<button
-						onClick={() => setShowModal(false)}
-						className="rounded-lg bg-gray-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-					>
-						Close
-					</button>
-					<button
-						onClick={() => {
-							del(modalDetails);
-							setShowModal(false);
-						}}
-						className="rounded-lg bg-primary-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-					>
-						<div className="flex gap-1 items-center">
-							<HiOutlineTrash size={"1.2rem"} />
-							Delete
+					{modalType === "assignment" && (
+						<div className="flex gap-2">
+							<button
+								onClick={() => setShowModal(false)}
+								className="rounded-lg bg-gray-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+							>
+								Close
+							</button>
+							<button
+								onClick={() => {
+									del(modalDetails);
+									setShowModal(false);
+								}}
+								className="rounded-lg bg-primary-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+							>
+								<div className="flex gap-1 items-center">
+									<HiOutlineTrash size={"1.2rem"} />
+									Delete
+								</div>
+							</button>
 						</div>
-					</button>
+					)}
+					{modalType === "optimize" && (
+						<div className="flex gap-2">
+							<button
+								onClick={() => setShowModal(false)}
+								className="rounded-lg bg-gray-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+							>
+								Close
+							</button>
+							<button
+								onClick={optimizeGrades}
+								className="rounded-lg bg-primary-500 px-2.5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+							>
+								Optimize
+							</button>
+						</div>
+					)}
 				</Modal.Footer>
 			</Modal>
 			{loading ? (
@@ -224,6 +386,13 @@ export default function Grades({
 						</select>
 						<button
 							type="button"
+							onClick={optimize}
+							className="text-black bg-primary-400 border border-primary-400 focus:outline-none hover:bg-primary-500 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm p-2.5 dark:bg-primary-600 dark:text-white dark:border-primary-600 dark:hover:bg-primary-700 dark:hover:border-primary-600 dark:focus:ring-primary-400"
+						>
+							<GrOptimize size={"1.3rem"} />
+						</button>
+						<button
+							type="button"
 							onClick={add}
 							className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
 						>
@@ -264,7 +433,7 @@ export default function Grades({
 												{date.due.toLocaleDateString()}
 											</td>
 											<td
-												className="py-4 px-6 hover:text-primary-500 cursor-pointer"
+												className="py-4 px-6 hover:text-black dark:hover:text-white cursor-pointer"
 												onClick={() => OpenModal(i)}
 											>
 												{name}
