@@ -19,7 +19,7 @@ import Head from "next/head";
 import { TbRefresh } from "react-icons/tb";
 import { HiOutlineDocumentAdd } from "react-icons/hi";
 import { HiOutlineTrash } from "react-icons/hi";
-import { GrOptimize } from "react-icons/gr";
+import { BsGraphUp } from "react-icons/bs";
 
 interface GradesProps {
 	client: any;
@@ -237,7 +237,7 @@ export default function Grades({
 									<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 										<tr>
 											{course?.categories.map(({ name }, i) => (
-												<th scope="col" className="py-3 pl-6">
+												<th scope="col" className="py-3 pl-6" key={i}>
 													{name}
 												</th>
 											))}
@@ -257,7 +257,7 @@ export default function Grades({
 												key={i}
 											>
 												{course?.categories.map((cat, i) => (
-													<td scope="col" className="py-3 pl-6">
+													<td scope="col" className="py-3 pl-6" key={i}>
 														{sol[0][i]} / {optimizeProps[cat.name]}
 													</td>
 												))}
@@ -389,7 +389,7 @@ export default function Grades({
 							onClick={optimize}
 							className="text-black bg-primary-400 border border-primary-400 focus:outline-none hover:bg-primary-500 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm p-2.5 dark:bg-primary-600 dark:text-white dark:border-primary-600 dark:hover:bg-primary-700 dark:hover:border-primary-600 dark:focus:ring-primary-400"
 						>
-							<GrOptimize size={"1.3rem"} />
+							<BsGraphUp size={"1.3rem"} />
 						</button>
 						<button
 							type="button"

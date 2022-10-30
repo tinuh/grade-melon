@@ -8,6 +8,7 @@ import { BiEditAlt } from "react-icons/bi";
 import { AiOutlineOrderedList, AiOutlineCalendar } from "react-icons/ai";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { FiMoon } from "react-icons/fi";
+import { BsGraphUp } from "react-icons/bs";
 import { motion } from "framer-motion";
 
 interface HomeProps {
@@ -29,6 +30,12 @@ export default function Home({ client }: HomeProps) {
 			icon: <BiEditAlt />,
 			description:
 				"Edit your grades and see how it affects your overall class grade.",
+		},
+		{
+			name: "Grade Optimizer",
+			icon: <BsGraphUp />,
+			description:
+				"See the possible ways that you could earn your desired grade in a class.",
 		},
 		{
 			name: "View your Schedule",
