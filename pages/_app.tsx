@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "../styles/globals.css";
 import StudentVue from "studentvue";
+import { useRouter } from "next/router";
 import { Flowbite } from "flowbite-react";
 import { Toast } from "flowbite-react";
 import { HiX } from "react-icons/hi";
+import Topbar from "../components/TopBar";
 import SideBar from "../components/SideBar";
 import MobileBar from "../components/MobileBar";
-import Topbar from "../components/TopBar";
-import { useRouter } from "next/router";
-import Head from "next/head";
 import { Grades } from "../utils/grades";
+import Head from "next/head";
+import Script from "next/script";
 
 interface Toast {
 	title: string;
@@ -111,6 +112,12 @@ function MyApp({ Component, pageProps }) {
 			<Head>
 				<title>Grade Melon</title>
 			</Head>
+			<Script
+				async
+				src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5925944145079992"
+				crossOrigin="anonymous"
+				strategy="beforeInteractive"
+			/>
 			<div className="absolute p-5 z-10">
 				{toasts.map(({ title, type }, i) => (
 					<div className="mb-5" key={i}>
