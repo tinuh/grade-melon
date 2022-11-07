@@ -206,14 +206,14 @@ export default function Home({ client }: HomeProps) {
 				If you have bug reports/suggestions, feel free to contact us by sending
 				an email!
 			</motion.p>
-			<Link href="mailto:tinu@tinu.tech">
+			<Link href="mailto:tinu@grademelon.com">
 				<motion.p
 					initial={{ x: 0, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
 					transition={{ delay: 1.6, duration: 0.5 }}
 					className="py-3 dark:text-white font-bold flex gap-2 items-center w-fit md:w-1/2"
 				>
-					<HiOutlineMail size="1.3rem" /> tinu@tinu.tech
+					<HiOutlineMail size="1.3rem" /> tinu@grademelon.com
 				</motion.p>
 			</Link>
 		</div>
