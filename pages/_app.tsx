@@ -101,7 +101,7 @@ function MyApp({ Component, pageProps }) {
 				console.log("waiting");
 			}
 			if (router.pathname === "/login") {
-				router.push("/schedule");
+				router.push("/grades");
 			}
 		}
 	}, [client]);

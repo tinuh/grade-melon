@@ -42,7 +42,7 @@ export default function Login({
 
 	useEffect(() => {
 		if (client) {
-			router.push("/schedule");
+			router.push("/grades");
 		}
 	}, [client]);
 
