@@ -9,7 +9,6 @@ import MobileBar from "../components/MobileBar";
 import { Grades } from "../utils/grades";
 import Head from "next/head";
 import Script from "next/script";
-import PlausibleProvider from "next-plausible";
 import { HiX } from "react-icons/hi";
 
 interface Toast {
@@ -108,96 +107,96 @@ function MyApp({ Component, pageProps }) {
 	}, [client]);
 
 	return (
-		<PlausibleProvider
-			domain="grademelon.com"
-			customDomain="https://stats.tinu.tech"
-		>
-			<Flowbite>
-				<Head>
-					<title>Grade Melon</title>
-				</Head>
-				<Script
-					async
-					src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5925944145079992"
-					crossOrigin="anonymous"
-					strategy="beforeInteractive"
-				/>
-				<div className="absolute p-5 z-10">
-					{toasts.map(({ title, type }, i) => (
-						<div className="mb-5" key={i}>
-							<Toast>
-								<div
-									onClick={() =>
-										setToasts((prev) => {
-											prev.splice(i, 1);
-											return prev;
-										})
-									}
-									className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200"
-								>
-									<HiX className="h-5 w-5" />
-								</div>
-								<div className="ml-3 text-sm font-normal">{title}</div>
-								<Toast.Toggle />
-							</Toast>
-						</div>
-					))}
-				</div>
-				<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16">
-					<Topbar studentInfo={studentInfo} logout={logout} />
-					<div>
-						{noShowNav.includes(router.pathname) && (
-							<Component
-								{...pageProps}
-								districtURL={districtURL}
-								setDistrictURL={setDistrictURL}
-								login={login}
-								client={client}
-								grades={grades}
-								setGrades={setGrades}
-								setToasts={setToasts}
-								loading={loading}
-							/>
-						)}
+		<Flowbite>
+			<Head>
+				<title>Grade Melon</title>
+				<script
+					defer
+					data-domain="grademelon.com"
+					src="https://stats.tinu.tech/js/plausible.js"
+				></script>
+			</Head>
+			<Script
+				async
+				src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5925944145079992"
+				crossOrigin="anonymous"
+				strategy="beforeInteractive"
+			/>
+			<div className="absolute p-5 z-10">
+				{toasts.map(({ title, type }, i) => (
+					<div className="mb-5" key={i}>
+						<Toast>
+							<div
+								onClick={() =>
+									setToasts((prev) => {
+										prev.splice(i, 1);
+										return prev;
+									})
+								}
+								className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-100 text-red-500 dark:bg-red-800 dark:text-red-200"
+							>
+								<HiX className="h-5 w-5" />
+							</div>
+							<div className="ml-3 text-sm font-normal">{title}</div>
+							<Toast.Toggle />
+						</Toast>
+					</div>
+				))}
+			</div>
+			<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16">
+				<Topbar studentInfo={studentInfo} logout={logout} />
+				<div>
+					{noShowNav.includes(router.pathname) && (
+						<Component
+							{...pageProps}
+							districtURL={districtURL}
+							setDistrictURL={setDistrictURL}
+							login={login}
+							client={client}
+							grades={grades}
+							setGrades={setGrades}
+							setToasts={setToasts}
+							loading={loading}
+						/>
+					)}
 
-						{!noShowNav.includes(router.pathname) && (
-							<div className="pb-16 md:pb-0">
-								<div className="hidden md:flex">
-									<SideBar studentInfo={studentInfo} logout={logout} />
-									<Component
-										{...pageProps}
-										districtURL={districtURL}
-										setDistrictURL={setDistrictURL}
-										client={client}
-										login={login}
-										grades={grades}
-										setGrades={setGrades}
-										setToasts={setToasts}
-										loading={loading}
-									/>
-								</div>
-								<div className="md:hidden">
-									<Component
-										{...pageProps}
-										districtURL={districtURL}
-										client={client}
-										login={login}
-										setClient={setClient}
-										grades={grades}
-										setGrades={setGrades}
-										setToasts={setToasts}
-										loading={loading}
-									/>
-									<div className="px-4 fixed bottom-5 w-full">
-										<MobileBar />
-									</div>
+					{!noShowNav.includes(router.pathname) && (
+						<div className="pb-16 md:pb-0">
+							<div className="hidden md:flex">
+								<SideBar studentInfo={studentInfo} logout={logout} />
+								<Component
+									{...pageProps}
+									districtURL={districtURL}
+									setDistrictURL={setDistrictURL}
+									client={client}
+									login={login}
+									grades={grades}
+									setGrades={setGrades}
+									setToasts={setToasts}
+									loading={loading}
+								/>
+							</div>
+							<div className="md:hidden">
+								<Component
+									{...pageProps}
+									districtURL={districtURL}
+									client={client}
+									login={login}
+									setClient={setClient}
+									grades={grades}
+									setGrades={setGrades}
+									setToasts={setToasts}
+									loading={loading}
+								/>
+								<div className="px-4 fixed bottom-5 w-full">
+									<MobileBar />
 								</div>
 							</div>
-						)}
-					</div>
+						</div>
+					)}
 				</div>
-			</Flowbite>
-		</PlausibleProvider>
+			</div>
+		</Flowbite>
 	);
 }
 
