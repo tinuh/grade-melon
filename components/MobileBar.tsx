@@ -12,7 +12,7 @@ export default function MobileBar() {
 	const router = useRouter();
 
 	return (
-		<div className="border rounded-lg">
+		<div className="border border-black shadow-lg dark:border-white rounded-lg">
 			<label htmlFor="tabs" className="sr-only">
 				Select Page
 			</label>
@@ -22,7 +22,7 @@ export default function MobileBar() {
 						href="/schedule"
 						className={`flex justify-center p-4 w-full bg-${
 							router.pathname === "/schedule" ? "gray-100" : "white"
-						} rounded-l-lg active focus:outline-none dark:bg-gray-${
+						} rounded-l-lg hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
 							router.pathname === "/schedule" ? 700 : 800
 						} dark:hover:bg-gray-700`}
 						aria-current="page"

@@ -63,7 +63,7 @@ export default function Home({ client }: HomeProps) {
 	];
 
 	return (
-		<div className="text-left px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48 pt-5 md:pt-10 overflow-hidden">
+		<div className="text-left px-5 sm:px-12 md:px-24 lg:px-36 xl:px-48 py-5 md:py-10 overflow-hidden">
 			<Head>
 				<title>Grade Melon</title>
 			</Head>
