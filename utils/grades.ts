@@ -110,7 +110,7 @@ const parsePoints = (points: string) => {
 };
 
 const parseGrades = (grades: Gradebook): Grades => {
-	return {
+	let parsedGrades = {
 		courses: grades.courses.map(({ title, period, room, staff, marks }, i) => ({
 			name: title,
 			period: period ? period : i + 1,
@@ -170,6 +170,8 @@ const parseGrades = (grades: Gradebook): Grades => {
 			index: index,
 		})),
 	};
+	parsedGrades.courses.map((course) => calculateGrade(course));
+	return parsedGrades;
 };
 
 let solutions = [];
@@ -297,9 +299,25 @@ const calculateCategory = (course: Course, categoryId: number): Course => {
 };
 
 const calculateGrade = (course: Course): Course => {
+	let currWeight = 0;
+	let trueCategories = course.categories.filter((c) => {
+		if (!isNaN(c.grade.raw)) {
+			currWeight += c.weight;
+			return true;
+		}
+		return false;
+	});
 	course.grade.raw = parseFloat(
-		course.categories.reduce((a, b) => a + b.grade.raw * b.weight, 0).toFixed(2)
+		trueCategories
+			.reduce((a, b) => {
+				return a + b.grade.raw * (b.weight / currWeight);
+			}, 0)
+			.toFixed(2)
 	);
+
+	if (trueCategories.length === 0) {
+		course.grade.raw = NaN;
+	}
 	course.grade.letter = letterGrade(course.grade.raw);
 	course.grade.color = letterGradeColor(course.grade.letter);
 	return course;

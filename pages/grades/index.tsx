@@ -139,7 +139,8 @@ export default function Grades({
 												<span
 													className={`text-xl md:text-3xl font-bold text-${grade.color}-400`}
 												>
-													{grade.letter} ({grade.raw}%)
+													{grade.letter}
+													{!isNaN(grade.raw) && ` (${grade.raw}%)`}
 												</span>
 												<Link href={`/grades/${i}`} legacyBehavior>
 													<button className="rounded-lg bg-primary-500 px-5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">

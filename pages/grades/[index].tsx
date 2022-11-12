@@ -339,7 +339,8 @@ export default function Grades({
 						{course.teacher.name}
 					</p>
 					<div className="text-xl md:text-xl mb-2.5 dark:text-white">
-						{course.grade.letter} ({course.grade.raw}%)
+						{course.grade.letter}{" "}
+						{!isNaN(course.grade.raw) && `(${course.grade.raw}%)`}
 					</div>
 					<div className="mt-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
 						<div
@@ -360,7 +361,8 @@ export default function Grades({
 								className={`bg-${grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full`}
 								style={{ width: `${grade.raw < 100 ? grade.raw : 100}%` }}
 							>
-								{name} - {grade.raw}% | {points.earned}/{points.possible}
+								{name} - {!isNaN(grade.raw) ? `${grade.raw}%` : "N/A"} |{" "}
+								{points.earned}/{points.possible}
 							</div>
 						</div>
 					))}
