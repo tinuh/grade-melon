@@ -15,6 +15,7 @@
 		"flowbite-react": "^0.1.11",
 		"formik": "^2.2.9",
 		"framer-motion": "^7.5.3",
+		"next-plausible": "^3.6.4",
 		"next-pwa": "^5.6.0",
 		"postcss": "^8.4.17",
 		"react-chartjs-2": "^4.3.1",
