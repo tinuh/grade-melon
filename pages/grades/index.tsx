@@ -197,7 +197,8 @@ export default function Grades({
 											<td className="py-4 px-6">{teacher.name}</td>
 											<td className="py-4 px-6">
 												<span className={`font-bold text-${grade.color}-400`}>
-													{grade.letter} ({grade.raw}%)
+													{grade.letter}
+													{!isNaN(grade.raw) && ` (${grade.raw}%)`}
 												</span>
 											</td>
 										</tr>
