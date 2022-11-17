@@ -88,7 +88,9 @@ export default function Schedule({ client }: ScheduleProps) {
 										</th>
 										<td className="py-4 px-6">{name}</td>
 										<td className="py-4 px-6">{room}</td>
-										<td className="py-4 px-6">{teacher.name}</td>
+										<td className="py-4 px-6">
+											<a href={`mailto:${teacher.email}`}>{teacher.name}</a>
+										</td>
 									</tr>
 								))}
 							</tbody>
