@@ -115,6 +115,11 @@ function MyApp({ Component, pageProps }) {
 					data-domain="grademelon.com"
 					src="https://stats.tinu.tech/js/plausible.js"
 				></script>
+				<script
+					defer
+					src="https://static.cloudflareinsights.com/beacon.min.js"
+					data-cf-beacon='{"token": "c01b4332f8c346bdbf9df1938384019b"}'
+				></script>
 			</Head>
 			<Script
 				async
