@@ -166,13 +166,16 @@ export default function Grades({
 							<p
 								className={`text-base leading-relaxed text-${course?.assignments[modalDetails]?.grade.color}-400`}
 							>
-								{course?.assignments[modalDetails]?.grade.letter} (
-								{course?.assignments[modalDetails]?.grade.raw}%)
+								{course?.assignments[modalDetails]?.grade.letter}
+								{!isNaN(course?.assignments[modalDetails]?.grade.raw) &&
+									` (${course?.assignments[modalDetails]?.grade.raw}%)`}
 							</p>
 							<p className="font-bold text-black dark:text-white">Points</p>
 							<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-								{course?.assignments[modalDetails]?.points.earned}/
-								{course?.assignments[modalDetails]?.points.possible}
+								{!isNaN(course?.assignments[modalDetails]?.points.earned)
+									? course?.assignments[modalDetails]?.points.earned
+									: "NG"}
+								/{course?.assignments[modalDetails]?.points.possible}
 							</p>
 							<p className="font-bold text-black dark:text-white">Date Due</p>
 							<p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
