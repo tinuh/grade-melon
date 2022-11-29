@@ -12,7 +12,7 @@ export default function TopBar({ studentInfo, logout }: TopBarProps) {
 	const [dropdown, setDropdown] = useState(false);
 
 	return (
-		<div className="fixed top-0 w-full">
+		<div className="fixed top-0 w-full z-10">
 			<nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
 				<div className=" flex flex-wrap justify-between items-center">
 					<Link href="/" className="flex items-center">
