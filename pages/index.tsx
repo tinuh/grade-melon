@@ -118,7 +118,17 @@ export default function Home({ client }: HomeProps) {
                   </Link>
                </motion.div>
             </div>
-            <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+            <div className="hidden dark:hidden lg:mt-0 lg:col-span-5 lg:flex ">
+               <motion.img
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                  className="h-96 w-full"
+                  src="/assets/herolight.svg"
+                  alt="mockup"
+               />
+            </div>
+            <div className="hidden lg:mt-0 lg:col-span-5   dark:block">
                <motion.img
                   initial={{ y: 50, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -218,7 +228,15 @@ export default function Home({ client }: HomeProps) {
                initial={{ y: 50, opacity: 0 }}
                animate={{ y: 0, opacity: 1 }}
                transition={{ delay: 0.2, duration: 0.5 }}
-               className="h-96 w-full"
+               className="h-96 w-full hidden dark:hidden lg:flex"
+               src="/assets/opensourcelight.svg"
+               alt="Open Source"
+            />
+            <motion.img
+               initial={{ y: 50, opacity: 0 }}
+               animate={{ y: 0, opacity: 1 }}
+               transition={{ delay: 0.2, duration: 0.5 }}
+               className="h-96 w-full hidden dark:block lg:flex"
                src="/assets/opensource.svg"
                alt="Open Source"
             />
