@@ -29,13 +29,13 @@ export default function Home({ client }: HomeProps) {
 			name: "Edit your Grades",
 			icon: <BiEditAlt size={30} />,
 			description:
-				"Edit your grades and see how it affects your overall className grade.",
+				"Edit your grades and see how it affects your overall class grade.",
 		},
 		{
 			name: "Grade Optimizer",
 			icon: <BsGraphUp size={30} />,
 			description:
-				"See the possible ways that you could earn your desired grade in a className.",
+				"See the possible ways that you could earn your desired grade in a class.",
 		},
 		{
 			name: "View your Schedule",
