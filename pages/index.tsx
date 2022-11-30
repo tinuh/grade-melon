@@ -236,7 +236,7 @@ export default function Home({ client }: HomeProps) {
                initial={{ y: 50, opacity: 0 }}
                animate={{ y: 0, opacity: 1 }}
                transition={{ delay: 0.2, duration: 0.5 }}
-               className="h-96 w-full hidden dark:block lg:flex"
+               className="h-96 w-full hidden dark:block"
                src="/assets/opensource.svg"
                alt="Open Source"
             />
