@@ -5,8 +5,11 @@ export default function NotFound() {
 	const router = useRouter();
 
 	React.useEffect(() => {
-		router.push(router.pathname);
-	}, [router]);
+		if (window) {
+			console.log(window.location.pathname);
+			router.push(window.location.pathname);
+		}
+	}, []);
 
 	return (
 		<div className="p-5 md:p-10">
