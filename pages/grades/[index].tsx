@@ -149,7 +149,7 @@ export default function Grades({
 	};
 
 	return (
-		<div className="p-5 md:p-10">
+		<div className="p-5 md:p-10 flex-1">
 			<Head>
 				<title>{course ? `${course.name} - Grade Melon` : "Grade Melon"}</title>
 			</Head>
@@ -235,7 +235,7 @@ export default function Grades({
 									</div>
 								))}
 							</div>
-							<div className="overflow-x-auto shadow-md rounded-lg mt-5">
+							<div className="overflow-x-auto shadow-md rounded-lg mt-5 border border-gray-300 dark:border-gray-600">
 								<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 									<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 										<tr>
@@ -334,7 +334,7 @@ export default function Grades({
 					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
-				<div>
+				<div className="max-w-max">
 					<h1 className="flex flex-wrap text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
 						{course.name}
 					</h1>
@@ -405,8 +405,8 @@ export default function Grades({
 						</button>
 					</div>
 					<div className="m-5" />
-					<div className="overflow-x-auto shadow-md rounded-lg">
-						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+					<div className="overflow-x-auto shadow-md rounded-lg max-w-max border border-gray-200 dark:border-gray-700">
+						<table className="text-sm text-left text-gray-500 dark:text-gray-400">
 							<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 								<tr>
 									<th scope="col" className="py-3 pl-6">
