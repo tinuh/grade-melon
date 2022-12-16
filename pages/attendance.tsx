@@ -36,13 +36,16 @@ export default function Attendance({ client }: AttendanceProps) {
 	const router = useRouter();
 	const [loading, setLoading] = useState(true);
 	const [data, setData] = useState<AttendanceType>();
+	const [barData, setBarData] = useState<any>();
 
 	useEffect(() => {
 		try {
 			client.attendance().then((res) => {
-				console.log(res);
 				setData(res);
 				setLoading(false);
+				let temp = parseBarData(res?.absences);
+				setBarData(temp);
+				console.log(temp);
 			});
 		} catch {
 			if (localStorage.getItem("remember") === "false") {
@@ -50,8 +53,6 @@ export default function Attendance({ client }: AttendanceProps) {
 			}
 		}
 	}, [client]);
-
-	const barData = parseBarData(data?.absences);
 
 	return (
 		<div className="flex-1 p-5 md:p-10">
@@ -97,12 +98,26 @@ export default function Attendance({ client }: AttendanceProps) {
 										>
 											{absence.date.toLocaleDateString()}
 										</th>
-										{parsePeriods(data?.absences).map((period, i) => (
-											<td key={i} scope="col" className="py-3 px-6">
+
+										{parsePeriods(data?.absences).map((period, x) => (
+											<td
+												key={x}
+												scope="col"
+												className="py-3 px-6"
+												style={{
+													color: barData?.datasets.find(
+														(x) =>
+															x.label ===
+															absence.periods.find(
+																(p) => p.period === parseInt(period)
+															)?.name
+													)?.backgroundColor,
+												}}
+											>
 												{
-													absence.periods.filter(
+													absence.periods.find(
 														(p) => p.period === parseInt(period)
-													)[0]?.name
+													)?.name
 												}
 											</td>
 										))}
