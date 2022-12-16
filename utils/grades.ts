@@ -115,6 +115,32 @@ const parsePoints = (points: string) => {
 	};
 };
 
+const parseDate = ({ start, end }: { start: Date; end: Date }): string => {
+	let startDate = new Date(start);
+	let endDate = new Date(end);
+
+	//days left to the due date
+	let daysLeft = Math.ceil(
+		(endDate.getTime() - new Date().getTime()) / 86400000
+	);
+	let daysToStart = Math.floor(
+		(startDate.getTime() - new Date().getTime()) / 86400000
+	);
+	let daysAgo = Math.floor(
+		(new Date().getTime() - endDate.getTime()) / 86400000
+	);
+
+	if (daysLeft > 0 && daysToStart < 0) {
+		return `${daysLeft} day${daysLeft > 1 ? "s" : ""} left`;
+	} else if (daysToStart > 0) {
+		return `In ${daysToStart} day${daysToStart > 1 ? "s" : ""}`;
+	} else if (daysAgo > 0) {
+		return `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
+	} else if (daysAgo === 0) {
+		return "Ends Today";
+	}
+};
+
 const parseGrades = (grades: Gradebook): Grades => {
 	let parsedGrades = {
 		courses: grades.courses.map(({ title, period, room, staff, marks }, i) => ({
@@ -171,8 +197,8 @@ const parseGrades = (grades: Gradebook): Grades => {
 			name: grades.reportingPeriod.current.name,
 			index: grades.reportingPeriod.current.index,
 		},
-		periods: grades.reportingPeriod.available.map(({ name, index }) => ({
-			name: name,
+		periods: grades.reportingPeriod.available.map(({ name, index, date }) => ({
+			name: `${name} (${parseDate(date)})`,
 			index: index,
 		})),
 	};
