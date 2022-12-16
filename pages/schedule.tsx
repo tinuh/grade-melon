@@ -30,7 +30,7 @@ export default function Schedule({ client }: ScheduleProps) {
 	}, [client, term]);
 
 	return (
-		<div className="p-5 md:p-10 h-full">
+		<div className="p-5 md:p-10 h-full flex-1">
 			<Head>
 				<title>Schedule - Grade Melon</title>
 			</Head>
@@ -39,7 +39,7 @@ export default function Schedule({ client }: ScheduleProps) {
 					<Spinner size="xl" color="pink" />
 				</div>
 			) : (
-				<div>
+				<div className="max-w-max">
 					<select
 						id="periods"
 						value={term || schedule?.term.index}
@@ -52,8 +52,8 @@ export default function Schedule({ client }: ScheduleProps) {
 							</option>
 						))}
 					</select>
-					<div className="overflow-x-auto shadow-md rounded-lg">
-						<table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+					<div className="max-w-max overflow-x-auto shadow-md rounded-lg border border-gray-200 dark:border-gray-700">
+						<table className="text-sm text-left text-gray-500 dark:text-gray-400">
 							<thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
 								<tr>
 									<th scope="col" className="py-3 pl-6">

@@ -6,7 +6,8 @@
 
 
 /* custom scrollbar */
-::-webkit-scrollbar
+@media (min-width: 768px) {
+  ::-webkit-scrollbar
 {
   width: 8px;
   height: 8px;
@@ -16,7 +17,8 @@
 ::-webkit-scrollbar-thumb
 {
   border-radius: 4px;
-  background-color: #574d4d;
+  background-color: #374151;
+}
 }
 
 /* custom highlight */

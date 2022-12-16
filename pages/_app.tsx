@@ -129,7 +129,7 @@ function MyApp({ Component, pageProps }) {
 			/>
 			<div className="absolute p-5 z-10">
 				{toasts.map(({ title, type }, i) => (
-					<div className="mb-5" key={i}>
+					<div className="mb-5 z-50" key={i}>
 						<Toast>
 							<div
 								onClick={() =>

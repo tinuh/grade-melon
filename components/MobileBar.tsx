@@ -12,7 +12,7 @@ export default function MobileBar() {
 	const router = useRouter();
 
 	return (
-		<div className="border border-black shadow-lg dark:border-white rounded-lg">
+		<div className="border-2 border-gray-200 shadow-lg dark:border-gray-700 rounded-lg">
 			<label htmlFor="tabs" className="sr-only">
 				Select Page
 			</label>

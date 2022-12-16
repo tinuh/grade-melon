@@ -85,7 +85,7 @@ export default function Grades({
 	};
 
 	return (
-		<div className="p-5 md:p-10">
+		<div className="p-5 md:p-10 flex-1">
 			<Head>
 				<title>Gradebook - Grade Melon</title>
 			</Head>
@@ -117,7 +117,7 @@ export default function Grades({
 						</select>
 					</div>
 					{view === "card" && (
-						<div className="flex flex-wrap gap-5 items-stretch">
+						<div className=" flex flex-wrap gap-5 items-stretch">
 							{grades.courses.map(({ name, period, grade, teacher }, i) => (
 								<div className="w-96" key={i}>
 									<div className="h-full flex flex-col justify-between gap-2 md:gap-5 p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">

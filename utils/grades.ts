@@ -92,6 +92,12 @@ const letterGrade = (grade: number): string => {
 	}
 };
 
+//function to get rid of everything in parentheses in assignment names
+const stripParens = (str: string): string => {
+	let regex = /\(([^)]+)\)/g;
+	return str.replace(regex, "");
+};
+
 const parsePoints = (points: string) => {
 	let regex = /^(\d+\.?\d*|\.\d+) \/ (\d+\.?\d*|\.\d+)$/;
 	if (points.match(regex)) {
@@ -112,7 +118,7 @@ const parsePoints = (points: string) => {
 const parseGrades = (grades: Gradebook): Grades => {
 	let parsedGrades = {
 		courses: grades.courses.map(({ title, period, room, staff, marks }, i) => ({
-			name: title,
+			name: stripParens(title),
 			period: period ? period : i + 1,
 			room: room,
 			grade: {

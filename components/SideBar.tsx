@@ -23,7 +23,7 @@ export default function SideBar({ studentInfo, logout }: NavProps) {
 	return (
 		<div className="w-fit h-full py-10 pl-10 hidden md:block">
 			<aside className="w-64" aria-label="Sidebar">
-				<div className="overflow-y-auto py-4 px-3 bg-white rounded dark:bg-gray-800">
+				<div className="overflow-y-auto py-4 px-3 bg-white rounded-lg dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700">
 					<ul className="space-y-2">
 						<li>
 							<Link
