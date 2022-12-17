@@ -21,8 +21,8 @@ export default function MobileBar() {
 					<Link
 						href="/schedule"
 						className={`flex justify-center p-4 w-full bg-${
-							router.pathname === "/schedule" ? "gray-100" : "white"
-						} rounded-l-lg hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							router.pathname === "/schedule" ? "gray-200" : "white"
+						} rounded-l-lg hover:text-gray-700 hover:bg-gray-200 focus:outline-none dark:hover:text-white dark:bg-gray-${
 							router.pathname === "/schedule" ? 700 : 800
 						} dark:hover:bg-gray-700`}
 						aria-current="page"
@@ -34,9 +34,9 @@ export default function MobileBar() {
 					<Link
 						href="/grades"
 						className={`flex justify-center p-4 w-full bg-${
-							router.pathname === "/grades" ? "gray-100" : "white"
-						} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
-							router.pathname === "/grades" ? 700 : 800
+							router.pathname.includes("/grades") ? "gray-200" : "white"
+						} hover:text-gray-700 hover:bg-gray-200 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							router.pathname.includes("/grades") ? 700 : 800
 						} dark:hover:bg-gray-700`}
 					>
 						<AiOutlineBook className="h-full" size="1.2rem" />
@@ -46,8 +46,8 @@ export default function MobileBar() {
 					<Link
 						href="/attendance"
 						className={`flex justify-center p-4 w-full bg-${
-							router.pathname === "/attendance" ? "gray-100" : "white"
-						} hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							router.pathname === "/attendance" ? "gray-200" : "white"
+						} hover:text-gray-700 hover:bg-gray-200 focus:outline-none dark:hover:text-white dark:bg-gray-${
 							router.pathname === "/attendance" ? 700 : 800
 						} dark:hover:bg-gray-700`}
 					>
@@ -58,8 +58,8 @@ export default function MobileBar() {
 					<Link
 						href="/documents"
 						className={`flex justify-center p-4 w-full bg-${
-							router.pathname === "/documents" ? "gray-100" : "white"
-						} rounded-r-lg hover:text-gray-700 hover:bg-gray-50 focus:outline-none dark:hover:text-white dark:bg-gray-${
+							router.pathname === "/documents" ? "gray-200" : "white"
+						} rounded-r-lg hover:text-gray-700 hover:bg-gray-200 focus:outline-none dark:hover:text-white dark:bg-gray-${
 							router.pathname === "/documents" ? 700 : 800
 						} dark:hover:bg-gray-700`}
 					>

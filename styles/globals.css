@@ -26,3 +26,18 @@
   background-color: #f43f5e;
   color: #ffffff;
 }
+
+/* prevent blue highlight on click */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+:focus {
+    outline: none !important;
+}
