@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/globals.css";
 import StudentVue from "studentvue";
 import { useRouter } from "next/router";
-import { Flowbite, Toast } from "flowbite-react";
+import { Flowbite, Toast, useTheme } from "flowbite-react";
 import Topbar from "../components/TopBar";
 import SideBar from "../components/SideBar";
 import MobileBar from "../components/MobileBar";
@@ -10,6 +10,7 @@ import { Grades } from "../utils/grades";
 import Head from "next/head";
 import Script from "next/script";
 import { HiX } from "react-icons/hi";
+import BackgroundColor from "../components/BackgroundColor";
 
 interface Toast {
 	title: string;
@@ -148,6 +149,7 @@ function MyApp({ Component, pageProps }) {
 					</div>
 				))}
 			</div>
+			<BackgroundColor />
 			<div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-16">
 				<Topbar studentInfo={studentInfo} logout={logout} />
 				<div>
