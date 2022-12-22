@@ -29,23 +29,12 @@ module.exports = {
 		},
 	},
 	safelist: [
-		"text-green-400",
-		"text-blue-400",
-		"text-yellow-400",
-		"text-orange-400",
-		"text-red-400",
-		"bg-gray-800",
-		"bg-gray-900",
-		"bg-white",
-		"bg-gray-50",
-		"bg-gray-100",
-		"bg-gray-700",
-		"bg-gray-800",
-		"bg-green-400",
-		"bg-blue-400",
-		"bg-yellow-400",
-		"bg-orange-400",
-		"bg-red-400",
+		{
+      pattern: /(text|bg)-(green|blue|yellow|orange|red)-400/,
+    },
+		{
+			pattern: /bg-gray-(50|100|700|800|900)/,
+		}
 	],
 	plugins: [require("flowbite/plugin")],
 };
