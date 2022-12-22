@@ -1,34 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: "class",
-	content: {
-		options: {
-			safelist: [
-				"text-green-400",
-				"text-blue-400",
-				"text-yellow-400",
-				"text-orange-400",
-				"text-red-400",
-				"bg-gray-800",
-				"bg-gray-900",
-				"bg-white",
-				"bg-gray-50",
-				"bg-gray-100",
-				"bg-gray-700",
-				"bg-gray-800",
-				"bg-green-400",
-				"bg-blue-400",
-				"bg-yellow-400",
-				"bg-orange-400",
-				"bg-red-400",
-			],
-		},
-		files: [
-			"./node_modules/flowbite-react/**/*.js",
-			"./pages/**/*.{js,ts,jsx,tsx}",
-			"./components/**/*.{js,ts,jsx,tsx}",
-		],
-	},
+	content: [
+		"./node_modules/flowbite-react/**/*.js",
+		"./pages/**/*.{js,ts,jsx,tsx}",
+		"./components/**/*.{js,ts,jsx,tsx}",
+	],
 	theme: {
 		extend: {
 			background: "#000000",
@@ -51,5 +28,24 @@ module.exports = {
 			sans: ["Manrope", "sans-serif"],
 		},
 	},
+	safelist: [
+		"text-green-400",
+		"text-blue-400",
+		"text-yellow-400",
+		"text-orange-400",
+		"text-red-400",
+		"bg-gray-800",
+		"bg-gray-900",
+		"bg-white",
+		"bg-gray-50",
+		"bg-gray-100",
+		"bg-gray-700",
+		"bg-gray-800",
+		"bg-green-400",
+		"bg-blue-400",
+		"bg-yellow-400",
+		"bg-orange-400",
+		"bg-red-400",
+	],
 	plugins: [require("flowbite/plugin")],
 };
