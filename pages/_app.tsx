@@ -128,7 +128,7 @@ function MyApp({ Component, pageProps }) {
 				crossOrigin="anonymous"
 				strategy="beforeInteractive"
 			/>
-			<div className="absolute p-5 z-10">
+			<div className="absolute p-5 z-20">
 				{toasts.map(({ title, type }, i) => (
 					<div className="mb-5 z-50" key={i}>
 						<Toast>

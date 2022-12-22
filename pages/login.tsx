@@ -30,10 +30,14 @@ export default function Login({
 	const [showModal, setShowModal] = useState(false);
 	const [zipCode, setZipCode] = useState("");
 	const [districts, setDisstricts] = useState(allDistricts);
+	const [trouble, setTrouble] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let success = await login(username, password, checkbox);
+		if (!success) {
+			setTrouble(true);
+		}
 		await setPassword("");
 		if (success) {
 			await setUsername("");
@@ -213,7 +217,7 @@ export default function Login({
 								onClick={handleSubmit}
 								disabled={loading}
 								type="submit"
-								className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+								className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 p-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
 							>
 								Sign in
 								{loading && (
@@ -222,6 +226,18 @@ export default function Login({
 									</div>
 								)}
 							</button>
+							{trouble && (
+								<p className="text-center text-sm dark:text-gray-100">
+									Having trouble logging in? Make sure you can login{" "}
+									<a
+										target="blank"
+										href={districtURL}
+										className="text-primary-500"
+									>
+										here
+									</a>
+								</p>
+							)}
 						</form>
 					</div>
 				</div>
