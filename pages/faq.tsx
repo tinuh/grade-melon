@@ -38,9 +38,9 @@ export default function FAQ() {
 						</span>
 					</p>
 					<ul className="list-disc pl-10 dark:text-white">
-						<li>Open Grade Melon in your browser</li>
+						<li>Open Grade Melon in Safari</li>
 						<li>Click on the Share button in the bottom bar</li>
-						<li>Click on "Add to Home Screen"</li>
+						<li>Click on &quot;Add to Home Screen&quot;</li>
 					</ul>
 					<p className="px-4 mt-4 leading-relaxed dark:text-white">
 						<span className="flex gap-2 items-center">
@@ -49,9 +49,9 @@ export default function FAQ() {
 						</span>
 					</p>
 					<ul className="list-disc ml-10 dark:text-white">
-						<li>Open Grade Melon in your browser</li>
+						<li>Open Grade Melon in Chrome</li>
 						<li>Click on the 3 dots in the top right corner</li>
-						<li>Click on "Add to Home Screen"</li>
+						<li>Click on &quot;Add to Home Screen&quot;</li>
 					</ul>
 				</details>
 
