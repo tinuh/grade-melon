@@ -1,13 +1,20 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 export default function FAQ() {
+	const router = useRouter();
+	const view = router.query.refer as string;
+
 	return (
 		<div className="p-5 md:p-10 flex-1">
 			<h1 className="font-bold text-center text-3xl dark:text-white pb-5">
 				FAQ & Info
 			</h1>
 			<div className="space-y-4">
-				<details className="group [&_summary::-webkit-details-marker]:hidden">
+				<details
+					className="group [&_summary::-webkit-details-marker]:hidden"
+					open={view === "app"}
+				>
 					<summary className="flex items-center justify-between p-4 rounded-lg cursor-pointer bg-white dark:bg-gray-800 border dark:border-gray-700 dark:text-white">
 						<h2 className="font-medium">Is Grade Melon an App?</h2>
 
@@ -33,7 +40,7 @@ export default function FAQ() {
 					</p>
 					<p className="px-4 mt-4 leading-relaxed dark:text-white">
 						<span className="flex gap-2 items-center">
-							Apple
+							Apple iPhone/iPad
 							<img className="h-4 inline-block" src="/assets/apple.png" />
 						</span>
 					</p>
@@ -52,6 +59,18 @@ export default function FAQ() {
 						<li>Open Grade Melon in Chrome</li>
 						<li>Click on the 3 dots in the top right corner</li>
 						<li>Click on &quot;Add to Home Screen&quot;</li>
+					</ul>
+
+					<p className="px-4 mt-4 leading-relaxed dark:text-white">
+						<span className="flex gap-2 items-center">
+							Personal Computer
+							<img className="h-4 inline-block" src="/assets/pc.png" />
+						</span>
+					</p>
+					<ul className="list-disc ml-10 dark:text-white">
+						<li>Open Grade Melon in Chrome</li>
+						<li>Click on the 3 dots in the top right corner</li>
+						<li>Click on &quot;Install Grade Melon&quot;</li>
 					</ul>
 				</details>
 

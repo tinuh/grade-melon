@@ -27,14 +27,22 @@ module.exports = {
 		fontFamily: {
 			sans: ["Manrope", "sans-serif"],
 		},
+		screens: {
+			sm: "640px",
+			md: "768px",
+			lg: "1024px",
+			xl: "1280px",
+			"2xl": "1536px",
+			announcement: "413px",
+		},
 	},
 	safelist: [
 		{
-      pattern: /(text|bg)-(green|blue|yellow|orange|red)-400/,
-    },
+			pattern: /(text|bg)-(green|blue|yellow|orange|red)-400/,
+		},
 		{
 			pattern: /bg-gray-(50|100|700|800|900)/,
-		}
+		},
 	],
 	plugins: [require("flowbite/plugin")],
 };

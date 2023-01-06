@@ -28,7 +28,8 @@
 }
 
 /* prevent blue highlight on click */
-* {
+@media (max-width: 768px) {
+  * {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -36,6 +37,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
 }
 
 :focus {
