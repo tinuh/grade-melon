@@ -8,7 +8,6 @@ Grade Melon is a grade viewer pulling from Student Vue. It was created using Nex
 ## Contributing
 We encourage you to contribute to Grade Melon! Please refer to the [contributing guidelines](https://github.com/tinuh/grade-melon/blob/main/CONTRIBUTING.md).
 
-All contributors are expected to follow the Hack Club Code of Conduct.
 
 ## Quick Start
 Clone the repository to your local machine.
