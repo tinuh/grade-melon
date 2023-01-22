@@ -5,8 +5,6 @@
 <br>
 Grade Melon is a grade viewer pulling from Student Vue. It was created using Next.js as a PWA. It also uses TailwindCSS, PostCSS, Flowbite, Framer Motion, Formik, and Chart.js.
 
-## Contributing
-We encourage you to contribute to Grade Melon! Please refer to the [contributing guidelines](https://github.com/tinuh/grade-melon/blob/main/CONTRIBUTING.md).
 
 
 ## Quick Start
