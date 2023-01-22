@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://raw.githubusercontent.com/tinuh/grade-melon/master/public/assets/logo.png" width="128" alt="Hack Club Bank logo">
+    <img src="https://raw.githubusercontent.com/tinuh/grade-melon/master/public/assets/logo.png" width="128" alt="Grade Melon logo">
   <h1>Grade Melon</h1>
 </div>
 <br>
