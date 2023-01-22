@@ -1,34 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+    <img src="https://raw.githubusercontent.com/tinuh/grade-melon/master/public/assets/logo.png" width="128" alt="Grade Melon logo">
+  <h1>Grade Melon</h1>
+</div>
+<br>
+Grade Melon is a grade viewer pulling from Student Vue. It was created using Next.js as a PWA. It also uses TailwindCSS, PostCSS, Flowbite, Framer Motion, Formik, and Chart.js.
 
-## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
+## Quick Start
+Clone the repository to your local machine.
 ```
+git clone https://github.com/tinuh/grade-melon && cd grade-melon
+```
+Install dependencies
+```
+npm install
+```
+Run the development server
+```
+npm run dev
+```
+### Testing PWA
+Mobile specific PWA testing can be tested by running the development server and accessing the website on your local network. For more information, check out [this](https://stackoverflow.com/questions/19482164/how-can-i-access-localhost-from-another-computer-in-the-same-network).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+🔼 [Back to Top](#readme)
