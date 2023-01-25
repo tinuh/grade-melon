@@ -347,25 +347,27 @@ export default function Grades({
 					</div>
 					<div className="mt-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
 						<div
-							className={`bg-${course.grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full`}
+							className={`bg-${course.grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full h-4 md:h-6`}
 							style={{
 								width: `${course.grade.raw < 100 ? course.grade.raw : 100}%`,
 							}}
 						>
-							Total
+							<p className="absolute">Total</p>
 						</div>
 					</div>
 					{course.categories.map(({ name, grade, points }, i) => (
 						<div
 							key={i}
-							className="mt-2 md:mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700"
+							className="mt-2 md:mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700 relative"
 						>
 							<div
-								className={`bg-${grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full`}
+								className={`bg-${grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full h-4 md:h-6`}
 								style={{ width: `${grade.raw < 100 ? grade.raw : 100}%` }}
 							>
-								{name} - {!isNaN(grade.raw) ? `${grade.raw}%` : "N/A"} |{" "}
-								{points.earned}/{points.possible}
+								<p className="absolute">
+									{name} ({!isNaN(grade.raw) ? `${grade.raw}%` : "N/A"}) -{" "}
+									{points.earned}/{points.possible}
+								</p>
 							</div>
 						</div>
 					))}
