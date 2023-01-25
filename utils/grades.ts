@@ -131,13 +131,13 @@ const parseDate = ({ start, end }: { start: Date; end: Date }): string => {
 	);
 
 	if (daysLeft > 0 && daysToStart < 0) {
-		return `${daysLeft} day${daysLeft > 1 ? "s" : ""} left`;
+		return `ends in ${daysLeft} day${daysLeft > 1 ? "s" : ""}`;
 	} else if (daysToStart > 0) {
-		return `In ${daysToStart} day${daysToStart > 1 ? "s" : ""}`;
+		return `starts in ${daysToStart} day${daysToStart > 1 ? "s" : ""}`;
 	} else if (daysAgo > 0) {
-		return `${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
+		return `ended ${daysAgo} day${daysAgo > 1 ? "s" : ""} ago`;
 	} else if (daysAgo === 0) {
-		return "Ends Today";
+		return "ends today";
 	}
 };
 
