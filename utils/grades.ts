@@ -22,6 +22,7 @@ interface Course {
 	name: string;
 	period: number;
 	room: string;
+	weighted: boolean;
 	grade: {
 		letter: string;
 		raw: number;
@@ -49,6 +50,8 @@ interface Course {
 
 interface Grades {
 	courses: Course[];
+	gpa: number;
+	wgpa: number;
 	period: {
 		name: string;
 		index: number;
@@ -90,6 +93,34 @@ const letterGrade = (grade: number): string => {
 	} else {
 		return "N/A";
 	}
+};
+
+const letterGPA = (letterGrade: string, weighted: boolean): number => {
+	let gpa = 0;
+	if (weighted) {
+		gpa++;
+	}
+	switch (letterGrade) {
+		case "A":
+			return gpa + 4;
+		case "B":
+			return gpa + 3;
+		case "C":
+			return gpa + 2;
+		case "D":
+			return gpa + 1;
+		default:
+			return gpa + 0;
+	}
+};
+
+const isWeighted = (name: string): boolean => {
+	let weighted = false;
+	if (name.includes("AP")) return true;
+	if (name.includes("Hon")) return true;
+	if (name.includes("IB")) return true;
+	if (name.includes("Mag")) return true;
+	else return false;
 };
 
 //function to get rid of everything in parentheses in assignment names
@@ -143,10 +174,27 @@ const parseDate = ({ start, end }: { start: Date; end: Date }): string => {
 
 const parseGrades = (grades: Gradebook): Grades => {
 	let parsedGrades = {
+		gpa:
+			grades.courses.reduce(
+				(a, b) =>
+					a + letterGPA(letterGrade(b.marks[0].calculatedScore.raw), false),
+				0
+			) / grades.courses.length,
+		wgpa:
+			grades.courses.reduce(
+				(a, b) =>
+					a +
+					letterGPA(
+						letterGrade(b.marks[0].calculatedScore.raw),
+						isWeighted(b.title)
+					),
+				0
+			) / grades.courses.length,
 		courses: grades.courses.map(({ title, period, room, staff, marks }, i) => ({
 			name: stripParens(title),
 			period: period ? period : i + 1,
 			room: room,
+			weighted: isWeighted(title),
 			grade: {
 				letter: letterGrade(marks[0].calculatedScore.raw),
 				raw: marks[0].calculatedScore.raw,
@@ -376,6 +424,28 @@ const addAssignment = (course: Course): Course => {
 	return course;
 };
 
+const calculateGPA = (grades: Grades): Grades => {
+	grades.gpa =
+		grades.courses.reduce(
+			(a, b) => a + letterGPA(letterGrade(b.grade.raw), false),
+			0
+		) / grades.courses.length;
+	grades.wgpa =
+		grades.courses.reduce(
+			(a, b) => a + letterGPA(letterGrade(b.grade.raw), b.weighted),
+			0
+		) / grades.courses.length;
+
+	return { ...grades };
+};
+
+const updateGPA = (grades: Grades, i: number, val: boolean): Grades => {
+	grades.courses[i].weighted = val;
+	grades = calculateGPA(grades);
+
+	return { ...grades };
+};
+
 const delAssignment = (course: Course, assignmentId: number): Course => {
 	course.assignments.splice(assignmentId, 1);
 	course.categories.forEach((category, i) => {
@@ -445,5 +515,7 @@ export {
 	delAssignment,
 	updateCategory,
 	genTable,
+	calculateGPA,
+	updateGPA,
 };
 export type { Grades, Assignment, Course };
