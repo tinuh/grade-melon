@@ -95,7 +95,7 @@ export default function Grades({
 				</div>
 			) : (
 				<div className="max-w-max">
-					<div className="flex gap-2 mb-5 w-full">
+					<div className="flex gap-2 mb-5">
 						<button
 							type="button"
 							onClick={() => update(period)}
@@ -117,9 +117,12 @@ export default function Grades({
 						</select>
 					</div>
 					{view === "card" && (
-						<div className=" flex flex-wrap gap-5 items-stretch">
+						<div
+							className="grid gap-5 2col:grid-cols-2 3col:grid-cols-3 4col:grid-cols-4 items-stretch w-full"
+							//style={{ gridTemplateColumns: "repeat(auto-fit, 384px)" }}
+						>
 							{grades.courses.map(({ name, period, grade, teacher }, i) => (
-								<div className="w-96" key={i}>
+								<div className="w-full md:w-96" key={i}>
 									<div className="h-full flex flex-col justify-between gap-2 md:gap-5 p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 										<div className="">
 											<Link href={`/grades/${i}`} legacyBehavior>
