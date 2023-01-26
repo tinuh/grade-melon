@@ -394,7 +394,7 @@ export default function Grades({
 						<button
 							type="button"
 							onClick={optimize}
-							className="text-black bg-primary-400 border border-primary-400 focus:outline-none hover:bg-primary-500 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm p-2.5 dark:bg-primary-600 dark:text-white dark:border-primary-600 dark:hover:bg-primary-700 dark:hover:border-primary-600 dark:focus:ring-primary-400"
+							className=" bg-primary-500 border border-primary-500 focus:outline-none hover:bg-primary-600 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm p-2.5 dark:bg-primary-600 text-white dark:hover:bg-primary-700 dark:focus:ring-primary-400"
 						>
 							<BsGraphUp size={"1.3rem"} />
 						</button>
