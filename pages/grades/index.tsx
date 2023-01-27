@@ -54,13 +54,27 @@ export default function Grades({
 		try {
 			if (!grades) {
 				//setLoading(true);
-				client.gradebook().then((res) => {
-					let parsedGrades = parseGrades(res);
-					console.log(parsedGrades);
-					setGrades(parsedGrades);
-					setPeriod(parsedGrades.period.index);
+				try {
+					client.gradebook(3).then((res) => {
+						let parsedGrades = parseGrades(res);
+						console.log(parsedGrades);
+						setGrades(parsedGrades);
+						setPeriod(parsedGrades.period.index);
+						setLoading(false);
+					});
+				} catch (err) {
+					console.log(err);
+					setToasts((toasts) => {
+						return [
+							...toasts,
+							{
+								title: err.message,
+								type: "error",
+							},
+						];
+					});
 					setLoading(false);
-				});
+				}
 			}
 		} catch {
 			if (localStorage.getItem("remember") === "false") {
@@ -167,7 +181,7 @@ export default function Grades({
 							id="periods"
 							onChange={(e) => update(parseInt(e.target.value))}
 							value={period}
-							className="block w-full p-2 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+							className="min-w-min block w-full p-2 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 						>
 							{grades?.periods.map((period) => (
 								<option value={period.index} key={period.index}>
