@@ -67,6 +67,9 @@ function MyApp({ Component, pageProps }) {
 						type: "error",
 					},
 				]);
+				setTimeout(() => {
+					setToasts((toasts) => toasts.slice(1));
+				}, 5000);
 				setLoading(false);
 			});
 

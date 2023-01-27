@@ -137,6 +137,9 @@ export default function Grades({
 						},
 					];
 				});
+				setTimeout(() => {
+					setToasts((toasts) => toasts.slice(1));
+				}, 5000);
 				setLoading(false);
 			});
 	};

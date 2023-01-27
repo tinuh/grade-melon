@@ -173,6 +173,18 @@ const parseDate = ({ start, end }: { start: Date; end: Date }): string => {
 };
 
 const parseGrades = (grades: Gradebook): Grades => {
+	if (grades.courses[0].marks.length === 0) {
+		for (let i = 0; i < grades.courses.length; i++) {
+			grades.courses[i].marks = [
+				{
+					calculatedScore: { raw: NaN, string: "N/A" },
+					weightedCategories: [],
+					assignments: [],
+					name: "",
+				},
+			];
+		}
+	}
 	let parsedGrades = {
 		gpa:
 			grades.courses.reduce(
@@ -419,7 +431,7 @@ const addAssignment = (course: Course): Course => {
 			due: new Date(),
 			assigned: new Date(),
 		},
-		category: course.categories[0].name,
+		category: course.categories.length ? course.categories[0].name : "N/A",
 	});
 	return course;
 };

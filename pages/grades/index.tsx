@@ -52,10 +52,10 @@ export default function Grades({
 
 	useEffect(() => {
 		try {
-			if (!grades) {
+			if (!grades && client) {
 				//setLoading(true);
 				try {
-					client.gradebook(3).then((res) => {
+					client.gradebook().then((res) => {
 						let parsedGrades = parseGrades(res);
 						console.log(parsedGrades);
 						setGrades(parsedGrades);
@@ -73,6 +73,9 @@ export default function Grades({
 							},
 						];
 					});
+					setTimeout(() => {
+						setToasts((toasts) => toasts.slice(1));
+					}, 5000);
 					setLoading(false);
 				}
 			}
@@ -85,7 +88,6 @@ export default function Grades({
 
 	const update = (p: number) => {
 		console.log(p);
-		setPeriod(p);
 		setLoading(true);
 		client
 			.gradebook(p)
@@ -93,6 +95,7 @@ export default function Grades({
 				console.log(res);
 				setGrades(parseGrades(res));
 				setLoading(false);
+				setPeriod(p);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -140,14 +143,14 @@ export default function Grades({
 							<label className="relative inline-flex items-center cursor-pointer">
 								<input
 									type="checkbox"
-									checked={course.weighted}
+									checked={course?.weighted}
 									className="sr-only peer"
 									onChange={(e) => changeWeights(e, i)}
 								/>
 								<div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-primary-300 dark:peer-focus:ring-primary-800 dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary-600"></div>
 							</label>
 							<p className="dark:text-white text-md md:text-lg">
-								{course.name}
+								{course?.name}
 							</p>
 						</div>
 					))}

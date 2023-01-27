@@ -70,6 +70,9 @@ export default function Login({
 						type: "error",
 					},
 				]);
+				setTimeout(() => {
+					setToasts((toasts) => toasts.slice(1));
+				}, 5000);
 			});
 	};
 
