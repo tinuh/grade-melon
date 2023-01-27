@@ -25,7 +25,9 @@ interface GradesProps {
 	client: any;
 	grades: GradesType;
 	setToasts: (toasts: any) => void;
-	setGrades: (grades: GradesType) => void;
+	setGrades: React.Dispatch<React.SetStateAction<GradesType | undefined>>;
+	period: number;
+	setPeriod: (period: number) => void;
 }
 
 interface OptimizeProps {
@@ -37,12 +39,13 @@ export default function Grades({
 	grades,
 	setGrades,
 	setToasts,
+	period,
+	setPeriod,
 }: GradesProps) {
 	const router = useRouter();
 	const { index }: { index?: string } = router.query;
-	const [loading, setLoading] = useState(true);
-	const [course, setCourse] = useState<Course>();
-	const [period, setPeriod] = useState<number>();
+	const course = grades?.courses[parseInt(index as string)];
+	const [loading, setLoading] = useState(grades ? false : true);
 	const [showModal, setShowModal] = useState(false);
 	const [modalDetails, setModalDetails] = useState(0);
 	const [modalType, setModalType] = useState("assignment");
@@ -53,16 +56,12 @@ export default function Grades({
 		try {
 			if (!grades) {
 				client.gradebook().then((res) => {
+					console.log(typeof index);
 					let parsedGrades = parseGrades(res);
 					setGrades(parsedGrades);
 					setPeriod(parsedGrades.period.index);
-					setCourse(parsedGrades.courses[parseInt(index)]);
 					setLoading(false);
 				});
-			} else {
-				setCourse(grades.courses[parseInt(index)]);
-				setPeriod(grades.period.index);
-				setLoading(false);
 			}
 		} catch {
 			if (localStorage.getItem("remember") === "false") {
@@ -72,23 +71,41 @@ export default function Grades({
 	}, [client]);
 
 	const updateGrade = (val: string, assignmentId: number, update: string) => {
-		setCourse((prev) => {
-			return { ...updateCourse(prev, assignmentId, update, parseFloat(val)) };
-		});
+		let temp = grades;
+		temp.courses[parseInt(index as string)] = updateCourse(
+			temp.courses[parseInt(index as string)],
+			assignmentId,
+			update,
+			parseFloat(val)
+		);
+		setGrades({ ...temp });
 	};
 
 	const add = () => {
-		setCourse({ ...addAssignment(course) });
+		let temp = grades;
+		temp.courses[parseInt(index as string)] = addAssignment(
+			temp.courses[parseInt(index as string)]
+		);
+		setGrades({ ...temp });
 	};
 
 	const del = (id: number) => {
-		setCourse({ ...delAssignment(course, id) });
+		let temp = grades;
+		temp.courses[parseInt(index as string)] = delAssignment(
+			temp.courses[parseInt(index as string)],
+			id
+		);
+		setGrades({ ...temp });
 	};
 
 	const updateCat = (val: string, assignmentId: number) => {
-		setCourse((prev) => {
-			return { ...updateCategory(prev, assignmentId, val) };
-		});
+		let temp = grades;
+		temp.courses[parseInt(index as string)] = updateCategory(
+			temp.courses[parseInt(index as string)],
+			assignmentId,
+			val
+		);
+		setGrades({ ...temp });
 	};
 
 	const OpenModal = (assignmnetId: number) => {
@@ -105,7 +122,6 @@ export default function Grades({
 			.then((res) => {
 				console.log(res);
 				setGrades(parseGrades(res));
-				setCourse(parseGrades(res).courses[parseInt(index)]);
 				setPeriod(p);
 				setLoading(false);
 			})

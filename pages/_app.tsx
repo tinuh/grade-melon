@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps }) {
 	const [studentInfo, setStudentInfo] = useState(undefined);
 	const [toasts, setToasts] = useState<Toast[]>([]);
 	const [grades, setGrades] = useState<Grades>();
+	const [period, setPeriod] = useState<number>();
 	const [loading, setLoading] = useState(false);
 
 	const login = async (
@@ -164,6 +165,8 @@ function MyApp({ Component, pageProps }) {
 							setGrades={setGrades}
 							setToasts={setToasts}
 							loading={loading}
+							period={period}
+							setPeriod={setPeriod}
 						/>
 					)}
 
@@ -181,6 +184,8 @@ function MyApp({ Component, pageProps }) {
 									setGrades={setGrades}
 									setToasts={setToasts}
 									loading={loading}
+									period={period}
+									setPeriod={setPeriod}
 								/>
 							</div>
 							<div className="md:hidden">
@@ -194,6 +199,8 @@ function MyApp({ Component, pageProps }) {
 									setGrades={setGrades}
 									setToasts={setToasts}
 									loading={loading}
+									period={period}
+									setPeriod={setPeriod}
 								/>
 								<div className="px-4 fixed bottom-5 w-full">
 									<MobileBar />

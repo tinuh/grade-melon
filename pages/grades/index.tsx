@@ -17,6 +17,8 @@ interface GradesProps {
 	grades: GradesType;
 	setGrades: (grades: GradesType) => void;
 	setToasts: (toasts: any) => void;
+	period: number;
+	setPeriod: (period: number) => void;
 }
 
 export default function Grades({
@@ -24,11 +26,13 @@ export default function Grades({
 	grades,
 	setGrades,
 	setToasts,
+	period,
+	setPeriod,
 }: GradesProps) {
 	const router = useRouter();
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(grades ? false : true);
 	const [defaultView, setDefaultView] = useState("card");
-	const [period, setPeriod] = useState<number>();
+	//const [period, setPeriod] = useState<number>();
 	const [gpaModal, setGpaModal] = useState(false);
 	const view = (router.query.view as string) || defaultView;
 
@@ -48,6 +52,7 @@ export default function Grades({
 	useEffect(() => {
 		try {
 			if (!grades) {
+				//setLoading(true);
 				client.gradebook().then((res) => {
 					let parsedGrades = parseGrades(res);
 					console.log(parsedGrades);
@@ -55,10 +60,7 @@ export default function Grades({
 					setPeriod(parsedGrades.period.index);
 					setLoading(false);
 				});
-			} else {
-				setPeriod(grades.period.index);
-				setLoading(false);
-			}
+			} 
 		} catch {
 			if (localStorage.getItem("remember") === "false") {
 				router.push("/login");
@@ -119,7 +121,7 @@ export default function Grades({
 
 					<p className="dark:text-white font-bold text-xl">Weighted?</p>
 					{grades?.courses.map((course, i) => (
-						<p className="flex gap-2 items-center pt-2" key={i}>
+						<div className="flex gap-2 items-center pt-2" key={i}>
 							<label className="relative inline-flex items-center cursor-pointer">
 								<input
 									type="checkbox"
@@ -132,7 +134,7 @@ export default function Grades({
 							<p className="dark:text-white text-md md:text-lg">
 								{course.name}
 							</p>
-						</p>
+						</div>
 					))}
 				</Modal.Body>
 				<Modal.Footer>
@@ -166,7 +168,7 @@ export default function Grades({
 							value={period}
 							className="block w-full p-2 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
 						>
-							{grades.periods.map((period) => (
+							{grades?.periods.map((period) => (
 								<option value={period.index} key={period.index}>
 									{period.name}
 								</option>
@@ -185,7 +187,7 @@ export default function Grades({
 							className="grid gap-5 2col:grid-cols-2 3col:grid-cols-3 4col:grid-cols-4 items-stretch w-full"
 							//style={{ gridTemplateColumns: "repeat(auto-fit, 384px)" }}
 						>
-							{grades.courses.map(({ name, period, grade, teacher }, i) => (
+							{grades?.courses.map(({ name, period, grade, teacher }, i) => (
 								<div className="w-full md:w-96" key={i}>
 									<div className="h-full flex flex-col justify-between gap-2 md:gap-5 p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
 										<div className="">
@@ -241,7 +243,7 @@ export default function Grades({
 									</tr>
 								</thead>
 								<tbody>
-									{grades.courses.map(({ name, period, grade, teacher }, i) => (
+									{grades?.courses.map(({ name, period, grade, teacher }, i) => (
 										<tr
 											className={`bg-${
 												i % 2 == 0 ? "white" : "gray-50"
