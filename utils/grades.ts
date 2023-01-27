@@ -262,7 +262,12 @@ const parseGrades = (grades: Gradebook): Grades => {
 			index: index,
 		})),
 	};
-	parsedGrades.courses.map((course) => calculateGrade(course));
+	parsedGrades.courses.map((course) => {
+		course.categories.map((category, i) => {
+			course = calculateCategory(course, i);
+		});
+		calculateGrade(course);
+	});
 	return parsedGrades;
 };
 
