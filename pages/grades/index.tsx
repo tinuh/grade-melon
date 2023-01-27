@@ -11,6 +11,7 @@ import {
 	updateGPA,
 } from "../../utils/grades";
 import { Modal } from "flowbite-react";
+import { motion } from "framer-motion";
 
 interface GradesProps {
 	client: any;
@@ -60,7 +61,7 @@ export default function Grades({
 					setPeriod(parsedGrades.period.index);
 					setLoading(false);
 				});
-			} 
+			}
 		} catch {
 			if (localStorage.getItem("remember") === "false") {
 				router.push("/login");
@@ -105,7 +106,7 @@ export default function Grades({
 	};
 
 	return (
-		<div className="p-5 md:p-10 flex-1">
+		<motion.div className="p-5 md:p-10 flex-1">
 			<Head>
 				<title>Gradebook - Grade Melon</title>
 			</Head>
@@ -189,28 +190,46 @@ export default function Grades({
 						>
 							{grades?.courses.map(({ name, period, grade, teacher }, i) => (
 								<div className="w-full md:w-96" key={i}>
-									<div className="h-full flex flex-col justify-between gap-2 md:gap-5 p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+									<motion.div
+										layout="preserve-aspect"
+										layoutId={`card-${period}`}
+										className="h-full flex flex-col justify-between gap-2 md:gap-5 p-4 sm:p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
+									>
 										<div className="">
 											<Link href={`/grades/${i}`} legacyBehavior>
 												<div className="hover:cursor-pointer">
 													<h5 className="md:text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-														<p className="font-bold inline-block">{period}</p> -{" "}
-														{name}
+														<p className="font-bold">
+															{period} -{" "}
+															<motion.span
+																layout
+																layoutId={`name-${period}`}
+																className="font-semibold"
+															>
+																{name}
+															</motion.span>
+														</p>
 													</h5>
-													<p className="text-md tracking-tight text-gray-900 dark:text-white">
+													<motion.p
+														layoutId={`teacher-${period}`}
+														layout
+														className="text-md tracking-tight text-gray-900 dark:text-white"
+													>
 														{teacher.name}
-													</p>
+													</motion.p>
 												</div>
 											</Link>
 										</div>
 										<div className="">
 											<div className="flex items-center justify-between">
-												<span
+												<motion.span
+													layoutId={`grade-${period}`}
+													layout="preserve-aspect"
 													className={`text-xl md:text-3xl font-bold text-${grade.color}-400`}
 												>
 													{grade.letter}
 													{!isNaN(grade.raw) && ` (${grade.raw}%)`}
-												</span>
+												</motion.span>
 												<Link href={`/grades/${i}`} legacyBehavior>
 													<button className="rounded-lg bg-primary-500 px-5 py-2.5 text-center text-xs sm:text-sm font-medium text-white hover:bg-primary-600 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
 														View
@@ -218,7 +237,7 @@ export default function Grades({
 												</Link>
 											</div>
 										</div>
-									</div>
+									</motion.div>
 								</div>
 							))}
 						</div>
@@ -243,41 +262,43 @@ export default function Grades({
 									</tr>
 								</thead>
 								<tbody>
-									{grades?.courses.map(({ name, period, grade, teacher }, i) => (
-										<tr
-											className={`bg-${
-												i % 2 == 0 ? "white" : "gray-50"
-											} border-b dark:bg-gray-${
-												i % 2 == 0 ? 900 : 800
-											} dark:border-gray-700`}
-											key={i}
-										>
-											<td
-												scope="row"
-												className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									{grades?.courses.map(
+										({ name, period, grade, teacher }, i) => (
+											<tr
+												className={`bg-${
+													i % 2 == 0 ? "white" : "gray-50"
+												} border-b dark:bg-gray-${
+													i % 2 == 0 ? 900 : 800
+												} dark:border-gray-700`}
+												key={i}
 											>
-												{period}
-											</td>
-											<td className="py-4 px-6">
-												<Link href={`/grades/${i}`} legacyBehavior>
-													{name}
-												</Link>
-											</td>
-											<td className="py-4 px-6">{teacher.name}</td>
-											<td className="py-4 px-6">
-												<span className={`font-bold text-${grade.color}-400`}>
-													{grade.letter}
-													{!isNaN(grade.raw) && ` (${grade.raw}%)`}
-												</span>
-											</td>
-										</tr>
-									))}
+												<td
+													scope="row"
+													className="py-4 pl-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+												>
+													{period}
+												</td>
+												<td className="py-4 px-6">
+													<Link href={`/grades/${i}`} legacyBehavior>
+														{name}
+													</Link>
+												</td>
+												<td className="py-4 px-6">{teacher.name}</td>
+												<td className="py-4 px-6">
+													<span className={`font-bold text-${grade.color}-400`}>
+														{grade.letter}
+														{!isNaN(grade.raw) && ` (${grade.raw}%)`}
+													</span>
+												</td>
+											</tr>
+										)
+									)}
 								</tbody>
 							</table>
 						</div>
 					)}
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 }

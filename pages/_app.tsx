@@ -11,6 +11,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { HiX } from "react-icons/hi";
 import BackgroundColor from "../components/BackgroundColor";
+import { AnimateSharedLayout } from "framer-motion";
 
 interface Toast {
 	title: string;
@@ -155,53 +156,59 @@ function MyApp({ Component, pageProps }) {
 				<Topbar studentInfo={studentInfo} logout={logout} client={client} />
 				<div>
 					{noShowNav.includes(router.pathname) && (
-						<Component
-							{...pageProps}
-							districtURL={districtURL}
-							setDistrictURL={setDistrictURL}
-							login={login}
-							client={client}
-							grades={grades}
-							setGrades={setGrades}
-							setToasts={setToasts}
-							loading={loading}
-							period={period}
-							setPeriod={setPeriod}
-						/>
+						<AnimateSharedLayout>
+							<Component
+								{...pageProps}
+								districtURL={districtURL}
+								setDistrictURL={setDistrictURL}
+								login={login}
+								client={client}
+								grades={grades}
+								setGrades={setGrades}
+								setToasts={setToasts}
+								loading={loading}
+								period={period}
+								setPeriod={setPeriod}
+							/>
+						</AnimateSharedLayout>
 					)}
 
 					{!noShowNav.includes(router.pathname) && (
 						<div className="pb-16 md:pb-0">
 							<div className="hidden md:flex">
 								<SideBar studentInfo={studentInfo} logout={logout} />
-								<Component
-									{...pageProps}
-									districtURL={districtURL}
-									setDistrictURL={setDistrictURL}
-									client={client}
-									login={login}
-									grades={grades}
-									setGrades={setGrades}
-									setToasts={setToasts}
-									loading={loading}
-									period={period}
-									setPeriod={setPeriod}
-								/>
+								<AnimateSharedLayout>
+									<Component
+										{...pageProps}
+										districtURL={districtURL}
+										setDistrictURL={setDistrictURL}
+										client={client}
+										login={login}
+										grades={grades}
+										setGrades={setGrades}
+										setToasts={setToasts}
+										loading={loading}
+										period={period}
+										setPeriod={setPeriod}
+									/>
+								</AnimateSharedLayout>
 							</div>
 							<div className="md:hidden">
-								<Component
-									{...pageProps}
-									districtURL={districtURL}
-									client={client}
-									login={login}
-									setClient={setClient}
-									grades={grades}
-									setGrades={setGrades}
-									setToasts={setToasts}
-									loading={loading}
-									period={period}
-									setPeriod={setPeriod}
-								/>
+								<AnimateSharedLayout>
+									<Component
+										{...pageProps}
+										districtURL={districtURL}
+										client={client}
+										login={login}
+										setClient={setClient}
+										grades={grades}
+										setGrades={setGrades}
+										setToasts={setToasts}
+										loading={loading}
+										period={period}
+										setPeriod={setPeriod}
+									/>
+								</AnimateSharedLayout>
 								<div className="px-4 fixed bottom-5 w-full">
 									<MobileBar />
 								</div>
