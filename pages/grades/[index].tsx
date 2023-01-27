@@ -167,7 +167,7 @@ export default function Grades({
 	return (
 		<div className="p-5 md:p-10 flex-1">
 			<Head>
-				<title>{course ? `${course.name} - Grade Melon` : "Grade Melon"}</title>
+				<title>{course ? `${course?.name} - Grade Melon` : "Grade Melon"}</title>
 			</Head>
 			<Modal show={showModal} onClose={() => setShowModal(false)}>
 				<Modal.Header>
@@ -352,26 +352,26 @@ export default function Grades({
 			) : (
 				<div className="max-w-max">
 					<h1 className="flex flex-wrap text-xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">
-						{course.name}
+						{course?.name}
 					</h1>
 					<p className="text-md tracking-tight mb-2.5 text-gray-900 dark:text-white">
-						{course.teacher.name}
+						{course?.teacher.name}
 					</p>
 					<div className="text-xl md:text-xl mb-2.5 dark:text-white">
-						{course.grade.letter}{" "}
-						{!isNaN(course.grade.raw) && `(${course.grade.raw}%)`}
+						{course?.grade.letter}{" "}
+						{!isNaN(course?.grade.raw) && `(${course?.grade.raw}%)`}
 					</div>
 					<div className="mt-2.5 w-full bg-gray-200 rounded-full dark:bg-gray-700">
 						<div
-							className={`bg-${course.grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full h-4 md:h-6`}
+							className={`bg-${course?.grade.color}-400 text-xs md:text-sm font-medium text-left pl-2 p-0.5 leading-none rounded-full h-4 md:h-6`}
 							style={{
-								width: `${course.grade.raw < 100 ? course.grade.raw : 100}%`,
+								width: `${course?.grade.raw < 100 ? course?.grade.raw : 100}%`,
 							}}
 						>
 							<p className="absolute">Total</p>
 						</div>
 					</div>
-					{course.categories.map(({ name, grade, points }, i) => (
+					{course?.categories.map(({ name, grade, points }, i) => (
 						<div
 							key={i}
 							className="mt-2 md:mt-3 w-full bg-gray-200 rounded-full dark:bg-gray-700 relative"
@@ -442,7 +442,7 @@ export default function Grades({
 								</tr>
 							</thead>
 							<tbody>
-								{course.assignments.map(
+								{course?.assignments.map(
 									({ name, date, grade, category, points }, i) => (
 										<tr
 											className={`bg-${
@@ -482,13 +482,13 @@ export default function Grades({
 											</td>
 											<td className="py-4 px-6">
 												<CategoryField
-													value={course.categories.findIndex(
+													value={course?.categories.findIndex(
 														(c) => category === c.name
 													)}
 													onChange={(e) => updateCat(e.target.value, i)}
 													name={category}
 												>
-													{course.categories.map((category, x) => (
+													{course?.categories.map((category, x) => (
 														<option value={x} key={x}>
 															{category.name}
 														</option>
