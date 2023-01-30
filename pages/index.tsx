@@ -236,12 +236,40 @@ export default function Home({ client }: HomeProps) {
 				transition={{ delay: 1.4, duration: 0.5 }}
 				className="font-bold dark:text-white text-3xl mt-10"
 			>
-				Contact
+				Privacy Policy
 			</motion.h2>
 			<motion.p
 				initial={{ x: 0, opacity: 0 }}
 				animate={{ x: 0, opacity: 1 }}
 				transition={{ delay: 1.5, duration: 0.5 }}
+				className="py-3 text-gray-500 w-fit md:w-1/2"
+			>
+				Here at Grade Melon, we take your privacy very seriously. Here is our
+				full privacy policy.
+			</motion.p>
+			<motion.div
+				initial={{ x: 0, opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				transition={{ delay: 1.6, duration: 0.5 }}
+			>
+				<Link href="/privacy">
+					<button className="focus:outline-none text-white bg-primary-600 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
+						Privacy Policy
+					</button>
+				</Link>
+			</motion.div>
+			<motion.h2
+				initial={{ x: 0, opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				transition={{ delay: 1.7, duration: 0.5 }}
+				className="font-bold dark:text-white text-3xl mt-10"
+			>
+				Contact
+			</motion.h2>
+			<motion.p
+				initial={{ x: 0, opacity: 0 }}
+				animate={{ x: 0, opacity: 1 }}
+				transition={{ delay: 1.8, duration: 0.5 }}
 				className="pt-3 text-gray-500 w-fit md:w-1/2"
 			>
 				If you have bug reports/suggestions, feel free to contact us by sending
@@ -251,7 +279,7 @@ export default function Home({ client }: HomeProps) {
 				<motion.p
 					initial={{ x: 0, opacity: 0 }}
 					animate={{ x: 0, opacity: 1 }}
-					transition={{ delay: 1.6, duration: 0.5 }}
+					transition={{ delay: 1.9, duration: 0.5 }}
 					className="py-3 dark:text-white font-bold flex gap-2 items-center w-fit md:w-1/2"
 				>
 					<HiOutlineMail size="1.3rem" /> tinu@grademelon.com

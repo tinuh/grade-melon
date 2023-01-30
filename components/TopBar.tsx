@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FiLogOut } from "react-icons/fi";
 import { BsQuestionLg } from "react-icons/bs";
 import { RiCloseCircleLine } from "react-icons/ri";
+import { MdOutlinePrivacyTip } from "react-icons/md";
 
 interface TopBarProps {
 	studentInfo: any;
@@ -117,6 +118,17 @@ export default function TopBar({ studentInfo, logout, client }: TopBarProps) {
 														className="flex gap-2 items-center cursor-pointer py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
 													>
 														<BsQuestionLg /> FAQ & Info
+													</Link>
+												</li>
+											</ul>
+											<ul className="py-1" aria-labelledby="user-menu-button">
+												<li>
+													<Link
+														href="/privacy"
+														onClick={() => setDropdown(false)}
+														className="flex gap-2 items-center cursor-pointer py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+													>
+														<MdOutlinePrivacyTip /> Privacy Policy
 													</Link>
 												</li>
 											</ul>
