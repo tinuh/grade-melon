@@ -19,6 +19,7 @@ export default function privacy() {
 				<a
 					href="https://www.termsfeed.com/privacy-policy-generator/"
 					target="_blank"
+					rel="noopener"
 				>
 					TermsFeed Privacy Policy Generator
 				</a>
@@ -113,6 +114,7 @@ export default function privacy() {
 							href="https://grademelon.com"
 							rel="external nofollow noopener"
 							target="_blank"
+							rel="noopener"
 						>
 							https://grademelon.com
 						</a>
@@ -194,6 +196,7 @@ export default function privacy() {
 				<a
 					href="https://www.termsfeed.com/blog/cookies/#What_Are_Cookies"
 					target="_blank"
+					rel="noopener"
 				>
 					TermsFeed website
 				</a>{" "}
