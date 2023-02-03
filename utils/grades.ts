@@ -190,7 +190,7 @@ const parseGrades = (grades: Gradebook): Grades => {
 			grades.courses.reduce(
 				(a, b) =>
 					a +
-					letterGPA(letterGrade(b.marks[0].calculatedScore.raw || NaN), false),
+					letterGPA(letterGrade(b.marks[0].calculatedScore.raw), false),
 				0
 			) / grades.courses.length,
 		wgpa:
