@@ -5,7 +5,11 @@
 <br>
 Grade Melon is a grade viewer pulling from Student Vue. It was created using Next.js as a PWA. It also uses TailwindCSS, PostCSS, Flowbite, Framer Motion, Formik, and Chart.js.
 
+Grade Melon is a modern, responsive interface that's designed to connect to Synergy's StudentVUE™ software*. It is not meant to replace Synergy, rather, act as a complement to it. Grade Melon is only a user-facing interface to access and present data already stored in Synergy.
 
+*This is a third party, unofficial tool. Grade Melon is not affiliated with this company in any way, shape, or form. StudentVUE is a registered trademark owned by Edupoint.
+
+Grade Melon was fully created from reverse engineering StudentVUE's front end, both of which are publicly accesible and did not require any form of NDA or legal agreement to not reverse engineer.
 
 ## Quick Start
 Clone the repository to your local machine.
