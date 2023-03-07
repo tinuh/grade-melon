@@ -43,3 +43,9 @@
 :focus {
     outline: none !important;
 }
+
+/* allow text selection on input elements */
+input {
+  user-select: text;
+  -webkit-user-select: text;
+}
