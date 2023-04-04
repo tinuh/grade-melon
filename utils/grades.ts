@@ -172,6 +172,14 @@ const parseDate = ({ start, end }: { start: Date; end: Date }): string => {
 	}
 };
 
+const parseAssignmentName = (name: string): string => {
+	return new DOMParser().parseFromString(
+		new DOMParser().parseFromString(name, "text/html").documentElement
+			.textContent,
+		"text/html"
+	).documentElement.textContent;
+};
+
 const parseGrades = (grades: Gradebook): Grades => {
 	if (grades.courses[0].marks.length === 0) {
 		for (let i = 0; i < grades.courses.length; i++) {
@@ -236,7 +244,7 @@ const parseGrades = (grades: Gradebook): Grades => {
 				}))
 				.filter((category) => !category.name.toLowerCase().includes("total")),
 			assignments: marks[0].assignments.map(({ name, date, points, type }) => ({
-				name: name,
+				name: parseAssignmentName(name),
 				grade: {
 					letter: letterGrade(parsePoints(points).grade),
 					raw: parseFloat(parsePoints(points).grade.toFixed(2)),

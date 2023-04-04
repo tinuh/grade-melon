@@ -39,6 +39,11 @@ const openBase64NewTab = (base64Pdf: string): void => {
 	}
 };
 
+const parseName = (name: string): string => {
+	return new DOMParser().parseFromString(name, "text/html").documentElement
+		.textContent;
+};
+
 interface DocumentsProps {
 	client: any;
 }
@@ -52,6 +57,10 @@ export default function Documents({ client }: DocumentsProps) {
 		try {
 			client.documents().then((res) => {
 				console.log(res);
+				res.forEach((doc) => {
+					doc.file.comment = parseName(doc.file.comment);
+					doc.file.type = parseName(doc.file.type);
+				});
 				setDocuments(res);
 				setLoading(false);
 			});
