@@ -181,8 +181,8 @@ const parseAssignmentName = (name: string): string => {
 };
 
 const parseGrades = (grades: Gradebook): Grades => {
-	if (grades.courses[0].marks.length === 0) {
-		for (let i = 0; i < grades.courses.length; i++) {
+	for (let i = 0; i < grades.courses.length; i++) {
+		if (grades.courses[i].marks.length === 0) {
 			grades.courses[i].marks = [
 				{
 					calculatedScore: { raw: NaN, string: "N/A" },
@@ -197,7 +197,8 @@ const parseGrades = (grades: Gradebook): Grades => {
 		gpa:
 			grades.courses.reduce(
 				(a, b) =>
-					a + letterGPA(letterGrade(b.marks[0].calculatedScore.raw), false),
+					a +
+					letterGPA(letterGrade(b.marks[0].calculatedScore.raw), false),
 				0
 			) / grades.courses.length,
 		wgpa:
