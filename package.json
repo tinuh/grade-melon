@@ -20,7 +20,7 @@
 		"postcss": "^8.4.17",
 		"react-chartjs-2": "^4.3.1",
 		"react-icons": "^4.4.0",
-		"studentvue": "https://github.com/tinuh/studentvue.js.git",
+		"studentvue": "github:tinuh/studentvue.js",
 		"touch-cli": "^0.0.1"
 	},
 	"devDependencies": {

@@ -44,6 +44,7 @@ function MyApp({ Component, pageProps }) {
 			password: password,
 		})
 			.then(async (res) => {
+				console.log(res);
 				await setClient(res);
 				if (save) {
 					localStorage.setItem("remember", "true");
