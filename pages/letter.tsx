@@ -8,7 +8,7 @@ export default function letter() {
 				Many of you have noticed that the recent Synergy (including StudentVue)
 				upgrades affected Grade Melon&apos;s functionality. This is especially
 				frustrating as we approach the quarter&apos;s end. Although I understand the
-				urgency of this citation, I regret to inform you that the new system
+				urgency of this situation, I regret to inform you that the new system
 				seems completely different, making a quick solution unlikely. While I&apos;m
 				dedicating time to understanding the new system and exploring potential
 				solutions, as a graduating senior I cannot guarantee a fix before I
