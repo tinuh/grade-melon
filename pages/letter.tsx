@@ -6,10 +6,10 @@ export default function letter() {
 			<p className="pb-3">Dear Grade Melon Community, </p>
 			<p className="py-3 indent-6">
 				Many of you have noticed that the recent Synergy (including StudentVue)
-				upgrades affected Grade Melon's functionality. This is especially
-				frustrating as we approach the quarter's end. Although I understand the
+				upgrades affected Grade Melon&apos;s functionality. This is especially
+				frustrating as we approach the quarter&apos;s end. Although I understand the
 				urgency of this citation, I regret to inform you that the new system
-				seems completely different, making a quick solution unlikely. While I'm
+				seems completely different, making a quick solution unlikely. While I&apos;m
 				dedicating time to understanding the new system and exploring potential
 				solutions, as a graduating senior I cannot guarantee a fix before I
 				graduate.{" "}
@@ -36,8 +36,8 @@ export default function letter() {
 				to remind all of you, that Grade Melon started off as a risk. I poured
 				countless hours into the app, not knowing if it would actually pay off.
 				But it did. So, I want to inspire all of you to take risks, step outside
-				of your comfort zone, and strive for change. As Gandhi said, "Be the
-				change you want to see in the world."{" "}
+				of your comfort zone, and strive for change. As Gandhi said, &quot;Be the
+				change you want to see in the world.&quot;{" "}
 			</p>
 			<p className="">With sincere gratitude,</p>
 			<a href="mailto:tinu@grademelon.com" className="underline text-primary-500">Tinu Vanapamula</a>
